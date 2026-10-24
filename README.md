@@ -1,5 +1,7 @@
 # agent_memory_study
 
+**English** | [العربية](README.ar.md)
+
 **How should a coding agent remember a project across sessions, and what is the cheapest way to do it that still works?**
 
 This repo holds the harness, about 1,000 task files and the analysis code behind three pre-registered studies of multi-session coding agents. Together they ran about 1,750 scored agent units (one project, all its sessions) in Docker sandboxes. The agent is a smolagents-ts `CodeAgent`. It works on a project over many sessions, and between sessions it keeps memory in one of 12 ways: none, a notes file, a structured "context pack", full transcript replay, and others. Hidden tests then check whether the code works and whether the agent remembered the facts from earlier sessions.
