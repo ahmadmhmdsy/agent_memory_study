@@ -1,0 +1,42 @@
+{
+ "id": "S20",
+ "kind": "unfinished",
+ "module": "inventory2.py",
+ "sessions": [
+  {
+   "prompt": "Add add(name, qty) to Store in inventory2.py: it adds qty to the stored quantity of name. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.add",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added Store.add(name, qty) with tests."
+   }
+  },
+  {
+   "prompt": "Planned work for Store:\n(a) qty(name): the quantity of name, 0 when unknown.\n(b) names(): every stored name, sorted A to Z.\n(c) low_stock(threshold=5): the names whose quantity is strictly below threshold, sorted A to Z.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) qty(name): the quantity of name, 0 when unknown.",
+      "status": "done"
+     },
+     {
+      "task": "(b) names(): every stored name, sorted A to Z.",
+      "status": "done"
+     },
+     {
+      "task": "(c) low_stock(threshold=5): the names whose quantity is strictly below threshold, sorted A to Z.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: low_stock(threshold=5): the names whose quantity is strictly below threshold, sorted A to Z."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add total() to Store: the sum of all quantities. Add tests."
+  }
+ ]
+}

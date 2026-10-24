@@ -1,0 +1,91 @@
+{
+ "id": "L04",
+ "kind": "long",
+ "facts": {
+  "sorted": "decision",
+  "save_format": "superseded",
+  "due": "constraint",
+  "tags": "unfinished",
+  "title_len": "constraint"
+ },
+ "sessions": [
+  {
+   "prompt": "Add is_blank(s) to util.py: True if s is empty or only whitespace. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): task lists are sorted by priority (1 is the highest priority and comes first), then by the order the tasks were added.\n\nDesign decision for this project (nothing implements it yet; record it for later work): the save file is JSON with one top-level key, \"items\", holding the list of tasks.",
+   "given": {
+    "tasks": [
+     {
+      "task": "is_blank",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added is_blank(s) with tests.",
+    "decisions": [
+     "Task lists are sorted by priority (1 first), then by the order the tasks were added.",
+     "The save file is JSON with one top-level key, \"items\", holding the list of tasks."
+    ]
+   }
+  },
+  {
+   "prompt": "Add plural(n, word) to util.py: plural(1, \"task\") is \"1 task\", plural(2, \"task\") is \"2 tasks\" and plural(0, \"task\") is \"0 tasks\". Add tests.\n\nProject rule (it applies to all later work too): a due date is a \"YYYY-MM-DD\" string for a real calendar date, or None for no due date; anything else raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "plural",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added plural(n, word) with tests.",
+    "decisions": [
+     "A due date is a \"YYYY-MM-DD\" string for a real calendar date, or None; anything else raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add parse_tags(s) to util.py: it splits a comma-separated string into tags, strips spaces around each tag and drops empty tags. Add tests.\n\nThe plan for parse_tags has one more step: tags are lowercased, and duplicates are removed, keeping the first. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_tags",
+      "status": "done"
+     },
+     {
+      "task": "parse_tags: lowercase, remove duplicates keeping the first",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 3 added parse_tags(s) with tests. Its last step is left for later: lowercase the tags and remove duplicates, keeping the first."
+   }
+  },
+  {
+   "prompt": "Add join_tags(tags) to util.py: the tags joined with \", \". Add tests.\n\nChange to an earlier decision (it replaces the old one; record it for later work): the save file is JSON with two top-level keys: \"version\", set to 2, and \"tasks\", holding the list of tasks.\n\nProject rule (it applies to all later work too): a task title is at most 60 characters after stripping both ends; a longer title raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "join_tags",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 4 added join_tags(tags) with tests.",
+    "decisions": [
+     "Supersedes the \"items\" save-file decision: the save file has \"version\": 2 and \"tasks\", the list of tasks.",
+     "A task title is at most 60 characters after stripping; a longer title raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a TodoList class to todo.py. add(title, priority, due=None) adds a task and returns its id (1, 2, 3, ...). tasks() returns the tasks as a list of dicts with the keys id, title, priority and due. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "TodoList.add / TodoList.tasks",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 5 added the TodoList class (add, tasks) with tests."
+   }
+  },
+  {
+   "prompt": "Add save(todo, path) and load(path) to storage.py: save writes a TodoList to a JSON file, and load reads one back as a TodoList. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

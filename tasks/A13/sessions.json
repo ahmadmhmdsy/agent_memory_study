@@ -1,0 +1,85 @@
+{
+ "id": "A13",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "base_fee": "superseded",
+  "per_km": "superseded",
+  "min_order": "superseded",
+  "free_over": "superseded",
+  "service_pct": "superseded",
+  "dishes_order": "unfinished",
+  "receipt_km": "unfinished",
+  "export_order": "unfinished",
+  "menu_item": "constraint",
+  "max_km": "constraint",
+  "status_order": "constraint",
+  "rush_fee": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Restaurants class to restaurants.py with add(name), add_dish(name, dish, price), which puts a dish on a restaurant's menu, price(name, dish), and dishes(name): the restaurant's dishes in the order they were added. An unknown restaurant or dish raises KeyError. Add tests.\n\nThe plan for Restaurants.dishes has one more step: the dishes are sorted by price, cheapest first, and by dish name for the same price. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add an Orders class to orders.py. Orders(restaurants) works on a Restaurants, kept as its attribute restaurants. place(rest, items, km, minute) places an order and returns an order id: an int counter that starts at 1; items is a list of (dish, qty) tuples, km the delivery distance and minute the time of the order. get(oid) returns the order as a tuple (rest, items, km, minute). An unknown restaurant or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): every dish of an order must be on the restaurant's menu; an order with another dish raises ValueError and places nothing."
+  },
+  {
+   "prompt": "Add subtotal(orders, oid) to fees.py: the price times the qty of each item, added up. Add tests.\n\nProject rule (it applies to all later work too): a restaurant delivers at most 10 km; a longer distance raises ValueError and places nothing."
+  },
+  {
+   "prompt": "Add delivery_fee(orders, oid) to fees.py. Add tests.\n\nDesign decision for this project: the delivery fee is a base fee of 299 cents plus 50 cents per km."
+  },
+  {
+   "prompt": "Add Orders.status(oid), which is \"placed\" for a new order, and Orders.set_status(oid, status). Add tests.\n\nProject rule (it applies to all later work too): an order goes through the statuses \"placed\", \"cooking\", \"out\", \"delivered\" in that order; set_status to any status other than the next one raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add service_fee(orders, oid) to fees.py. Add tests.\n\nDesign decision for this project: the service fee is 5% of the subtotal, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add Orders.of_restaurant(rest): the ids of the restaurant's orders, in id order. Add tests.\n\nProject rule (it applies to all later work too): the subtotal of an order is at least 1000 cents; a smaller order raises ValueError and places nothing."
+  },
+  {
+   "prompt": "Add total(orders, oid) to fees.py: the subtotal plus the delivery fee plus the service fee plus any rush fee. Add tests.\n\nDesign decision for this project: an order placed from minute 1080 to minute 1199 (18:00 to 19:59) pays a rush fee of 150 cents."
+  },
+  {
+   "prompt": "Add receipt(orders, oid) to export.py: a list of text lines: \"restaurant: <name>\", \"subtotal: <cents>\", \"total: <cents>\". Add tests.\n\nThe plan for receipt has one more step: right after the restaurant line it has the line \"km: <km>\", the distance (for example \"km: 3\"). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the delivery base fee is 349 cents, not 299."
+  },
+  {
+   "prompt": "Add Orders.items_count(oid): the qty of all the order's items added up. Add tests.\n\nDesign decision for this project: delivery is free (the delivery fee is 0) when the subtotal is 3000 cents or more."
+  },
+  {
+   "prompt": "Add export_orders(orders, path) to export.py: a CSV file with one row per order, in id order: id, restaurant and total. Add tests.\n\nThe plan for export_orders has one more step: the rows are sorted by restaurant name, and by id for the same restaurant. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported orders file starts with the header line id,restaurant,total and uses \",\" as the delimiter.\n\nChange to an earlier decision (it replaces the old one): delivery costs 60 cents per km, not 50."
+  },
+  {
+   "prompt": "Add Restaurants.remove(name), which removes a restaurant; an unknown name raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the subtotal of an order is at least 1500 cents, not 1000."
+  },
+  {
+   "prompt": "Add Orders.open_ids(): the ids of the orders that are not delivered, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): the service fee is 7% of the subtotal, not 5%."
+  },
+  {
+   "prompt": "Add Orders.cancel(oid), which removes an order that is still \"placed\"; an order with any other status raises ValueError and stays. Add tests.\n\nChange to an earlier decision (it replaces the old one): delivery is free when the subtotal is 2500 cents or more, not 3000."
+  },
+  {
+   "prompt": "Add revenue(orders) to fees.py: the totals of the delivered orders added up. Add tests.\n\nChange to an earlier decision (it replaces the old one): the delivery base fee is 329 cents, not 349."
+  },
+  {
+   "prompt": "Add Orders.count(): the number of orders. Add tests.\n\nChange to an earlier decision (it replaces the old one): delivery costs 45 cents per km, not 60."
+  },
+  {
+   "prompt": "Add Restaurants.names(): the sorted restaurant names. Add tests.\n\nChange to an earlier decision (it replaces the old one): the subtotal of an order is at least 1200 cents, not 1500."
+  },
+  {
+   "prompt": "Add Orders.at_status(status): the ids of the orders with that status, in id order. Add tests."
+  },
+  {
+   "prompt": "Add Orders.busiest(): the restaurant with the most orders (the first in name order on a tie), or None when there are no orders. Add tests.\n\nChange to an earlier decision (it replaces the old one): the service fee is 6% of the subtotal, not 7%."
+  },
+  {
+   "prompt": "Add Orders.km_total(): the delivery distances of all orders added up. Add tests."
+  },
+  {
+   "prompt": "Add Orders.ids(): all order ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

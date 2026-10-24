@@ -1,0 +1,26 @@
+{
+ "id": "T04",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "free_minutes": "superseded",
+  "day_cap": "unfinished",
+  "plate_norm": "constraint",
+  "no_double_enter": "constraint",
+  "leave_before": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Garage class to garage.py with enter(plate, minute), which records that the car with that plate entered at minute (an int), leave(plate, minute), which records that it left and returns the minutes it stayed (leave for a plate that is not inside raises KeyError), and inside(), the sorted list of plates inside. Add tests.\n\nProject rule (it applies to all later work too): plates are stored without spaces and in upper case: \"ab 123\" and \"AB123\" are the same car.\n\nProject rule (it applies to all later work too): enter for a car that is already inside raises ValueError and changes nothing.\n\nDesign decision for this project: the first 30 minutes are free: a stay of 30 minutes or less costs nothing."
+  },
+  {
+   "prompt": "Add fee(minutes) to tariff.py: the price in cents of a stay of that many minutes: 0 for a stay within the free minutes, otherwise 200 cents for every started hour of the whole stay (a stay of 61 minutes is 2 started hours). Add tests.\n\nThe plan for fee has one more step: a stay never costs more than 1500 cents. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Garage.count(), the number of cars inside, and Garage.history(plate), the list of the minutes of each finished stay of plate, in order. Add tests.\n\nDesign decision for this project: leave with a minute earlier than the car's entry minute raises ValueError, and the car stays inside.\n\nChange to an earlier decision (it replaces the old one): the first 15 minutes are free, not 30: a stay of 15 minutes or less costs nothing."
+  },
+  {
+   "prompt": "Add Garage.revenue(), the sum of the fees of all finished stays. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

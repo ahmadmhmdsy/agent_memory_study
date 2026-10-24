@@ -1,0 +1,141 @@
+{
+ "id": "L13",
+ "kind": "long",
+ "facts": {
+  "wip_2": "superseded",
+  "backlog_start": "superseded",
+  "export_line": "superseded",
+  "tags_clean": "unfinished",
+  "find_case": "unfinished",
+  "weekdays": "unfinished",
+  "title_required": "constraint",
+  "unknown_column": "constraint",
+  "done_locked": "decision",
+  "same_column": "decision",
+  "export_order": "decision",
+  "count_open": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_tags(s) to cards.py: a comma-separated tag string becomes a list of tags with spaces removed (\"bug, ui\" becomes [\"bug\", \"ui\"]). Add tests.\n\nThe plan for parse_tags has one more step: tags are lower case and duplicates are removed, keeping the first-seen order (\"Bug, ui, BUG\" becomes [\"bug\", \"ui\"]). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): card titles are stored with leading and trailing spaces removed, and an empty or blank title raises ValueError in any function.\n\nDesign decision for this project: the \"doing\" column holds at most 3 cards; moving a card into a full \"doing\" column raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_tags",
+      "status": "done"
+     },
+     {
+      "task": "parse_tags: lower case, no duplicates",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_tags(s) with tests. Its last step is left for later: lower case and remove duplicates, first-seen order.",
+    "decisions": [
+     "Card titles are stored without outer spaces; an empty or blank title raises ValueError in any function.",
+     "The \"doing\" column holds at most 3 cards; moving into a full one raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Board class to board.py: add(title) adds a card and returns its id (1, 2, 3 and so on), move(card_id, column) moves a card, column(name) returns the ids in that column in the order they entered it, and title(card_id) returns the title. The columns are \"todo\", \"doing\" and \"done\". Add tests.\n\nProject rule (it applies to all later work too): moving a card to a column the board does not have raises ValueError and changes nothing.\n\nDesign decision for this project: a new card starts in the \"todo\" column.\n\nDesign decision for this project: each line of a board export has the form [todo] Fix bug (the column in brackets, then the title).",
+   "given": {
+    "tasks": [
+     {
+      "task": "Board.add / move / column / title",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Board.add, move, column and title with tests. Columns are \"todo\", \"doing\", \"done\".",
+    "decisions": [
+     "Moving a card to a column the board does not have raises ValueError and changes nothing.",
+     "A new card starts in the \"todo\" column.",
+     "A board export line has the form [todo] Fix bug."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Board.rename(card_id, title) to board.py. Add tests.\n\nChange to an earlier decision (it replaces the old one): a new card starts in a \"backlog\" column, not \"todo\"; the columns are now \"backlog\", \"todo\", \"doing\" and \"done\".\n\nDesign decision for this project: a card in \"done\" cannot move to another column: move raises ValueError.\n\nDesign decision for this project: moving a card to the column it is already in does nothing and keeps its place in that column.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Board.rename",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Board.rename with tests.",
+    "decisions": [
+     "Supersedes \"todo\": a new card starts in a \"backlog\" column; columns are backlog, todo, doing, done.",
+     "A card in \"done\" cannot move to another column: move raises ValueError.",
+     "Moving a card to the column it is already in does nothing and keeps its place."
+    ]
+   }
+  },
+  {
+   "prompt": "Add find(board, text) to search.py: the ids, in ascending order, of the cards whose title contains text. Add tests.\n\nThe plan for find has one more step: the match ignores case. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the \"doing\" column holds at most 2 cards, not 3.",
+   "given": {
+    "tasks": [
+     {
+      "task": "find",
+      "status": "done"
+     },
+     {
+      "task": "find: ignore case",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added find(board, text) with tests. Its last step is left for later: the match ignores case.",
+    "decisions": [
+     "Supersedes 3: the \"doing\" column holds at most 2 cards."
+    ]
+   }
+  },
+  {
+   "prompt": "Add days_left(due, today) to cards.py: the number of days from today until the due date (both datetime.date). Add tests.\n\nThe plan for days_left has one more step: only Monday to Friday count: from a Friday to the next Monday is 1 day. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "days_left",
+      "status": "done"
+     },
+     {
+      "task": "days_left: weekdays only",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added days_left(due, today) with tests. Its last step is left for later: only Monday to Friday count."
+   }
+  },
+  {
+   "prompt": "Add Board.count() to board.py. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of a board export has the form Fix bug (todo) (the title, then the column in brackets), not [todo] Fix bug.\n\nDesign decision for this project: Board.count() counts only open cards: cards in \"done\" are not counted.\n\nDesign decision for this project: a board export lists the cards by column, in board column order, and by card id within a column.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Board.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Board.count() with tests.",
+    "decisions": [
+     "Supersedes [todo] Fix bug: a board export line has the form Fix bug (todo).",
+     "Board.count() counts only open cards, not cards in \"done\".",
+     "A board export lists cards by column in board order, then by card id."
+    ]
+   }
+  },
+  {
+   "prompt": "Add tags to cards: Board.tag(card_id, s) stores the tags from parse_tags(s) for that card, and Board.tags(card_id) returns them. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Board.tag / Board.tags",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added Board.tag and Board.tags with tests."
+   }
+  },
+  {
+   "prompt": "Add write_export(board, path) to export.py: it writes a text export of the board with one line per card. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

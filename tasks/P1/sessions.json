@@ -1,0 +1,36 @@
+{
+ "id": "P1",
+ "kind": "constraint",
+ "sessions": [
+  {
+   "prompt": "Implement two functions in money.py:\n- parse_amount(s) turns a string like \"12.34\", \"$12.34\" or \"7\" into an amount.\n- format_amount(amount) turns an amount back into a string like \"$12.34\".\n\nProject rule, which applies to all work on this project from now on: every money value is an integer number of cents (int), never a float, in every function's inputs and results. Whenever a calculation needs rounding to a cent, it rounds half-up: exactly half a cent rounds away from zero (904.5 -> 905), never to even.\n\nMake the tests pass and add tests of your own.",
+   "given": {
+    "decisions": [
+     "Every money value is an integer number of cents (int), never a float, in all inputs and results. Rounding to a cent is half-up: exactly half rounds away from zero (904.5 -> 905), never to even."
+    ],
+    "tasks": [
+     {
+      "task": "parse_amount, format_amount",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 implemented parse_amount and format_amount in money.py, with tests."
+   }
+  },
+  {
+   "prompt": "Add split(amount, n) to money.py: it splits an amount into n parts that sum exactly to the amount and differ from each other by at most one cent, larger parts first. For example split(1000, 3) == [334, 333, 333]. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "split",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added split(amount, n) with tests."
+   }
+  },
+  {
+   "prompt": "Add two functions to money.py and test them:\n- apply_discount(amount, pct) returns the amount after a pct percent discount (pct is a number such as 10 for 10%).\n- add_tax(amount, rate_pct) returns the amount with rate_pct percent tax added."
+  }
+ ]
+}

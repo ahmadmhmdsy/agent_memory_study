@@ -1,0 +1,141 @@
+{
+ "id": "L20",
+ "kind": "long",
+ "facts": {
+  "slow_300": "superseded",
+  "errors_400": "superseded",
+  "report_line": "superseded",
+  "seconds": "unfinished",
+  "query_strip": "unfinished",
+  "hour_fill": "unfinished",
+  "bad_lines": "constraint",
+  "method_upper": "constraint",
+  "health_ignored": "decision",
+  "error_round": "decision",
+  "report_order": "decision",
+  "report_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_line(line) to parse.py. A log line looks like 2026-06-01 12:00:05 INFO GET /home 200 35ms (date, time, level, method, path, status, duration). parse_line returns a dict with the keys date, time, hour, level, method, path, status (int) and ms (int). Add tests.\n\nThe plan for parse_line has one more step: the duration may also be in seconds (\"1.2s\" is 1200 ms). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): parse_line raises ValueError for a malformed line, and any function that takes many lines skips the malformed ones.\n\nDesign decision for this project: a slow request is one that takes more than 500 ms.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_line",
+      "status": "done"
+     },
+     {
+      "task": "parse_line: durations in seconds",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_line(line) with tests. Its last step is left for later: durations in seconds.",
+    "decisions": [
+     "parse_line raises ValueError for a malformed line; functions that take many lines skip malformed ones.",
+     "A slow request takes more than 500 ms."
+    ]
+   }
+  },
+  {
+   "prompt": "Add parse_lines(lines) to parse.py: the records of all lines. Add count_levels(records) to stats.py: a dict from level to number of records. Add tests.\n\nProject rule (it applies to all later work too): methods ignore case and are stored in upper case (\"get\" becomes \"GET\").\n\nDesign decision for this project: an error is a request with status 500 or above.\n\nDesign decision for this project: each path line of a report has the form /home 12.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_lines / count_levels",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added parse_lines and count_levels with tests.",
+    "decisions": [
+     "Methods ignore case and are stored upper case.",
+     "An error is a request with status 500 or above.",
+     "A report path line has the form /home 12."
+    ]
+   }
+  },
+  {
+   "prompt": "Add error_rate(records) to stats.py: the percent of requests that are errors. Add tests.\n\nChange to an earlier decision (it replaces the old one): an error is a request with status 400 or above, not 500.\n\nDesign decision for this project: requests to /health are ignored by every statistic and by the report.\n\nDesign decision for this project: error_rate is rounded to one decimal (1 error in 3 requests is 33.3).",
+   "given": {
+    "tasks": [
+     {
+      "task": "error_rate",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added error_rate(records) with tests.",
+    "decisions": [
+     "Supersedes 500: an error is a request with status 400 or above.",
+     "Requests to /health are ignored by every statistic and by the report.",
+     "error_rate is rounded to one decimal."
+    ]
+   }
+  },
+  {
+   "prompt": "Add top_paths(records, n) to stats.py: the n most requested paths as (path, count) pairs, most first. Add tests.\n\nThe plan for top_paths has one more step: a query string is removed before counting (\"/a?x=1\" counts as \"/a\"). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a slow request is one that takes more than 300 ms, not 500.",
+   "given": {
+    "tasks": [
+     {
+      "task": "top_paths",
+      "status": "done"
+     },
+     {
+      "task": "top_paths: strip query strings",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added top_paths(records, n) with tests. Its last step is left for later: strip query strings.",
+    "decisions": [
+     "Supersedes 500 ms: a slow request takes more than 300 ms."
+    ]
+   }
+  },
+  {
+   "prompt": "Add by_hour(records) to stats.py: a dict from hour (int) to number of requests. Add tests.\n\nThe plan for by_hour has one more step: every hour between the first and the last hour with requests is included, with 0 when it has none. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "by_hour",
+      "status": "done"
+     },
+     {
+      "task": "by_hour: fill empty hours",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added by_hour(records) with tests. Its last step is left for later: include empty hours between first and last with 0."
+   }
+  },
+  {
+   "prompt": "Add slow_requests(records) to stats.py: the slow requests, in log order. Add tests.\n\nChange to an earlier decision (it replaces the old one): each path line of a report has the form /home: 12 requests, not /home 12.\n\nDesign decision for this project: a report lists the paths by count, most first.\n\nDesign decision for this project: the first line of a report is the date of the first record, in the form Log report 2026-06-01.",
+   "given": {
+    "tasks": [
+     {
+      "task": "slow_requests",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added slow_requests(records) with tests.",
+    "decisions": [
+     "Supersedes /home 12: a report path line has the form /home: 12 requests.",
+     "A report lists paths by count, most first.",
+     "The first report line is Log report 2026-06-01."
+    ]
+   }
+  },
+  {
+   "prompt": "Add summary(records) to stats.py: a dict with the keys requests, errors and slow (counts). Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "summary",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added summary(records) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_report(lines, path) to report.py: it reads log lines and writes a text report with one line per path. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

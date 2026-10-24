@@ -1,0 +1,37 @@
+{
+ "id": "S03",
+ "kind": "constraint",
+ "module": "parsing.py",
+ "sessions": [
+  {
+   "prompt": "Add strip_all(items) to parsing.py: it returns a new list with each string stripped of surrounding whitespace. Add tests.\n\nProject rule, which applies to all work on this project from now on: functions in this project never raise an exception because of bad input; when the input cannot be handled they return None instead.",
+   "given": {
+    "tasks": [
+     {
+      "task": "strip_all",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added strip_all(items) with tests.",
+    "decisions": [
+     "Functions never raise an exception because of bad input; when input cannot be handled they return None instead."
+    ]
+   }
+  },
+  {
+   "prompt": "Add split_fields(line) to parsing.py: it splits a line on commas and strips each field, so \" a, b ,c\" gives [\"a\", \"b\", \"c\"]. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "split_fields",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added split_fields(line) with tests."
+   }
+  },
+  {
+   "prompt": "Add parse_date_iso(s) to parsing.py: it turns a \"YYYY-MM-DD\" string into a datetime.date. Add tests."
+  }
+ ]
+}

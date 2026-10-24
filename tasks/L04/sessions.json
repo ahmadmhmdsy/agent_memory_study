@@ -1,0 +1,141 @@
+{
+ "id": "L04",
+ "kind": "long",
+ "facts": {
+  "sorted": "decision",
+  "save_format": "superseded",
+  "due": "constraint",
+  "tags": "unfinished",
+  "title_len": "constraint",
+  "plural_y": "unfinished",
+  "priority_range": "constraint",
+  "indent": "superseded",
+  "done_key": "decision",
+  "truncate": "unfinished",
+  "save_order": "superseded",
+  "unique_title": "constraint"
+ },
+ "sessions": [
+  {
+   "prompt": "Add is_blank(s) to util.py: True if s is empty or only whitespace. Add tests.\n\nDesign decision for this project: task lists are sorted by priority (1 is the highest priority and comes first), then by the order the tasks were added.\n\nDesign decision for this project: the save file is JSON with one top-level key, \"items\", holding the list of tasks.",
+   "given": {
+    "tasks": [
+     {
+      "task": "is_blank",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added is_blank(s) with tests.",
+    "decisions": [
+     "Task lists are sorted by priority (1 first), then by the order the tasks were added.",
+     "The save file is JSON with one top-level key, \"items\", holding the list of tasks."
+    ]
+   }
+  },
+  {
+   "prompt": "Add plural(n, word) to util.py: plural(1, \"task\") is \"1 task\", plural(2, \"task\") is \"2 tasks\" and plural(0, \"task\") is \"0 tasks\". Add tests.\n\nThe plan for plural has one more step: a word that ends in a consonant followed by \"y\" takes \"ies\" (\"2 entries\"), while a word that ends in a vowel followed by \"y\" just adds \"s\" (\"2 days\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a due date is a \"YYYY-MM-DD\" string for a real calendar date, or None for no due date; anything else raises ValueError.\n\nDesign decision for this project: the save file is compact JSON, written on a single line with no indentation.\n\nDesign decision for this project: the save file lists the tasks in the order they were added.",
+   "given": {
+    "tasks": [
+     {
+      "task": "plural",
+      "status": "done"
+     },
+     {
+      "task": "plural: consonant + \"y\" takes \"ies\", vowel + \"y\" adds \"s\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 added plural(n, word) with tests. Its last step is left for later: consonant + \"y\" takes \"ies\"; vowel + \"y\" just adds \"s\".",
+    "decisions": [
+     "A due date is a \"YYYY-MM-DD\" string for a real calendar date, or None; anything else raises ValueError.",
+     "The save file is compact JSON on a single line, with no indentation.",
+     "The save file lists the tasks in the order they were added."
+    ]
+   }
+  },
+  {
+   "prompt": "Add parse_tags(s) to util.py: it splits a comma-separated string into tags, strips spaces around each tag and drops empty tags. Add tests.\n\nThe plan for parse_tags has one more step: tags are lowercased, and duplicates are removed, keeping the first. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a task priority is an int from 1 to 3; anything else raises ValueError.\n\nDesign decision for this project: every task dict has a \"done\" key, which is False when the task is added.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_tags",
+      "status": "done"
+     },
+     {
+      "task": "parse_tags: lowercase, remove duplicates keeping the first",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 3 added parse_tags(s) with tests. Its last step is left for later: lowercase the tags and remove duplicates, keeping the first.",
+    "decisions": [
+     "A task priority is an int from 1 to 3; anything else raises ValueError.",
+     "Every task dict has a \"done\" key, False when the task is added."
+    ]
+   }
+  },
+  {
+   "prompt": "Add join_tags(tags) to util.py: the tags joined with \", \". Add tests.\n\nChange to an earlier decision (it replaces the old one): the save file is JSON with two top-level keys: \"version\", set to 2, and \"tasks\", holding the list of tasks.\n\nProject rule (it applies to all later work too): a task title is at most 60 characters after stripping both ends; a longer title raises ValueError.\n\nChange to an earlier decision (it replaces the old one): the save file is indented JSON with an indent of 2 spaces, not compact.",
+   "given": {
+    "tasks": [
+     {
+      "task": "join_tags",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 4 added join_tags(tags) with tests.",
+    "decisions": [
+     "Supersedes the \"items\" save-file decision: the save file has \"version\": 2 and \"tasks\", the list of tasks.",
+     "A task title is at most 60 characters after stripping; a longer title raises ValueError.",
+     "Supersedes the compact save-file decision: the save file is indented JSON with an indent of 2 spaces."
+    ]
+   }
+  },
+  {
+   "prompt": "Add truncate(s, n) to util.py: the first n characters of s. Add tests.\n\nThe plan for truncate has one more step: when s is longer than n, it is cut to n - 3 characters followed by \"...\", so the result is n characters long (\"abcdefgh\" with n = 5 gives \"ab...\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "truncate",
+      "status": "done"
+     },
+     {
+      "task": "truncate: cut a longer s to n - 3 characters plus \"...\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added truncate(s, n) with tests. Its last step is left for later: a longer s is cut to n - 3 characters plus \"...\"."
+   }
+  },
+  {
+   "prompt": "Add word_count(s) to util.py: the number of whitespace-separated words in s. Add tests.\n\nChange to an earlier decision (it replaces the old one): the save file lists the tasks in list order (sorted as tasks() returns them), not in the order they were added.\n\nProject rule (it applies to all later work too): task titles are unique, compared after stripping both ends and ignoring case; adding a duplicate title raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "word_count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added word_count(s) with tests.",
+    "decisions": [
+     "Supersedes the added-order save decision: the save file lists tasks in list order (as tasks() returns them).",
+     "Task titles are unique, compared after stripping and ignoring case; a duplicate raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a TodoList class to todo.py. add(title, priority, due=None) adds a task and returns its id (1, 2, 3, ...). tasks() returns the tasks as a list of dicts with the keys id, title, priority and due. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "TodoList.add / TodoList.tasks",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added the TodoList class (add, tasks) with tests."
+   }
+  },
+  {
+   "prompt": "Add save(todo, path) and load(path) to storage.py: save writes a TodoList to a JSON file, and load reads one back as a TodoList. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

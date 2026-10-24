@@ -1,0 +1,141 @@
+{
+ "id": "L19",
+ "kind": "long",
+ "facts": {
+  "first_name": "superseded",
+  "country_49": "superseded",
+  "csv_header": "superseded",
+  "phone_marks": "unfinished",
+  "search_email": "unfinished",
+  "initials_hyphen": "unfinished",
+  "email_valid": "constraint",
+  "name_title": "constraint",
+  "dup_name": "decision",
+  "contact_needs": "decision",
+  "export_empty": "decision",
+  "export_count": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add normalize_phone(s) to phones.py: spaces are removed (\"+31 6 1234 5678\" becomes \"+31612345678\"). Add tests.\n\nThe plan for normalize_phone has one more step: dashes, dots and brackets are removed too (\"+31 (6) 12-34.56\" becomes \"+316123456\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): an email address must have exactly one \"@\", some text before it, and a dot in the text after it: any function given another email raises ValueError.\n\nDesign decision for this project: a phone number that starts with 0 is a local number: normalize_phone replaces the 0 with the default country code +31.",
+   "given": {
+    "tasks": [
+     {
+      "task": "normalize_phone",
+      "status": "done"
+     },
+     {
+      "task": "normalize_phone: remove - . ( )",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added normalize_phone(s) with tests. Its last step is left for later: remove dashes, dots and brackets.",
+    "decisions": [
+     "An email needs exactly one @, text before it and a dot after it; another raises ValueError in any function.",
+     "A phone number starting with 0 gets the default country code +31 in place of the 0."
+    ]
+   }
+  },
+  {
+   "prompt": "Add an AddressBook class to book.py: add(name, phone=None, email=None) adds a contact, get(name) returns a dict with the keys name, phone and email (None when missing; the phone is normalized), and names() returns the contact names. Add tests.\n\nProject rule (it applies to all later work too): names are stored with each word capitalized (\"ann van zed\" becomes \"Ann Van Zed\"), in every function.\n\nDesign decision for this project: names() is sorted by last name.\n\nDesign decision for this project: the header line of a CSV export is name,phone,email.",
+   "given": {
+    "tasks": [
+     {
+      "task": "AddressBook.add / get / names",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added AddressBook.add, get and names with tests.",
+    "decisions": [
+     "Names are stored with each word capitalized, in every function.",
+     "names() is sorted by last name.",
+     "The CSV export header is name,phone,email."
+    ]
+   }
+  },
+  {
+   "prompt": "Add AddressBook.remove(name) to book.py. Add tests.\n\nChange to an earlier decision (it replaces the old one): names() is sorted by first name, not last name.\n\nDesign decision for this project: adding a contact whose name is already in the book raises ValueError; names ignore case in that check.\n\nDesign decision for this project: a contact needs a phone or an email: adding one with neither raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "AddressBook.remove",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added AddressBook.remove with tests.",
+    "decisions": [
+     "Supersedes last name: names() is sorted by first name.",
+     "Adding a name already in the book raises ValueError (ignoring case).",
+     "A contact needs a phone or an email; neither raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add AddressBook.search(text) to book.py: the sorted names that contain text, ignoring case. Add tests.\n\nThe plan for AddressBook.search has one more step: it also matches contacts whose email contains text. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the default country code for local numbers is +49, not +31.",
+   "given": {
+    "tasks": [
+     {
+      "task": "AddressBook.search",
+      "status": "done"
+     },
+     {
+      "task": "AddressBook.search: match emails",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added AddressBook.search(text) with tests. Its last step is left for later: also match emails.",
+    "decisions": [
+     "Supersedes +31: the default country code for local numbers is +49."
+    ]
+   }
+  },
+  {
+   "prompt": "Add initials(name) to names.py: the first letter of each word (\"Ann Lee\" gives \"AL\"). Add tests.\n\nThe plan for initials has one more step: each part of a hyphenated name counts as a word (\"Mary-Jane Lee\" gives \"MJL\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "initials",
+      "status": "done"
+     },
+     {
+      "task": "initials: hyphenated names",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added initials(name) with tests. Its last step is left for later: hyphenated parts count as words."
+   }
+  },
+  {
+   "prompt": "Add AddressBook.count() to book.py. Add tests.\n\nChange to an earlier decision (it replaces the old one): the header line of a CSV export is name,email,phone, not name,phone,email.\n\nDesign decision for this project: in a CSV export a missing phone or email is an empty field.\n\nDesign decision for this project: the last line of a CSV export is the number of contacts, in the form # 3 contacts.",
+   "given": {
+    "tasks": [
+     {
+      "task": "AddressBook.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added AddressBook.count() with tests.",
+    "decisions": [
+     "Supersedes name,phone,email: the CSV export header is name,email,phone.",
+     "In a CSV export a missing phone or email is an empty field.",
+     "The last CSV export line is # 3 contacts."
+    ]
+   }
+  },
+  {
+   "prompt": "Add AddressBook.update(name, phone=None, email=None) to book.py: it changes the phone and/or email that are given and keeps the rest. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "AddressBook.update",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added AddressBook.update with tests."
+   }
+  },
+  {
+   "prompt": "Add write_csv(book, path) to export.py: it writes a CSV export with one row per contact, in names() order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

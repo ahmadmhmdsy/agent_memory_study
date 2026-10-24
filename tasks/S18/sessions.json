@@ -1,0 +1,42 @@
+{
+ "id": "S18",
+ "kind": "unfinished",
+ "module": "strings.py",
+ "sessions": [
+  {
+   "prompt": "Add shout(s) to strings.py: s in upper case followed by \"!\". Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "shout",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added shout(s) with tests."
+   }
+  },
+  {
+   "prompt": "Planned string helpers for strings.py:\n(a) capitalize_words(s): each word's first letter upper case.\n(b) reverse_words(s): the words in reverse order, joined by one space.\n(c) truncate(s, n): when len(s) > n, the first n-1 characters followed by \"\u2026\" (the single character U+2026), so the result is exactly n characters long; otherwise s unchanged.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) capitalize_words(s): each word's first letter upper case.",
+      "status": "done"
+     },
+     {
+      "task": "(b) reverse_words(s): the words in reverse order, joined by one space.",
+      "status": "done"
+     },
+     {
+      "task": "(c) truncate(s, n): when len(s) > n, the first n-1 characters followed by \"\u2026\" (the single character U+2026), so the result is exactly n characters long; otherwise s unchanged.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: truncate(s, n): when len(s) > n, the first n-1 characters followed by \"\u2026\" (the single character U+2026), so the result is exactly n characters long; otherwise s unchanged."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add count_vowels(s) to strings.py: the number of a, e, i, o, u letters in s, ignoring case. Add tests."
+  }
+ ]
+}

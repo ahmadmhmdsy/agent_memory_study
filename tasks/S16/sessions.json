@@ -1,0 +1,37 @@
+{
+ "id": "S16",
+ "kind": "decision",
+ "module": "scores.py",
+ "sessions": [
+  {
+   "prompt": "Add clamp_score(s) to scores.py: s limited to the range 0..100. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): every average this project computes is truncated to an int (the fractional part dropped), never rounded and never returned as a float.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clamp_score",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added clamp_score(s) with tests.",
+    "decisions": [
+     "Every average is truncated to an int (fractional part dropped), never rounded and never a float."
+    ]
+   }
+  },
+  {
+   "prompt": "Add best(scores) to scores.py: the highest score in a non-empty list. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "best",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added best(scores) with tests."
+   }
+  },
+  {
+   "prompt": "Add average(scores) to scores.py: the average of a non-empty list of scores. Add tests."
+  }
+ ]
+}

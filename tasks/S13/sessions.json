@@ -1,0 +1,37 @@
+{
+ "id": "S13",
+ "kind": "decision",
+ "module": "log.py",
+ "sessions": [
+  {
+   "prompt": "Add count() to Logger in log.py: the number of stored entries. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): every timestamp this project writes is in UTC, in the form YYYY-MM-DDTHH:MM:SSZ: no microseconds, and \"Z\" rather than \"+00:00\".",
+   "given": {
+    "tasks": [
+     {
+      "task": "Logger.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added Logger.count() with tests.",
+    "decisions": [
+     "Every timestamp written is UTC in the form YYYY-MM-DDTHH:MM:SSZ: no microseconds, and \"Z\" rather than \"+00:00\"."
+    ]
+   }
+  },
+  {
+   "prompt": "Add lines() to Logger: it returns a copy of the stored entries as a list of strings, oldest first. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Logger.lines",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Logger.lines() with tests."
+   }
+  },
+  {
+   "prompt": "Add log(msg, now) to Logger: now is a timezone-aware datetime.datetime; it stores one entry, the line \"<timestamp> <msg>\" (the timestamp of now, a space, then msg). Add tests."
+  }
+ ]
+}

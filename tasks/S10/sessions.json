@@ -1,0 +1,37 @@
+{
+ "id": "S10",
+ "kind": "decision",
+ "module": "paging.py",
+ "sessions": [
+  {
+   "prompt": "Add clamp(n, lo, hi) to paging.py: n limited to the range lo..hi. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): page numbers in this project start at 0, so page 0 is the first page.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clamp",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added clamp(n, lo, hi) with tests.",
+    "decisions": [
+     "Page numbers start at 0: page 0 is the first page."
+    ]
+   }
+  },
+  {
+   "prompt": "Add count_pages(n_items, size) to paging.py: how many pages of at most size items are needed for n_items items (0 items need 0 pages). Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "count_pages",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added count_pages(n_items, size) with tests."
+   }
+  },
+  {
+   "prompt": "Add page(items, number, size) to paging.py: it returns the list of items on page `number`, where each page holds size items; a page past the end is an empty list. Add tests."
+  }
+ ]
+}

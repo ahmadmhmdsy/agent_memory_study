@@ -1,0 +1,42 @@
+{
+ "id": "S17",
+ "kind": "unfinished",
+ "module": "stack.py",
+ "sessions": [
+  {
+   "prompt": "Add pop() and __len__() to Stack in stack.py. pop() removes and returns the top item and raises IndexError when the stack is empty. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "pop, __len__",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added pop() and __len__() with tests."
+   }
+  },
+  {
+   "prompt": "Planned work for Stack:\n(a) is_empty(): True when the stack has no items.\n(b) clear(): removes every item.\n(c) peek(): returns the top item without removing it; on an empty stack it returns None (it does not raise).\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) is_empty(): True when the stack has no items.",
+      "status": "done"
+     },
+     {
+      "task": "(b) clear(): removes every item.",
+      "status": "done"
+     },
+     {
+      "task": "(c) peek(): returns the top item without removing it; on an empty stack it returns None (it does not raise).",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: peek(): returns the top item without removing it; on an empty stack it returns None (it does not raise)."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add to_list() to Stack: the items from bottom to top, as a new list. Add tests."
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "id": "T15",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "leftover_order": "superseded",
+  "hide_zero": "unfinished",
+  "amount_positive": "constraint",
+  "people_valid": "constraint",
+  "undo_empty": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Trip class to split.py with add_expense(payer, amount, people), which records that payer paid amount cents for people (a list of names; the payer shares the cost only if listed), and balance(name), what name paid minus name's shares of the costs, in cents (0 for someone in no expense). The cost is shared in whole cents: each person's share is amount // len(people), plus one leftover cent for some people as decided below. Add tests.\n\nProject rule (it applies to all later work too): amount is a positive int: anything else raises ValueError and records nothing.\n\nProject rule (it applies to all later work too): people is a non-empty list with no name twice: otherwise add_expense raises ValueError and records nothing.\n\nDesign decision for this project: the leftover cents go one each to the people in alphabetical order (100 among ann, bob and cy: ann's share is 34, bob's and cy's 33)."
+  },
+  {
+   "prompt": "Add Trip.people(), the sorted list of everyone in any expense, payers included, and summary(trip) to settle.py: one line \"name: N\" per person, in people() order, with N their balance (no plus sign; for example \"ann: -250\" or \"bob: 250\"). Add tests.\n\nThe plan for summary has one more step: people whose balance is 0 are left out of the summary. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Trip.undo(), which removes the last expense recorded. Add tests.\n\nDesign decision for this project: undo with no expenses raises IndexError.\n\nChange to an earlier decision (it replaces the old one): the leftover cents go one each to the people in reverse alphabetical order, not alphabetical (100 among ann, bob and cy: cy's share is 34, ann's and bob's 33)."
+  },
+  {
+   "prompt": "Add Trip.total(), the sum of all expense amounts. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

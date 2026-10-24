@@ -1,0 +1,26 @@
+{
+ "id": "T03",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "loan_days": "superseded",
+  "fee_cap": "unfinished",
+  "no_double_lend": "constraint",
+  "member_limit": "constraint",
+  "return_unknown": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Library class to library.py with add_book(isbn, title), which adds a book, lend(isbn, member, day), which lends the book isbn to member on day (days are int day numbers), and is_out(isbn), which tells whether the book is lent out. Add tests.\n\nProject rule (it applies to all later work too): a book that is already out cannot be lent again: lend raises ValueError and changes nothing.\n\nProject rule (it applies to all later work too): a member holds at most 3 books at once: lending a 4th book to them raises ValueError and changes nothing.\n\nDesign decision for this project: the loan period is 14 days."
+  },
+  {
+   "prompt": "Add Library.due(isbn), the day a lent book is due back: the day it was lent plus the loan period. Add late_fee(lib, isbn, day) to fees.py: the fee in cents if the lent book isbn comes back on day, 25 cents for each day after its due day (0 if day is not after the due day). Add tests.\n\nThe plan for late_fee has one more step: the fee is never more than 500 cents. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Library.give_back(isbn), which ends the loan of isbn, and Library.held(member), the sorted list of the ISBNs member holds. Add tests.\n\nDesign decision for this project: give_back of a book that is not out raises KeyError.\n\nChange to an earlier decision (it replaces the old one): the loan period is 21 days, not 14."
+  },
+  {
+   "prompt": "Add Library.titles(), the sorted list of the titles of the books that are not out. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

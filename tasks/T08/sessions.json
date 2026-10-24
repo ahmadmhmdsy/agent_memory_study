@@ -1,0 +1,26 @@
+{
+ "id": "T08",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "pass_mark": "superseded",
+  "drop_lowest": "unfinished",
+  "score_range": "constraint",
+  "max_scores": "constraint",
+  "avg_round": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Gradebook class to grades.py with add(student, score), which records a score for student, and scores(student), the list of student's scores in the order added ([] for a student with none). Add tests.\n\nProject rule (it applies to all later work too): a score is an int from 0 to 100, inclusive: anything else raises ValueError and records nothing.\n\nDesign decision for this project: the pass mark is 50."
+  },
+  {
+   "prompt": "Add average(gb, student) to stats.py: the mean of student's scores, or None for a student with no scores. Add passed(gb, student) to stats.py: True when the average is at or above the pass mark, False otherwise (also False for a student with no scores). Add tests.\n\nDesign decision for this project: the average is rounded to the nearest whole number, with .5 rounded up (70.5 becomes 71, 71.5 becomes 72).\n\nThe plan for average has one more step: when a student has 3 or more scores, one lowest score is dropped before the mean is taken. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Gradebook.students(), the sorted list of students with scores. Add tests.\n\nProject rule (it applies to all later work too): a student has at most 10 scores: adding an 11th raises ValueError and records nothing.\n\nChange to an earlier decision (it replaces the old one): the pass mark is 60, not 50."
+  },
+  {
+   "prompt": "Add Gradebook.clear(student), which removes student and all of their scores. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

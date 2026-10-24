@@ -1,0 +1,37 @@
+{
+ "id": "S07",
+ "kind": "constraint",
+ "module": "users.py",
+ "sessions": [
+  {
+   "prompt": "Add is_valid_email(s) to users.py: True when s has exactly one \"@\" with text on both sides and a \".\" in the part after it. Add tests.\n\nProject rule, which applies to all work on this project from now on: usernames are always stored stripped, in lowercase, with each run of spaces replaced by a single \".\" (so \" Ann  Lee \" is stored as \"ann.lee\").",
+   "given": {
+    "tasks": [
+     {
+      "task": "is_valid_email",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added is_valid_email with tests.",
+    "decisions": [
+     "Usernames are stored stripped, lowercase, with each run of spaces replaced by a single \".\" (\" Ann  Lee \" is stored as \"ann.lee\")."
+    ]
+   }
+  },
+  {
+   "prompt": "Add domain(email) to users.py: the part after the \"@\", in lowercase. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "domain",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added domain(email) with tests."
+   }
+  },
+  {
+   "prompt": "Add a Users class to users.py that keeps the forum's usernames: add(name) stores a username, names() returns the stored usernames in the order they were added, and has(name) tells whether a username is stored. Add tests."
+  }
+ ]
+}

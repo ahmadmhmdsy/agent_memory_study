@@ -1,0 +1,37 @@
+{
+ "id": "S02",
+ "kind": "constraint",
+ "module": "ranking.py",
+ "sessions": [
+  {
+   "prompt": "Add mean(scores) to ranking.py: the arithmetic mean of a non-empty list of numbers. Add tests.\n\nProject rule, which applies to all work on this project from now on: every function in this project that returns a list of values returns it sorted in descending order (largest first).",
+   "given": {
+    "tasks": [
+     {
+      "task": "mean",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added mean(scores) with tests.",
+    "decisions": [
+     "Every function that returns a list of values returns it sorted in descending order (largest first)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add median(scores) to ranking.py: the median of a non-empty list of numbers (the mean of the two middle values for an even count). Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "median",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added median(scores) with tests."
+   }
+  },
+  {
+   "prompt": "Add unique_scores(scores) to ranking.py: it returns a list of the distinct values in scores, each once. Add tests."
+  }
+ ]
+}

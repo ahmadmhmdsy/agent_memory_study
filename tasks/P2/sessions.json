@@ -1,0 +1,36 @@
+{
+ "id": "P2",
+ "kind": "decision",
+ "sessions": [
+  {
+   "prompt": "Add get(cfg, key, default=None) to settings.py: it returns cfg[key], or default when the key is missing. Add tests.\n\nDesign decision for this project, agreed today and binding for all future work: every time or duration value the project handles is an integer number of milliseconds (int), in every function's results and in stored settings. Nothing in the code uses durations yet.",
+   "given": {
+    "decisions": [
+     "Every time or duration value is an integer number of milliseconds (int), in all function results and stored settings."
+    ],
+    "tasks": [
+     {
+      "task": "get",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added get(cfg, key, default=None) with tests."
+   }
+  },
+  {
+   "prompt": "Extend settings.py:\n- load() strips one pair of matching quotes around a value: name = \"a b\" gives a b; single quotes work the same way.\n- get_int(cfg, key, default) returns the value as an int, or default when the key is missing.\n- get_bool(cfg, key, default) accepts true/false, yes/no and 1/0 in any letter case; default when missing.\nAdd tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "quoted values, get_int, get_bool",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added quote stripping in load(), get_int and get_bool, with tests."
+   }
+  },
+  {
+   "prompt": "Add get_duration(cfg, key, default=None) to settings.py. It reads values written like \"250ms\", \"5s\", \"2m\" or \"1h\"; a bare number such as \"3\" means seconds. It returns default when the key is missing. Add tests."
+  }
+ ]
+}

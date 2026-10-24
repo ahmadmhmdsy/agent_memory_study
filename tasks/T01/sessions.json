@@ -1,0 +1,26 @@
+{
+ "id": "T01",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "vat_rate": "superseded",
+  "bulk_discount": "unfinished",
+  "sku_case": "constraint",
+  "qty_positive": "constraint",
+  "remove_over": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Cart class to cart.py with add(sku, qty), which adds qty items of sku, and count(sku), which returns how many items of sku the cart holds (0 for a sku it does not hold). Add tests.\n\nProject rule (it applies to all later work too): SKUs are case-insensitive: \"ab1\" and \"AB1\" are the same SKU, and a SKU is always stored in upper case.\n\nProject rule (it applies to all later work too): add with a quantity of 0 or less raises ValueError and changes nothing.\n\nDesign decision for this project: VAT is 20%."
+  },
+  {
+   "prompt": "Add total(cart, prices) to price.py: prices maps an upper-case SKU to its price in cents; the result is the sum of quantity times price, plus VAT, rounded to the nearest cent (an int). Add tests.\n\nThe plan for total has one more step: a cart whose sum before VAT is 10000 cents or more gets 500 cents off that sum, before VAT is added. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Cart.remove(sku, qty), which takes qty items of sku out of the cart, and Cart.items(), the sorted list of (sku, quantity) pairs for every SKU the cart holds at least one of. Add tests.\n\nDesign decision for this project: removing more items than the cart holds removes all of that SKU: no error.\n\nChange to an earlier decision (it replaces the old one): VAT is 15%, not 20%."
+  },
+  {
+   "prompt": "Add Cart.clear(), which empties the cart, and Cart.size(), the total number of items in the cart. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

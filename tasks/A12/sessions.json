@@ -1,0 +1,85 @@
+{
+ "id": "A12",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "win_pts": "superseded",
+  "k_factor": "superseded",
+  "rating_floor": "superseded",
+  "provisional": "superseded",
+  "entry_fee": "superseded",
+  "names_order": "unfinished",
+  "score_line": "unfinished",
+  "export_order": "unfinished",
+  "result_valid": "constraint",
+  "not_self": "constraint",
+  "pair_limit": "constraint",
+  "draw_pts": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Players class to players.py with add(name, rating), rating(name), and names(): the player names in the order they were added. An unknown name raises KeyError. Add tests.\n\nThe plan for Players.names has one more step: the names are sorted by rating, highest first, and by name for the same rating. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add a Games class to games.py. Games(players) works on a Players, kept as its attribute players. record(white, black, result) records a game and returns a game id: an int counter that starts at 1. get(gid) returns the game as a tuple (white, black, result). An unknown player or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the result is \"1-0\", \"0-1\" or \"1/2\"; any other result raises ValueError and records nothing.\n\nProject rule (it applies to all later work too): a player cannot play themselves; such a game raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add points(games, name) to standings.py: the player's league points. Add tests.\n\nDesign decision for this project: a win gives 2 points, a loss 0, and a draw gives each player 1 point."
+  },
+  {
+   "prompt": "Add Games.of_player(name): the ids of the player's games, in id order. Add tests.\n\nProject rule (it applies to all later work too): two players meet at most twice, whoever has white; a third game between them raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Make Games.record update the players' ratings. Add tests.\n\nDesign decision for this project: after a decisive game the winner gains 32 rating points and the loser loses 32; a draw changes no rating."
+  },
+  {
+   "prompt": "Add result_text(games, gid) to export.py: the text \"<white> - <black>: <result>\", for example \"Ann - Bob: 1-0\". Add tests.\n\nThe plan for result_text has one more step: a draw is written as the word draw, as in \"Ann - Bob: draw\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Players.set_rating(name, rating), which sets a player's rating. Add tests.\n\nProject rule (it applies to all later work too): a loss never takes a rating below 100; the rating stops at 100."
+  },
+  {
+   "prompt": "Add is_provisional(games, name) to standings.py. Add tests.\n\nDesign decision for this project: a player with fewer than 5 games is provisional."
+  },
+  {
+   "prompt": "Add entry_fee() to standings.py: the league entry fee in cents. Add tests.\n\nDesign decision for this project: the entry fee is 1500 cents.\n\nChange to an earlier decision (it replaces the old one): a win gives 3 points, not 2."
+  },
+  {
+   "prompt": "Add export_table(games, path) to export.py: a CSV file with one row per player, in the order of Players.names: name, points and rating. Add tests.\n\nThe plan for export_table has one more step: the rows are sorted by points, highest first, and by name for the same points. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported table starts with the header line name,points,rating and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Players.remove(name), which removes a player; an unknown name raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the winner gains 20 rating points and the loser loses 20, not 32."
+  },
+  {
+   "prompt": "Add Games.count(): the number of games. Add tests.\n\nChange to an earlier decision (it replaces the old one): a player with fewer than 10 games is provisional, not 5."
+  },
+  {
+   "prompt": "Add table(games) to standings.py: a list of (name, points) tuples in the order of Players.names. Add tests.\n\nChange to an earlier decision (it replaces the old one): a loss never takes a rating below 400, not 100."
+  },
+  {
+   "prompt": "Add Games.wins(name): the number of games the player won. Add tests.\n\nChange to an earlier decision (it replaces the old one): the entry fee is 2000 cents, not 1500."
+  },
+  {
+   "prompt": "Add Games.draws(name): the number of the player's drawn games. Add tests."
+  },
+  {
+   "prompt": "Add Games.opponents(name): the sorted names of the players the player has met. Add tests.\n\nChange to an earlier decision (it replaces the old one): the winner gains 24 rating points and the loser loses 24, not 20."
+  },
+  {
+   "prompt": "Add Players.count(): the number of players. Add tests.\n\nChange to an earlier decision (it replaces the old one): a player with fewer than 8 games is provisional, not 10."
+  },
+  {
+   "prompt": "Add Games.last(): the id of the last game recorded, or None. Add tests."
+  },
+  {
+   "prompt": "Add Games.losses(name): the number of games the player lost. Add tests.\n\nChange to an earlier decision (it replaces the old one): a loss never takes a rating below 300, not 400."
+  },
+  {
+   "prompt": "Add Games.played(name): the number of the player's games. Add tests.\n\nChange to an earlier decision (it replaces the old one): the entry fee is 1800 cents, not 2000."
+  },
+  {
+   "prompt": "Add Games.ids(): all game ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

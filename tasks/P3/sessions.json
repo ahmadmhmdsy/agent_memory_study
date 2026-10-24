@@ -1,0 +1,41 @@
+{
+ "id": "P3",
+ "kind": "unfinished",
+ "sessions": [
+  {
+   "prompt": "Add two functions to textstats.py and test them:\n- unique_words(text) returns the number of distinct words (case-insensitive).\n- char_count(text, spaces=True) returns the number of characters; with spaces=False, whitespace is not counted.",
+   "given": {
+    "tasks": [
+     {
+      "task": "unique_words, char_count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added unique_words and char_count with tests."
+   }
+  },
+  {
+   "prompt": "Here is the planned work for textstats.py:\n(a) top_words ignores these stopwords: the, a, an, and, or, of, to, in, is, it. Keep them in a module-level STOPWORDS set.\n(b) Add sentence_count(text): the number of sentences, where a sentence ends with \".\", \"!\" or \"?\" (a run such as \"?!\" ends one sentence); trailing text without an end mark counts as one more sentence.\n(c) Add reading_time(text, wpm=200): reading time in whole minutes, rounded up; 0 for text with no words.\n\nDo (a) and (b) in this session, with tests. Leave (c) for a later session: do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) STOPWORDS in top_words",
+      "status": "done"
+     },
+     {
+      "task": "(b) sentence_count",
+      "status": "done"
+     },
+     {
+      "task": "(c) reading_time(text, wpm=200): whole minutes, rounded up; 0 for text with no words",
+      "status": "later"
+     }
+    ],
+    "handoff": "Session 2 did (a) STOPWORDS in top_words and (b) sentence_count, with tests. Unfinished: (c) reading_time(text, wpm=200), whole minutes rounded up, 0 for text with no words. Do it first next session."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work on textstats.py. Then add summary(text), which returns a dict with keys \"words\" (word count), \"sentences\" (sentence count) and \"top\" (the top 3 words). Add tests."
+  }
+ ]
+}

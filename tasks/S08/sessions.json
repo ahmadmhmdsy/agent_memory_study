@@ -1,0 +1,37 @@
+{
+ "id": "S08",
+ "kind": "constraint",
+ "module": "temps.py",
+ "sessions": [
+  {
+   "prompt": "Add is_freezing(c) to temps.py: True when the Celsius reading c is at or below 0. Add tests.\n\nProject rule, which applies to all work on this project from now on: every temperature that a function in this project returns is in Kelvin (K = C + 273.15), rounded to 2 decimal places, whatever unit its inputs use.",
+   "given": {
+    "tasks": [
+     {
+      "task": "is_freezing",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added is_freezing(c) with tests.",
+    "decisions": [
+     "Every temperature a function returns is in Kelvin (K = C + 273.15), rounded to 2 decimal places, whatever the input unit."
+    ]
+   }
+  },
+  {
+   "prompt": "Add count_above(readings, limit) to temps.py: how many Celsius readings are strictly above limit. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "count_above",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added count_above(readings, limit) with tests."
+   }
+  },
+  {
+   "prompt": "Add average(readings) to temps.py: the average temperature of a non-empty list of Celsius readings. Add tests."
+  }
+ ]
+}

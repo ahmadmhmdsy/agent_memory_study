@@ -1,0 +1,141 @@
+{
+ "id": "L16",
+ "kind": "long",
+ "facts": {
+  "week_sunday": "superseded",
+  "run_70": "superseded",
+  "summary_line": "superseded",
+  "duration_forms": "unfinished",
+  "kinds_sorted": "unfinished",
+  "rest_day": "unfinished",
+  "minutes_range": "constraint",
+  "kind_known": "constraint",
+  "merge_same_day": "decision",
+  "swim_minutes": "decision",
+  "summary_order": "decision",
+  "total_line": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_duration(s) to units.py: a duration in minutes such as \"30m\" becomes an int (30). Add tests.\n\nThe plan for parse_duration has one more step: it also accepts hours and minutes (\"1h15m\") and clock form (\"1:15\"); both are 75. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a workout lasts a whole number of minutes from 1 to 300: any function given another duration raises ValueError.\n\nDesign decision for this project: running burns 60 calories per km.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_duration",
+      "status": "done"
+     },
+     {
+      "task": "parse_duration: accept 1h15m and 1:15",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_duration(s) with tests. Its last step is left for later: accept 1h15m and 1:15.",
+    "decisions": [
+     "A workout lasts a whole number of minutes from 1 to 300; another duration raises ValueError in any function.",
+     "Running burns 60 calories per km."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Log class to log.py: add(day, kind, minutes, km=0) records a workout on a datetime.date, entries(day) returns that day's workouts as (kind, minutes, km) tuples in the order they were added, and total(kind=None) returns the total minutes, of one kind or of all. Add tests.\n\nProject rule (it applies to all later work too): the kinds are \"run\", \"bike\" and \"swim\"; kinds ignore case and are stored in lower case, and any other kind raises ValueError in any function.\n\nDesign decision for this project: weeks start on Monday.\n\nDesign decision for this project: each line of a summary has the form 2026-06-01 run 30m.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.add / entries / total",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Log.add, entries and total with tests.",
+    "decisions": [
+     "Kinds are run, bike, swim; they ignore case, are stored lower case, and any other kind raises ValueError.",
+     "Weeks start on Monday.",
+     "A summary line has the form 2026-06-01 run 30m."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Log.days() to log.py: the sorted list of days with workouts. Add tests.\n\nChange to an earlier decision (it replaces the old one): weeks start on Sunday, not Monday.\n\nDesign decision for this project: a second workout of the same kind on the same day is merged into the first: its minutes and km are added.\n\nDesign decision for this project: swimming burns 10 calories per minute, whatever the distance.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.days",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Log.days() with tests.",
+    "decisions": [
+     "Supersedes Monday: weeks start on Sunday.",
+     "A second workout of the same kind on the same day is merged: minutes and km are added.",
+     "Swimming burns 10 calories per minute, whatever the distance."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Log.kinds() to log.py: the kinds that have workouts, in the order they first appeared. Add tests.\n\nThe plan for Log.kinds has one more step: they are sorted by total minutes, most first. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): running burns 70 calories per km, not 60.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.kinds",
+      "status": "done"
+     },
+     {
+      "task": "Log.kinds: sort by total minutes",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added Log.kinds() with tests. Its last step is left for later: sort by total minutes, most first.",
+    "decisions": [
+     "Supersedes 60: running burns 70 calories per km."
+    ]
+   }
+  },
+  {
+   "prompt": "Add streak(log, today) to stats.py: the number of days in the unbroken run of workout days that ends today (0 when today has no workout). Add tests.\n\nThe plan for streak has one more step: a single rest day between two workout days does not break the streak; the rest day itself is not counted. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "streak",
+      "status": "done"
+     },
+     {
+      "task": "streak: single rest day allowed",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added streak(log, today) with tests. Its last step is left for later: a single rest day does not break the streak and is not counted."
+   }
+  },
+  {
+   "prompt": "Add week_total(log, day) to stats.py: the total minutes in the week that contains day. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of a summary has the form 2026-06-01 Run: 30 min, not 2026-06-01 run 30m.\n\nDesign decision for this project: a summary lists the days newest first.\n\nDesign decision for this project: the last line of a summary is the total, in the form Total: 95 min.",
+   "given": {
+    "tasks": [
+     {
+      "task": "week_total",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added week_total(log, day) with tests.",
+    "decisions": [
+     "Supersedes 2026-06-01 run 30m: a summary line has the form 2026-06-01 Run: 30 min.",
+     "A summary lists the days newest first.",
+     "The last summary line is the total: Total: 95 min."
+    ]
+   }
+  },
+  {
+   "prompt": "Add calories(kind, minutes, km) to stats.py: the calories (an int) burned in one workout. Cycling burns 30 calories per km. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "calories",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added calories(kind, minutes, km) with tests; cycling is 30 calories per km."
+   }
+  },
+  {
+   "prompt": "Add write_summary(log, path) to summary.py: it writes a text summary with one line per workout and the total. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

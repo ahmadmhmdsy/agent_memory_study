@@ -1,0 +1,82 @@
+{
+ "id": "A02",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "night_rate": "superseded",
+  "cancel_fee": "superseded",
+  "max_nights": "superseded",
+  "weekend": "superseded",
+  "room_code": "unfinished",
+  "guest_title": "unfinished",
+  "invoice_nights": "unfinished",
+  "no_overlap": "constraint",
+  "guest_required": "constraint",
+  "checkout_after": "constraint",
+  "checkout_free": "decision",
+  "tourist_tax": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add code(number) to rooms.py: the code of room number, \"R\" followed by the number (\"R7\"). Add a Hotel class to rooms.py with add_room(number) and rooms(), the sorted list of room codes. Add tests.\n\nThe plan for code has one more step: the number in a room code is zero-padded to 3 digits (\"R007\", \"R012\"). Do not do that step now; leave it for a later session.\n\nDesign decision for this project: a night in a room costs 9000 cents."
+  },
+  {
+   "prompt": "Add a Bookings class to bookings.py. Bookings(hotel) works on a Hotel. book(room, guest, checkin, checkout) books room (a room code) for guest and returns a booking id: an int counter that starts at 1. Add tests.\n\nProject rule (it applies to all later work too): checkout must be after checkin; otherwise book raises ValueError and books nothing.\n\nProject rule (it applies to all later work too): a guest name that is empty or only spaces raises ValueError and books nothing; names are stored without surrounding spaces."
+  },
+  {
+   "prompt": "Add Bookings.get(bid), which returns the booking as a tuple (room, guest, checkin, checkout); an unknown id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a booking is at most 14 nights; a longer one raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add Bookings.is_free(room, day): False when a booking of room covers the night of day, else True. Add tests.\n\nProject rule (it applies to all later work too): a room is never booked twice for the same night: a booking that overlaps another booking of the same room raises ValueError and books nothing.\n\nDesign decision for this project: the checkout day is not a booked night, so a room can be booked from the day another booking of it checks out."
+  },
+  {
+   "prompt": "Add price(bookings, bid) to billing.py: the price of the booking's nights, in cents. Add tests.\n\nDesign decision for this project: cancelling a booking costs a fee of 10% of its price, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add Bookings.of_guest(guest): the ids of the bookings of guest, in id order. Add tests.\n\nDesign decision for this project: Friday and Saturday nights cost 20% more than other nights, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add Bookings.cancel(bid), which removes the booking and returns the cancellation fee in cents. Add bill(bookings, bid) to billing.py: what the guest pays for the booking. Add tests.\n\nDesign decision for this project: a tourist tax of 200 cents per night is added to every bill; the weekend price rule does not apply to it."
+  },
+  {
+   "prompt": "Add Bookings.guests(): the sorted list of distinct guest names over all bookings. Add tests.\n\nThe plan for Bookings.book has one more step: each guest name is stored in title case, so \"ann LEE\" becomes \"Ann Lee\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add export_bookings(bookings, path) to export.py: a CSV file with one row per booking in id order (id, room, guest, checkin, checkout), with ISO dates. Add tests.\n\nDesign decision for this project: an exported bookings file starts with the header line id,room,guest,in,out and uses \",\" as the delimiter.\n\nChange to an earlier decision (it replaces the old one): a night in a room costs 9500 cents, not 9000."
+  },
+  {
+   "prompt": "Add Bookings.occupancy(day): the number of rooms booked for the night of day. Add tests."
+  },
+  {
+   "prompt": "Add invoice(bookings, bid) to billing.py: a list of text lines for the booking; for now it has one line, \"total: <cents>\", where <cents> is the bill. Add tests.\n\nThe plan for invoice has one more step: before the total line it has one line per night, in date order, \"YYYY-MM-DD: <cents>\", where <cents> is the room price of that night. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a booking is at most 21 nights, not 14."
+  },
+  {
+   "prompt": "Add Bookings.extend(bid, checkout), which moves the checkout of a booking to a later day; the booking rules still apply, and a broken rule raises ValueError and changes nothing. Add tests.\n\nChange to an earlier decision (it replaces the old one): the cancellation fee is 25% of the price, not 10%."
+  },
+  {
+   "prompt": "Add Hotel.remove_room(code), which removes a room from the hotel. Add tests."
+  },
+  {
+   "prompt": "Add Bookings.nights_booked(room): the total number of nights booked for room. Add tests.\n\nChange to an earlier decision (it replaces the old one): only Saturday nights cost 20% more; Friday nights cost the same as other nights."
+  },
+  {
+   "prompt": "Add revenue(bookings) to billing.py: the sum of the bills of all bookings. Add tests."
+  },
+  {
+   "prompt": "Add Bookings.find(text): the ids of the bookings whose guest name contains text, ignoring case, in id order. Add tests."
+  },
+  {
+   "prompt": "Add Bookings.ids(): all booking ids in order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a night in a room costs 9900 cents, not 9500."
+  },
+  {
+   "prompt": "Add Bookings.move(bid, room), which moves a booking to another room; the booking rules still apply, and a broken rule raises ValueError and changes nothing. Add tests.\n\nChange to an earlier decision (it replaces the old one): the cancellation fee is 20% of the price, not 25%."
+  },
+  {
+   "prompt": "Add Bookings.guest_nights(guest): the total number of nights booked by guest. Add tests.\n\nChange to an earlier decision (it replaces the old one): a booking is at most 28 nights, not 21."
+  },
+  {
+   "prompt": "Add busiest_day(bookings) to billing.py: the day with the most rooms booked for its night, the earliest one on a tie, or None when there are no bookings. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

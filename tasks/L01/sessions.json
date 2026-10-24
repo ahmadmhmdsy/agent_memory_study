@@ -1,0 +1,145 @@
+{
+ "id": "L01",
+ "kind": "long",
+ "facts": {
+  "half_up": "constraint",
+  "tab_csv": "superseded",
+  "zero_removed": "decision",
+  "overdraw": "constraint",
+  "low_stock_sorted": "unfinished",
+  "parse_dollar": "unfinished",
+  "bulk": "superseded",
+  "csv_footer": "decision",
+  "rate_range": "constraint",
+  "fmt_sep": "unfinished",
+  "header_upper": "superseded",
+  "qty_positive": "constraint"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_cents(s) to money.py: a price string such as \"12.34\" becomes the int 1234. Add tests.\n\nThe plan for parse_cents has one more step: it also accepts a leading \"$\" and \",\" thousands separators (\"$1,234.50\" becomes 123450). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): money is always an int number of cents, and a fractional cent is rounded half-up (half a cent goes up).\n\nDesign decision for this project: CSV files this project writes use \";\" (semicolon) as the delimiter, and their first line is a header row.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_cents",
+      "status": "done"
+     },
+     {
+      "task": "parse_cents: accept a leading \"$\" and \",\" thousands separators",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_cents(s) with tests. Its last step is left for later: accept a leading \"$\" and \",\" thousands separators.",
+    "decisions": [
+     "Money is always an int number of cents; a fractional cent is rounded half-up.",
+     "CSV files use \";\" as the delimiter, and their first line is a header row."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Store class to store.py with add(sku, qty), which adds qty units of stock for sku, and qty(sku), which returns the stock of sku (0 for a SKU it does not hold). Add tests.\n\nProject rule (it applies to all later work too): removing more stock than a SKU has must raise ValueError and leave the stock unchanged.\n\nDesign decision for this project: an invoice line of 10 or more units gets 5% off that line (unit price times quantity), before tax.\n\nDesign decision for this project: a stock CSV file ends with a footer row: the word \"total\", then the sum of all quantities.\n\nDesign decision for this project: the header row of a stock CSV file is in lower case: sku, qty.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.add / Store.qty",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Store.add and Store.qty with tests.",
+    "decisions": [
+     "Removing more stock than a SKU has raises ValueError and leaves the stock unchanged.",
+     "An invoice line of 10 or more units gets 5% off that line, before tax.",
+     "A stock CSV file ends with a footer row: \"total\", then the sum of all quantities.",
+     "The header row of a stock CSV file is in lower case: sku, qty."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Store.skus() to store.py: the list of SKUs the store holds, sorted. Add tests.\n\nDesign decision for this project: when a SKU's stock reaches 0, the SKU is removed from the store entirely.\n\nChange to an earlier decision (it replaces the old one): CSV files this project writes use a tab character as the delimiter, not \";\". Their first line is still a header row.\n\nProject rule (it applies to all later work too): a tax rate is a number from 0 to 1; any function given a rate outside that range raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.skus",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Store.skus() with tests.",
+    "decisions": [
+     "When a SKU's stock reaches 0, the SKU is removed from the store entirely.",
+     "Supersedes the \";\" CSV decision: CSV files use a tab as the delimiter; the first line is still a header row.",
+     "A tax rate is from 0 to 1; any function given a rate outside that range raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add low_stock(store, threshold) to report.py: the list of SKUs whose stock is below threshold. Add tests.\n\nThe plan for low_stock has one more step: the list must be sorted by stock, lowest first, with ties sorted by SKU. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the bulk discount is 10% off an invoice line of 10 or more units, not 5%.",
+   "given": {
+    "tasks": [
+     {
+      "task": "low_stock",
+      "status": "done"
+     },
+     {
+      "task": "low_stock: sort by stock, lowest first, ties by SKU",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added low_stock(store, threshold) with tests. Its last step is left for later: sort the list by stock, lowest first, ties by SKU.",
+    "decisions": [
+     "Supersedes the 5% bulk discount: an invoice line of 10 or more units gets 10% off, before tax."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_cents(c) to money.py: an int number of cents becomes a price string with 2 decimals (1234 becomes \"12.34\", 5 becomes \"0.05\"). Add tests.\n\nThe plan for fmt_cents has one more step: amounts of 1,000.00 or more get \",\" thousands separators (123450 becomes \"1,234.50\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_cents",
+      "status": "done"
+     },
+     {
+      "task": "fmt_cents: \",\" thousands separators for 1,000.00 or more",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added fmt_cents(c) with tests. Its last step is left for later: \",\" thousands separators for 1,000.00 or more."
+   }
+  },
+  {
+   "prompt": "Add Store.total_units() to store.py: the sum of the stock of every SKU. Add tests.\n\nChange to an earlier decision (it replaces the old one): the header row of a stock CSV file is in upper case: SKU, QTY.\n\nProject rule (it applies to all later work too): a quantity removed from stock must be a positive int; 0, a negative number or a non-int raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.total_units",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Store.total_units() with tests.",
+    "decisions": [
+     "Supersedes the lower-case header decision: the stock CSV header row is in upper case: SKU, QTY.",
+     "A quantity removed from stock must be a positive int; 0, a negative number or a non-int raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Store.remove(sku, qty) to store.py, which takes qty units of stock away from sku. Add export_stock(store, path) to io_csv.py: it writes a CSV file with a column for the SKU, a column for the quantity and one row per SKU, in sorted SKU order. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.remove",
+      "status": "done"
+     },
+     {
+      "task": "export_stock",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added Store.remove and export_stock with tests."
+   }
+  },
+  {
+   "prompt": "Add invoice_total(lines, rate) to money.py: lines is a list of (unit_cents, qty) pairs, and the result is the subtotal plus tax at rate (for example 0.05 for 5%) on the subtotal. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

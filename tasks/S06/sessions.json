@@ -1,0 +1,37 @@
+{
+ "id": "S06",
+ "kind": "constraint",
+ "module": "export.py",
+ "sessions": [
+  {
+   "prompt": "Add make_task(title, done=False) to export.py: it returns a dict {\"title\": title, \"done\": done}. Add tests.\n\nProject rule, which applies to all work on this project from now on: every boolean value that this project writes to any file is written as Y (true) or N (false).",
+   "given": {
+    "tasks": [
+     {
+      "task": "make_task",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added make_task with tests.",
+    "decisions": [
+     "Every boolean value written to any file is written as Y (true) or N (false)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add pending(tasks) to export.py: the tasks whose \"done\" is False, in order. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "pending",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added pending(tasks) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_csv(tasks, path) to export.py: it writes the tasks to a comma-separated file with the header row title,done and one row per task. Add tests."
+  }
+ ]
+}

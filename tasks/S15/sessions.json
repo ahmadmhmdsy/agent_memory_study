@@ -1,0 +1,37 @@
+{
+ "id": "S15",
+ "kind": "decision",
+ "module": "config.py",
+ "sessions": [
+  {
+   "prompt": "Add parse_bool(s) to config.py: True for \"yes\", \"true\", \"1\" or \"on\", False for anything else, ignoring case and surrounding spaces. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): looking up a config key ignores letter case, so \"PORT\", \"Port\" and \"port\" name the same key.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_bool",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added parse_bool(s) with tests.",
+    "decisions": [
+     "Config key lookup ignores letter case: \"PORT\", \"Port\" and \"port\" name the same key."
+    ]
+   }
+  },
+  {
+   "prompt": "Add load(text) to config.py: it parses \"key=value\" lines into a dict of strings, stripping spaces around keys and values and skipping blank lines and lines starting with \"#\". Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "load",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added load(text) with tests."
+   }
+  },
+  {
+   "prompt": "Add get(cfg, key, default=None) to config.py: it returns the value stored for key in a dict made by load(), or default when there is none. Add tests."
+  }
+ ]
+}

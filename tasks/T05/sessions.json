@@ -1,0 +1,26 @@
+{
+ "id": "T05",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "class_price": "superseded",
+  "waitlist_promote": "unfinished",
+  "no_double_book": "constraint",
+  "capacity_range": "constraint",
+  "full_waitlist": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Schedule class to classes.py with add_class(name, capacity), which adds a class with that many places, book(name, member), which books member into class name, booked(name), the list of members booked in class name in booking order, and waitlist(name), the list of members waiting for a place in class name, in order. Add tests.\n\nProject rule (it applies to all later work too): a member who is already booked or waiting in a class cannot book it again: book raises ValueError and changes nothing.\n\nDesign decision for this project: when a class is full, book puts the member at the end of its waitlist and returns False; a booking that gets a place returns True.\n\nDesign decision for this project: a class costs 800 cents."
+  },
+  {
+   "prompt": "Add Schedule.cancel(name, member), which removes member's booking or waitlist place in class name. Add bill(schedule, member) to billing.py: the price of one class times the number of classes member is booked in (waitlist places are not billed). Add tests.\n\nThe plan for cancel has one more step: when a booked member cancels, the first member on the waitlist leaves the waitlist and is booked (at the end of booked). Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Schedule.classes(), the sorted list of class names. Add tests.\n\nProject rule (it applies to all later work too): a class capacity is between 1 and 30, inclusive: add_class with any other capacity raises ValueError and adds nothing.\n\nChange to an earlier decision (it replaces the old one): a class costs 950 cents, not 800."
+  },
+  {
+   "prompt": "Add Schedule.busy(member), the sorted list of the classes member is booked in. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

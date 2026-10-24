@@ -1,0 +1,95 @@
+{
+ "id": "L01",
+ "kind": "long",
+ "facts": {
+  "half_up": "constraint",
+  "tab_csv": "superseded",
+  "zero_removed": "decision",
+  "overdraw": "constraint",
+  "low_stock_sorted": "unfinished"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_cents(s) to money.py: a price string such as \"12.34\" becomes the int 1234. Add tests.\n\nProject rule (it applies to all later work too): money is always an int number of cents, and a fractional cent is rounded half-up (half a cent goes up).\n\nDesign decision for this project (nothing implements it yet; record it for later work): CSV files this project writes use \";\" (semicolon) as the delimiter, and their first line is a header row.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_cents",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added parse_cents(s) with tests.",
+    "decisions": [
+     "Money is always an int number of cents; a fractional cent is rounded half-up.",
+     "CSV files use \";\" as the delimiter, and their first line is a header row."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Store class to store.py with add(sku, qty), which adds qty units of stock for sku, and qty(sku), which returns the stock of sku (0 for a SKU it does not hold). Add tests.\n\nProject rule (it applies to all later work too): removing more stock than a SKU has must raise ValueError and leave the stock unchanged.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.add / Store.qty",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Store.add and Store.qty with tests.",
+    "decisions": [
+     "Removing more stock than a SKU has raises ValueError and leaves the stock unchanged."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Store.skus() to store.py: the list of SKUs the store holds, sorted. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): when a SKU's stock reaches 0, the SKU is removed from the store entirely.\n\nChange to an earlier decision (it replaces the old one; record it for later work): CSV files this project writes use a tab character as the delimiter, not \";\". Their first line is still a header row.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.skus",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Store.skus() with tests.",
+    "decisions": [
+     "When a SKU's stock reaches 0, the SKU is removed from the store entirely.",
+     "Supersedes the \";\" CSV decision: CSV files use a tab as the delimiter; the first line is still a header row."
+    ]
+   }
+  },
+  {
+   "prompt": "Add low_stock(store, threshold) to report.py: the list of SKUs whose stock is below threshold. Add tests.\n\nThe plan for low_stock has one more step: the list must be sorted by stock, lowest first, with ties sorted by SKU. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "low_stock",
+      "status": "done"
+     },
+     {
+      "task": "low_stock: sort by stock, lowest first, ties by SKU",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added low_stock(store, threshold) with tests. Its last step is left for later: sort the list by stock, lowest first, ties by SKU."
+   }
+  },
+  {
+   "prompt": "Add Store.remove(sku, qty) to store.py, which takes qty units of stock away from sku. Add export_stock(store, path) to io_csv.py: it writes a CSV file with the columns sku, qty and one row per SKU, in sorted SKU order. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Store.remove",
+      "status": "done"
+     },
+     {
+      "task": "export_stock",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 5 added Store.remove and export_stock with tests."
+   }
+  },
+  {
+   "prompt": "Add invoice_total(lines, rate) to money.py: lines is a list of (unit_cents, qty) pairs, and the result is the subtotal plus tax at rate (for example 0.05 for 5%) on the subtotal. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

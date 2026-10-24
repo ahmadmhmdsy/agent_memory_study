@@ -1,0 +1,85 @@
+{
+ "id": "A08",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "unlock_fee": "superseded",
+  "minute_rate": "superseded",
+  "ebike_extra": "superseded",
+  "member_free": "superseded",
+  "overtime_after": "superseded",
+  "names_sorted": "unfinished",
+  "duration_hours": "unfinished",
+  "export_order": "unfinished",
+  "no_bike": "constraint",
+  "dock_full": "constraint",
+  "one_trip": "constraint",
+  "overtime_fee": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Stations class to stations.py with add(name, capacity, bikes), which adds a station with capacity docks and bikes bikes docked (more bikes than docks raises ValueError), bikes(name), capacity(name), and names(): the station names in the order they were added. An unknown station raises KeyError. Add tests.\n\nThe plan for Stations.names has one more step: the names are sorted ignoring case. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add a Trips class to trips.py. Trips(stations) works on a Stations, kept as its attribute stations. start(rider, station, t, ebike=False, member=False) starts a trip at time t, takes a bike from the station and returns a trip id: an int counter that starts at 1. Add tests.\n\nProject rule (it applies to all later work too): a trip cannot start at a station with no bikes: it raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Trips.end(tid, station, t), which ends the trip at time t and docks the bike at the station, and Trips.minutes(tid), the end time minus the start time. Add tests.\n\nProject rule (it applies to all later work too): a bike cannot be docked at a full station: ending a trip there raises ValueError, changes nothing, and the trip stays open."
+  },
+  {
+   "prompt": "Add Trips.is_open(tid): True until the trip ends. Add tests.\n\nProject rule (it applies to all later work too): a rider has at most one open trip; starting another raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add charge(trips, tid) to pricing.py: the charge of a finished trip, in cents. Add tests.\n\nDesign decision for this project: every trip costs an unlock fee of 100 cents plus 15 cents per minute."
+  },
+  {
+   "prompt": "Add Trips.of_rider(rider): the ids of the rider's trips, in id order. Add tests.\n\nDesign decision for this project: a trip on an e-bike costs 5 cents more per minute."
+  },
+  {
+   "prompt": "Add format_duration(minutes) to pricing.py: the minutes followed by \" min\", for example \"45 min\". Add tests.\n\nThe plan for format_duration has one more step: a duration of an hour or more is written as hours and minutes, for example 75 minutes is \"1h 15m\"; shorter ones stay like \"45 min\". Do not do that step now; leave it for a later session.\n\nDesign decision for this project: members ride the first 30 minutes of each trip free of the per-minute charge; they still pay the unlock fee and the e-bike extra."
+  },
+  {
+   "prompt": "Add revenue(trips) to pricing.py: the sum of the charges of the finished trips. Add tests.\n\nDesign decision for this project: a trip longer than 120 minutes also pays a flat overtime fee of 500 cents."
+  },
+  {
+   "prompt": "Add Trips.open_ids(): the ids of the open trips, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): the unlock fee is 150 cents, not 100."
+  },
+  {
+   "prompt": "Add export_trips(trips, path) to export.py: a CSV file with one row per finished trip, in id order: id, rider, minutes, charge. Add tests.\n\nThe plan for export_trips has one more step: the rows are sorted by rider, and by id for the same rider. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported trips file starts with the header line id,rider,minutes,charge and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Stations.remove(name), which removes a station; an unknown station raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the per-minute charge is 20 cents, not 15."
+  },
+  {
+   "prompt": "Add Stations.empty(): the sorted names of the stations with no bikes. Add tests.\n\nChange to an earlier decision (it replaces the old one): members ride the first 45 minutes of each trip free, not 30."
+  },
+  {
+   "prompt": "Add Trips.longest(): the id of the longest finished trip, the smallest id on a tie, or None when no trip has finished. Add tests.\n\nChange to an earlier decision (it replaces the old one): the overtime fee applies to trips longer than 90 minutes, not 120."
+  },
+  {
+   "prompt": "Add Stations.total_bikes(): the number of bikes docked over all stations. Add tests.\n\nChange to an earlier decision (it replaces the old one): a trip on an e-bike costs 8 cents more per minute, not 5."
+  },
+  {
+   "prompt": "Add Trips.cancel(tid), which cancels an open trip and docks the bike back at its start station. Add tests."
+  },
+  {
+   "prompt": "Add Trips.starts(station): the number of trips that started at the station. Add tests.\n\nChange to an earlier decision (it replaces the old one): the unlock fee is 120 cents, not 150."
+  },
+  {
+   "prompt": "Add Stations.add_bikes(name, n), which docks n more bikes at a station; more bikes than docks raises ValueError and changes nothing. Add tests.\n\nChange to an earlier decision (it replaces the old one): members ride the first 20 minutes of each trip free, not 45."
+  },
+  {
+   "prompt": "Add Trips.riders(): the sorted list of distinct riders. Add tests.\n\nChange to an earlier decision (it replaces the old one): the per-minute charge is 18 cents, not 20."
+  },
+  {
+   "prompt": "Add Trips.total_minutes(rider): the minutes of the rider's finished trips added up. Add tests.\n\nChange to an earlier decision (it replaces the old one): the overtime fee applies to trips longer than 180 minutes, not 90."
+  },
+  {
+   "prompt": "Add Stations.free_docks(name): the capacity of the station minus its bikes. Add tests.\n\nChange to an earlier decision (it replaces the old one): a trip on an e-bike costs 6 cents more per minute, not 8."
+  },
+  {
+   "prompt": "Add Trips.ids(): all trip ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

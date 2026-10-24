@@ -1,0 +1,26 @@
+{
+ "id": "T12",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "tank_size": "superseded",
+  "avg_line": "unfinished",
+  "odo_increasing": "constraint",
+  "litres_positive": "constraint",
+  "cons_round": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a FuelLog class to fuel.py with add(odometer, litres), which records a fill-up: the odometer reading in km and the litres put in, and fills(), the list of (odometer, litres) pairs in order. Add tests.\n\nProject rule (it applies to all later work too): each fill's odometer reading must be greater than the previous fill's: otherwise add raises ValueError and records nothing.\n\nProject rule (it applies to all later work too): litres must be more than 0: otherwise add raises ValueError and records nothing.\n\nDesign decision for this project: the tank holds 80 litres: a fill of more than 80 litres raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add consumption(log) to report.py, in litres per 100 km. The first fill only marks the start: consumption is the litres of every fill after the first, divided by the km from the first fill's odometer to the last one's, times 100; it is None when there are fewer than 2 fills. Add report(log) to report.py: one line \"odometer: litres\" per fill, in order (for example \"1000: 40\"). Add tests.\n\nDesign decision for this project: consumption is rounded to 1 decimal place (6.666 becomes 6.7).\n\nThe plan for report has one more step: when consumption is not None, report ends with one more line \"average: X\", with X the consumption (for example \"average: 6.5\"). Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add FuelLog.distance(), the km from the first fill to the last (0 with fewer than 2 fills). Add tests.\n\nChange to an earlier decision (it replaces the old one): the tank holds 60 litres, not 80: a fill of more than 60 litres raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add FuelLog.last(), the last (odometer, litres) pair, or None for an empty log. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

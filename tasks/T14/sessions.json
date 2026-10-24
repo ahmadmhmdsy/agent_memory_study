@@ -1,0 +1,26 @@
+{
+ "id": "T14",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "night_rate": "superseded",
+  "seventh_free": "unfinished",
+  "no_overlap": "constraint",
+  "nights_range": "constraint",
+  "unknown_room": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Hotel class to hotel.py: Hotel(rooms) takes a list of room numbers. Add book(room, guest, first_night, nights), which books room for guest; nights are int day numbers and the booking covers the nights first_night to first_night + nights - 1. Add guest_in(room, night), the guest booked in room that night (None if the room is free). Add tests.\n\nProject rule (it applies to all later work too): a booking that shares a night with another booking of the same room raises ValueError and books nothing.\n\nProject rule (it applies to all later work too): a booking is 1 to 14 nights long: any other number of nights raises ValueError and books nothing.\n\nDesign decision for this project: a night costs 9000 cents."
+  },
+  {
+   "prompt": "Add Hotel.bookings(guest), the list of (room, first_night, nights) of guest's bookings in the order they were made, and bill(hotel, guest) to bill.py: the price of all of guest's bookings in cents, each night at the nightly price. Add tests.\n\nThe plan for bill has one more step: in each booking, every 7th night is free: a 7-night booking pays for 6 nights and a 14-night booking for 12. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Hotel.cancel(room, first_night), which removes the booking of room that starts on first_night. Add tests.\n\nDesign decision for this project: book with a room number the hotel does not have raises KeyError and books nothing.\n\nChange to an earlier decision (it replaces the old one): a night costs 9900 cents, not 9000."
+  },
+  {
+   "prompt": "Add Hotel.free_rooms(night), the sorted list of rooms with no booking that night. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "id": "S21",
+ "kind": "unfinished",
+ "module": "timeparse.py",
+ "sessions": [
+  {
+   "prompt": "Add pad2(n) to timeparse.py: the int n as a string of at least two digits, padded with a leading zero. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "pad2",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added pad2(n) with tests."
+   }
+  },
+  {
+   "prompt": "Planned duration helpers for timeparse.py:\n(a) format_hms(seconds): the string \"H:MM:SS\", e.g. 3723 gives \"1:02:03\".\n(b) parts(seconds): the tuple (hours, minutes, seconds).\n(c) to_seconds(s): parses \"H:MM:SS\" into an int number of seconds; a string with only two parts, like \"02:03\", means minutes and seconds.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) format_hms(seconds): the string \"H:MM:SS\", e.g. 3723 gives \"1:02:03\".",
+      "status": "done"
+     },
+     {
+      "task": "(b) parts(seconds): the tuple (hours, minutes, seconds).",
+      "status": "done"
+     },
+     {
+      "task": "(c) to_seconds(s): parses \"H:MM:SS\" into an int number of seconds; a string with only two parts, like \"02:03\", means minutes and seconds.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: to_seconds(s): parses \"H:MM:SS\" into an int number of seconds; a string with only two parts, like \"02:03\", means minutes and seconds."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add is_long(seconds) to timeparse.py: True when seconds is more than one hour. Add tests."
+  }
+ ]
+}

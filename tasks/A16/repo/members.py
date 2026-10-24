@@ -1,0 +1,1 @@
+"""Members and their points."""

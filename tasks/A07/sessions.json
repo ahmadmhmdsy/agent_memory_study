@@ -1,0 +1,85 @@
+{
+ "id": "A07",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "bag_allowance": "superseded",
+  "excess_fee": "superseded",
+  "child_pct": "superseded",
+  "max_bags": "superseded",
+  "change_fee": "superseded",
+  "seat_order": "unfinished",
+  "pass_caps": "unfinished",
+  "export_order": "unfinished",
+  "seat_exists": "constraint",
+  "seat_taken": "constraint",
+  "bag_weight": "constraint",
+  "window_fee": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Flights class to flights.py with add(code, seats, fare), which adds a flight with the given list of seat names and a base fare in cents, seats(code), the seat names in the order given, and fare(code), the base fare; an unknown code raises KeyError. Add tests.\n\nDesign decision for this project: seats whose letter is A or F are window seats; a window seat costs 1500 cents more than the base fare."
+  },
+  {
+   "prompt": "Add a Bookings class to bookings.py. Bookings(flights) works on a Flights, kept as its attribute flights. book(code, name, age, seat) books a seat for a passenger and returns a booking id: an int counter that starts at 1. get(bid) returns the booking as a tuple (code, name, age, seat). An unknown code or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the seat must be one of the flight's seats; any other seat raises ValueError and books nothing.\n\nProject rule (it applies to all later work too): a seat is booked by at most one passenger; booking a taken seat raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add fare(bookings, bid) to fares.py: the fare the passenger pays, in cents. Add tests.\n\nDesign decision for this project: passengers under 12 pay 75% of the base fare, rounded to the nearest cent; the window seat fee is added in full."
+  },
+  {
+   "prompt": "Add Bookings.free_seats(code): the seats of the flight that are not booked, in the order given to Flights.add. Add tests.\n\nThe plan for Bookings.free_seats has one more step: the seats are sorted by row number, then by letter, so \"2A\" comes before \"10A\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Bookings.add_bag(bid, kg), which checks in a bag of kg kg for the booking, and Bookings.bags(bid), the list of its bag weights in order. Add tests.\n\nProject rule (it applies to all later work too): a bag weighs at most 32 kg; a heavier bag raises ValueError and adds nothing.\n\nProject rule (it applies to all later work too): a booking has at most 2 bags; one more raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add bag_fee(bookings, bid) to fares.py: the fee for the booking's bags, in cents. Add tests.\n\nDesign decision for this project: each bag carries 23 kg free; every kg above that in a bag costs 1000 cents."
+  },
+  {
+   "prompt": "Add Bookings.change_seat(bid, seat), which moves the passenger to another seat (the seat rules still apply: a broken rule raises ValueError and changes nothing), and Bookings.changes(bid), the number of seat changes of the booking. Add tests.\n\nDesign decision for this project: each seat change costs a change fee of 5000 cents."
+  },
+  {
+   "prompt": "Add total(bookings, bid) to fares.py: the fare plus the bag fee plus the change fees. Add tests.\n\nChange to an earlier decision (it replaces the old one): each bag carries 20 kg free, not 23."
+  },
+  {
+   "prompt": "Add boarding_pass(bookings, bid) to export.py: a list of two text lines: the passenger name, then \"seat: <seat>\", for example \"seat: 12C\". Add tests.\n\nThe plan for boarding_pass has one more step: the name line is written in capitals, so \"Ann Lee\" is written \"ANN LEE\". Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): every kg above the free weight costs 1500 cents, not 1000."
+  },
+  {
+   "prompt": "Add Bookings.cancel(bid), which removes the booking and frees its seat; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): passengers under 12 pay 50% of the base fare, not 75%."
+  },
+  {
+   "prompt": "Add export_flight(bookings, code, path) to export.py: a CSV file with one row per booking on the flight, in booking order: the seat, the passenger name and the number of bags. Add tests.\n\nThe plan for export_flight has one more step: the rows are sorted by passenger name. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported flight file starts with the header line seat,name,bags and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Bookings.of_flight(code): the booking ids on the flight, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a booking has at most 3 bags, not 2."
+  },
+  {
+   "prompt": "Add manifest(bookings, code) to export.py: the sorted list of passenger names on the flight. Add tests.\n\nChange to an earlier decision (it replaces the old one): each seat change costs 7500 cents, not 5000."
+  },
+  {
+   "prompt": "Add Flights.codes(): the sorted list of flight codes. Add tests.\n\nChange to an earlier decision (it replaces the old one): each bag carries 25 kg free, not 20."
+  },
+  {
+   "prompt": "Add revenue(bookings, code) to fares.py: the sum of total(bookings, bid) over the flight's bookings. Add tests."
+  },
+  {
+   "prompt": "Add Bookings.remove_bag(bid, index), which removes the bag at index (0 is the first). Add tests.\n\nChange to an earlier decision (it replaces the old one): every kg above the free weight costs 1200 cents, not 1500."
+  },
+  {
+   "prompt": "Add Bookings.find(name): the ids of the bookings whose passenger name contains name, ignoring case, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): passengers under 12 pay 60% of the base fare, not 50%."
+  },
+  {
+   "prompt": "Add Bookings.bag_weight(code): the total weight of all bags on the flight. Add tests."
+  },
+  {
+   "prompt": "Add Flights.remove(code), which removes a flight; an unknown code raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): each seat change costs 6000 cents, not 7500."
+  },
+  {
+   "prompt": "Add Bookings.load(code): the number of booked seats on the flight. Add tests."
+  },
+  {
+   "prompt": "Add Bookings.ids(): all booking ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

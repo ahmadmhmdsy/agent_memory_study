@@ -1,0 +1,85 @@
+{
+ "id": "A16",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "signup_bonus": "superseded",
+  "pts_per": "superseded",
+  "reward_cost": "superseded",
+  "gold_at": "superseded",
+  "max_redeem": "superseded",
+  "names_order": "unfinished",
+  "card_tier": "unfinished",
+  "export_order": "unfinished",
+  "name_unique": "constraint",
+  "amount_positive": "constraint",
+  "enough_points": "constraint",
+  "gold_double": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Members class to members.py with add(name), points(name): the member's points balance, add_points(name, n), which adds n points (n may be negative), and names(): the member names in the order they were added. An unknown name raises KeyError. Add tests.\n\nThe plan for Members.names has one more step: the names are sorted alphabetically, ignoring case (as in [\"Ann\", \"bob\", \"Cy\"]). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a name is added only once; adding a name again raises ValueError and changes nothing.\n\nDesign decision for this project: a new member starts with a signup bonus of 50 points."
+  },
+  {
+   "prompt": "Add a Purchases class to purchases.py. Purchases(members) works on a Members, kept as its attribute members. buy(name, cents, day) records a purchase, adds the points it earns to the member, and returns a purchase id: an int counter that starts at 1. get(pid) returns the purchase as a tuple (name, cents, day). An unknown member or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a purchase is at least 1 cent; a smaller amount raises ValueError and records nothing.\n\nDesign decision for this project: a purchase earns 1 point per full 100 cents (599 cents earns 5 points)."
+  },
+  {
+   "prompt": "Add Purchases.of_member(name): the ids of the member's purchases, in id order. Add tests."
+  },
+  {
+   "prompt": "Add Purchases.redeem(name, day), which spends points on a free coffee. Add tests.\n\nDesign decision for this project: a reward costs 100 points.\n\nProject rule (it applies to all later work too): a member without enough points cannot redeem; redeem raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Purchases.spent(name): the cents of the member's purchases added up, and is_gold(purchases, name) to points.py. Add tests.\n\nDesign decision for this project: a member who has spent 100000 cents or more in total is gold."
+  },
+  {
+   "prompt": "Add Purchases.count(): the number of purchases. Add tests.\n\nDesign decision for this project: a purchase by a member who is already gold before it earns double points."
+  },
+  {
+   "prompt": "Add Purchases.redeemed(name): the number of rewards the member has redeemed. Add tests.\n\nDesign decision for this project: a member redeems at most 1 reward per day; another redeem that day raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add card(purchases, name) to export.py: a list of text lines: \"member: <name>\", then \"points: <n>\". Add tests.\n\nThe plan for card has one more step: it ends with the line \"tier: gold\" for a gold member, else \"tier: basic\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Members.remove(name), which removes a member; an unknown name raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a new member starts with a signup bonus of 100 points, not 50."
+  },
+  {
+   "prompt": "Add export_members(purchases, path) to export.py: a CSV file with one row per member, in the order of Members.names: name and points. Add tests.\n\nThe plan for export_members has one more step: the rows are sorted by points, highest first, and by name for the same points. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported members file starts with the header line name,points and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Members.count(): the number of members. Add tests.\n\nChange to an earlier decision (it replaces the old one): a purchase earns 2 points per full 100 cents, not 1."
+  },
+  {
+   "prompt": "Add Purchases.on_day(day): the ids of the purchases made on day, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a reward costs 150 points, not 100."
+  },
+  {
+   "prompt": "Add Purchases.last(): the id of the last purchase, or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): a member is gold after spending 150000 cents or more in total, not 100000."
+  },
+  {
+   "prompt": "Add Purchases.total(): the cents of all purchases added up. Add tests.\n\nChange to an earlier decision (it replaces the old one): a member redeems at most 2 rewards per day, not 1."
+  },
+  {
+   "prompt": "Add Members.richest(): the member with the most points (the first in name order on a tie), or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): a new member starts with a signup bonus of 75 points, not 100."
+  },
+  {
+   "prompt": "Add Purchases.gold_members(): the sorted names of the gold members. Add tests.\n\nChange to an earlier decision (it replaces the old one): a purchase earns 3 points per full 100 cents, not 2."
+  },
+  {
+   "prompt": "Add Purchases.biggest(): the id of the largest purchase (the lowest id on a tie), or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): a reward costs 120 points, not 150."
+  },
+  {
+   "prompt": "Add Purchases.days(): the sorted distinct days with purchases. Add tests.\n\nChange to an earlier decision (it replaces the old one): a member is gold after spending 120000 cents or more in total, not 150000."
+  },
+  {
+   "prompt": "Add Purchases.visits(name): the number of distinct days the member made purchases. Add tests.\n\nChange to an earlier decision (it replaces the old one): a member redeems at most 3 rewards per day, not 2."
+  },
+  {
+   "prompt": "Add Purchases.redeemed_total(): the number of rewards redeemed by all members. Add tests."
+  },
+  {
+   "prompt": "Add Purchases.ids(): all purchase ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

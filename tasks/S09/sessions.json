@@ -1,0 +1,37 @@
+{
+ "id": "S09",
+ "kind": "decision",
+ "module": "cache.py",
+ "sessions": [
+  {
+   "prompt": "Add a Cache class to cache.py with put(key, value) and get(key, default=None). It has no size limit yet. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): when the cache gets a size limit, eviction will be LFU: evict the key whose value was read by get() the fewest times; on a tie, evict the key that was first added earliest.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Cache put/get",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added Cache with put and get, with tests.",
+    "decisions": [
+     "Eviction, when added, is LFU: evict the key read by get() the fewest times; on a tie, evict the key first added earliest."
+    ]
+   }
+  },
+  {
+   "prompt": "Add stats() to Cache: it returns {\"hits\": h, \"misses\": m}, counting get() calls that found or did not find the key. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Cache.stats",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Cache.stats() with tests."
+   }
+  },
+  {
+   "prompt": "Give Cache an optional size limit: Cache(max_items=None). When put() adds a new key and the cache is already full, one key is evicted first. Add tests."
+  }
+ ]
+}

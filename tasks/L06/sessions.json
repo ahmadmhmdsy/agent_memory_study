@@ -1,0 +1,140 @@
+{
+ "id": "L06",
+ "kind": "long",
+ "facts": {
+  "round_2dp": "superseded",
+  "outlier_50": "superseded",
+  "colon_line": "superseded",
+  "parse_f": "unfinished",
+  "hottest_check": "unfinished",
+  "fmt_round": "unfinished",
+  "id_upper": "constraint",
+  "low_limit": "constraint",
+  "no_repeat": "decision",
+  "empty_none": "decision",
+  "window5": "decision",
+  "report_count": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_reading(s) to units.py: a string such as \"21.5C\" becomes the float 21.5 (degrees Celsius). Add tests.\n\nThe plan for parse_reading has one more step: it also accepts an \"F\" suffix and converts Fahrenheit to Celsius (\"212F\" becomes 100.0). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): sensor ids are stored in upper case: a reading added for \"t1\" belongs to sensor \"T1\", and every function that takes a sensor id accepts it in any case.\n\nDesign decision for this project: an average this project reports is rounded to 1 decimal.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_reading",
+      "status": "done"
+     },
+     {
+      "task": "parse_reading: accept \"F\" and convert to Celsius",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_reading(s) with tests. Its last step is left for later: accept an \"F\" suffix and convert to Celsius.",
+    "decisions": [
+     "Sensor ids are stored in upper case; functions accept ids in any case.",
+     "Reported averages are rounded to 1 decimal."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Log class to readings.py with add(sensor, value), which stores a reading (a float, degrees Celsius) for sensor, and values(sensor), which returns that sensor's readings in the order they were added (an empty list for an unknown sensor). Add tests.\n\nDesign decision for this project: a reading above 60 is a sensor fault: add() discards it silently and stores nothing.\n\nProject rule (it applies to all later work too): a reading below -40 is impossible for these sensors: add() raises ValueError and stores nothing.\n\nDesign decision for this project: each line of the summary report has the form SENSOR=VALUE, for example T1=20.5.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.add / Log.values",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Log.add and Log.values with tests.",
+    "decisions": [
+     "A reading above 60 is a fault: add() discards it silently.",
+     "A reading below -40 raises ValueError and is not stored.",
+     "Each summary line has the form SENSOR=VALUE, for example T1=20.5."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Log.sensors() to readings.py: the sorted list of sensor ids that have readings. Add tests.\n\nChange to an earlier decision (it replaces the old one): a reading above 50 (not 60) is a sensor fault: add() discards it silently and stores nothing.\n\nDesign decision for this project: if a reading equals the last reading stored for the same sensor, add() does not store it again.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.sensors",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Log.sensors() with tests.",
+    "decisions": [
+     "Supersedes the 60 limit: a reading above 50 is a fault and is discarded silently.",
+     "A reading equal to the sensor's last stored reading is not stored again."
+    ]
+   }
+  },
+  {
+   "prompt": "Add hottest(log, n) to stats.py: the ids of the n sensors whose latest reading is highest, highest first. Add tests.\n\nThe plan for hottest has one more step: if n is larger than the number of sensors, it raises ValueError. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): an average this project reports is rounded to 2 decimals, not 1.",
+   "given": {
+    "tasks": [
+     {
+      "task": "hottest",
+      "status": "done"
+     },
+     {
+      "task": "hottest: ValueError when n > number of sensors",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added hottest(log, n) with tests. Its last step is left for later: raise ValueError if n is larger than the number of sensors.",
+    "decisions": [
+     "Supersedes the 1-decimal rule: reported averages are rounded to 2 decimals."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_temp(x) to units.py: a float becomes a string with a degree sign (\"21.5\" becomes \"21.5\u00b0C\"). Add tests.\n\nThe plan for fmt_temp has one more step: the value is rounded to 1 decimal first, and a value that rounds to -0.0 is written as \"0.0\u00b0C\" (21.46 becomes \"21.5\u00b0C\", -0.04 becomes \"0.0\u00b0C\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_temp",
+      "status": "done"
+     },
+     {
+      "task": "fmt_temp: round to 1 decimal, -0.0 as 0.0\u00b0C",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added fmt_temp(x) with tests. Its last step is left for later: round to 1 decimal and write -0.0 as 0.0\u00b0C."
+   }
+  },
+  {
+   "prompt": "Add Log.count(sensor) to readings.py: the number of readings stored for sensor. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of the summary report has the form SENSOR: VALUE (a colon and a space), for example T1: 20.5, not SENSOR=VALUE.\n\nDesign decision for this project: the average of a sensor uses only its last 5 readings.\n\nDesign decision for this project: the average of a sensor with no readings is None.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Log.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Log.count(sensor) with tests.",
+    "decisions": [
+     "Supersedes SENSOR=VALUE: each summary line has the form SENSOR: VALUE, for example T1: 20.5.",
+     "The average of a sensor uses only its last 5 readings.",
+     "The average of a sensor with no readings is None."
+    ]
+   }
+  },
+  {
+   "prompt": "Add average(log, sensor) and spread(log, sensor) to stats.py; spread is the highest minus the lowest of all the sensor's readings. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "average / spread",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added average and spread with tests."
+   }
+  },
+  {
+   "prompt": "Add summary(log, path) to report.py: it writes a text file with one line per sensor, in sorted order, giving the sensor's average. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

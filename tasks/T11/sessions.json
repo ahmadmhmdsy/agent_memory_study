@@ -1,0 +1,26 @@
+{
+ "id": "T11",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "min_digits": "superseded",
+  "csv_quote": "unfinished",
+  "phone_digits": "decision",
+  "phone_chars": "constraint",
+  "add_replaces": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Contacts class to contacts.py with add(name, phone), which stores the phone number of name, and phone(name), the stored number (None for a name it does not have). Add tests.\n\nDesign decision for this project: a phone number is stored as digits only: spaces and dashes are removed, so \"050-123 4567\" is stored as \"0501234567\".\n\nProject rule (it applies to all later work too): a number with any character other than digits, spaces and dashes raises ValueError and stores nothing.\n\nDesign decision for this project: adding a name that is already stored replaces its number.\n\nDesign decision for this project: a number needs at least 7 digits: a shorter one raises ValueError and stores nothing."
+  },
+  {
+   "prompt": "Add Contacts.names(), the sorted list of names, and to_csv(contacts) to export.py: a list of lines, first the header \"name,phone\", then one line \"name,phone\" per contact in names() order (for example \"ann,0501234567\"). Add tests.\n\nThe plan for to_csv has one more step: a name that contains a comma is wrapped in double quotes: the line for Lee, Ann with number 123456789 is \"Lee, Ann\",123456789 Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Contacts.remove(name) and Contacts.search(prefix), the sorted list of names that start with prefix, ignoring case. Add tests.\n\nChange to an earlier decision (it replaces the old one): a number needs at least 9 digits, not 7: a shorter one raises ValueError and stores nothing."
+  },
+  {
+   "prompt": "Add Contacts.count(), the number of contacts. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

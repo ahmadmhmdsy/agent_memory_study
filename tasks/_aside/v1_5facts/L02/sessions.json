@@ -1,0 +1,93 @@
+{
+ "id": "L02",
+ "kind": "long",
+ "facts": {
+  "ids": "superseded",
+  "empty_title": "constraint",
+  "sorted": "decision",
+  "minutes": "decision",
+  "slug": "unfinished"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_ts(s) to timeutil.py: it parses a \"YYYY-MM-DD HH:MM:SS\" string into a datetime. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): durations this project reports are whole minutes, as an int, rounded down.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_ts",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added parse_ts(s) with tests.",
+    "decisions": [
+     "Durations are whole minutes, as an int, rounded down."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_ts(dt) to timeutil.py: the inverse of parse_ts. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): event IDs are \"E\" followed by a 4-digit counter that starts at 1 (E0001, E0002, ...).",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_ts",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added fmt_ts(dt) with tests.",
+    "decisions": [
+     "Event IDs are \"E\" plus a 4-digit counter from 1 (E0001, E0002, ...)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add clean_title(s) to text.py: it strips both ends and turns every run of whitespace inside into one space. Add tests.\n\nProject rule (it applies to all later work too): an event title that is empty after clean_title is rejected with ValueError.\n\nDesign decision for this project (nothing implements it yet; record it for later work): listings of events are sorted by start time, then by title.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clean_title",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added clean_title(s) with tests.",
+    "decisions": [
+     "An event title that is empty after clean_title is rejected with ValueError.",
+     "Listings of events are sorted by start time, then by title."
+    ]
+   }
+  },
+  {
+   "prompt": "Add slug(title) to text.py: the title in lower case, with spaces replaced by \"-\". Add tests.\n\nThe plan for slug has one more step: characters other than a-z, 0-9 and \"-\" are dropped. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one; record it for later work): event IDs are \"EVT-\" followed by a 5-digit counter that starts at 1 (EVT-00001, EVT-00002, ...).",
+   "given": {
+    "tasks": [
+     {
+      "task": "slug",
+      "status": "done"
+     },
+     {
+      "task": "slug: drop characters other than a-z, 0-9 and \"-\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added slug(title) with tests. Its last step is left for later: drop characters other than a-z, 0-9 and \"-\".",
+    "decisions": [
+     "Supersedes the E0001 ID decision: event IDs are \"EVT-\" plus a 5-digit counter from 1 (EVT-00001, ...)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Calendar class to events.py. add(title, start, end) stores an event and returns its ID; start and end are \"YYYY-MM-DD HH:MM:SS\" strings, and the title is cleaned with clean_title. events() returns the stored events as a list of dicts with the keys id, title, start and end. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Calendar.add / Calendar.events",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 5 added the Calendar class (add, events) with tests."
+   }
+  },
+  {
+   "prompt": "Add Calendar.duration(event_id) to events.py: the length of that event. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

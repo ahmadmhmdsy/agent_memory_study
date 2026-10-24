@@ -1,0 +1,42 @@
+{
+ "id": "S24",
+ "kind": "unfinished",
+ "module": "wordfreq.py",
+ "sessions": [
+  {
+   "prompt": "Add words(text) to wordfreq.py: the list of words in text, in lower case, where a word is a run of letters. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "words",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added words(text) with tests."
+   }
+  },
+  {
+   "prompt": "Planned word statistics for wordfreq.py:\n(a) counts(text): a dict mapping each word of words(text) to how often it appears.\n(b) top_words(text, n): the n most frequent words, most frequent first, ties A to Z.\n(c) rare_words(text, max_count=1): the words appearing at most max_count times, excluding the stopwords \"the\", \"a\", \"an\", \"and\", \"of\", \"to\", \"in\", sorted A to Z.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) counts(text): a dict mapping each word of words(text) to how often it appears.",
+      "status": "done"
+     },
+     {
+      "task": "(b) top_words(text, n): the n most frequent words, most frequent first, ties A to Z.",
+      "status": "done"
+     },
+     {
+      "task": "(c) rare_words(text, max_count=1): the words appearing at most max_count times, excluding the stopwords \"the\", \"a\", \"an\", \"and\", \"of\", \"to\", \"in\", sorted A to Z.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: rare_words(text, max_count=1): the words appearing at most max_count times, excluding the stopwords \"the\", \"a\", \"an\", \"and\", \"of\", \"to\", \"in\", sorted A to Z."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add unique_count(text) to wordfreq.py: the number of distinct words. Add tests."
+  }
+ ]
+}

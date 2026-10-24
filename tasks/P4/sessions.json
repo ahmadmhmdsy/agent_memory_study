@@ -1,0 +1,36 @@
+{
+ "id": "P4",
+ "kind": "decision",
+ "sessions": [
+  {
+   "prompt": "Add remove(todo_id) and rename(todo_id, title) to TodoList in todo.py; both raise KeyError for an unknown id. Add tests.\n\nDesign decision for this project, agreed today: when persistence is added, it will use JSON Lines, one todo per line as a JSON object, in a file named todos.jsonl. Do not implement persistence yet.",
+   "given": {
+    "decisions": [
+     "Persistence, when added, uses JSON Lines: one todo per line as a JSON object, in a file named todos.jsonl."
+    ],
+    "tasks": [
+     {
+      "task": "remove, rename",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added remove and rename with tests."
+   }
+  },
+  {
+   "prompt": "Add priorities to TodoList: add(title, priority=\"normal\") accepts \"low\", \"normal\" or \"high\" (anything else raises ValueError), and each todo stores its priority. Add by_priority(), which returns the pending todos sorted high, then normal, then low, and by id within a priority. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "priorities, by_priority",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added priorities and by_priority() with tests."
+   }
+  },
+  {
+   "prompt": "Add persistence to TodoList: save(directory) writes the whole list to a file inside that directory, and the classmethod TodoList.load(directory) reads it back into a new TodoList (new todos added after loading must get fresh ids). Add tests."
+  }
+ ]
+}

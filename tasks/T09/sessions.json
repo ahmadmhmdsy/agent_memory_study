@@ -1,0 +1,26 @@
+{
+ "id": "T09",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "row_a_price": "superseded",
+  "four_off": "unfinished",
+  "no_double_seat": "constraint",
+  "seat_exists": "decision",
+  "release_free": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Venue class to seats.py: Venue(rows, per_row) has rows lettered A, B, C, ... and seats numbered from 1 in each row, so Venue(2, 3) has the seats A1, A2, A3, B1, B2, B3. Add reserve(seat, name), which reserves seat for name, and holder(seat), the name holding seat (None for a free seat). Add tests.\n\nProject rule (it applies to all later work too): a seat that is already reserved cannot be reserved again: reserve raises ValueError and changes nothing.\n\nDesign decision for this project: a seat name the venue does not have (for example Z1 or A9 in Venue(2, 3)) raises KeyError in every method that takes a seat."
+  },
+  {
+   "prompt": "Add price(seat) to tickets.py: the price of seat in cents. Add Venue.free_count(), the number of free seats, Venue.seats_of(name), the sorted list of seats name holds, and total(venue, name) to tickets.py: the sum of the prices of the seats name holds. Add tests.\n\nDesign decision for this project: seats in row A cost 4000 cents and all other seats 2500 cents.\n\nThe plan for total has one more step: a buyer holding 4 or more seats gets 10% off the total, rounded down to a whole cent. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Venue.release(seat), which makes seat free again. Add tests.\n\nDesign decision for this project: releasing a seat that is already free does nothing (no error).\n\nChange to an earlier decision (it replaces the old one): seats in row A cost 4500 cents, not 4000; all other seats still cost 2500 cents."
+  },
+  {
+   "prompt": "Add Venue.taken(), the sorted list of reserved seats. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

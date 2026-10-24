@@ -1,0 +1,141 @@
+{
+ "id": "L09",
+ "kind": "long",
+ "facts": {
+  "cup_250": "superseded",
+  "round_quarter": "superseded",
+  "line_format": "superseded",
+  "parse_mixed": "unfinished",
+  "unit_names": "unfinished",
+  "title_small": "unfinished",
+  "positive_qty": "constraint",
+  "name_lower": "constraint",
+  "dup_merge": "decision",
+  "remove_bool": "decision",
+  "max_factor": "decision",
+  "card_serves": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_qty(s) to units.py: a quantity string becomes a float (\"2\" becomes 2.0, \"1/2\" becomes 0.5). Add tests.\n\nThe plan for parse_qty has one more step: it also accepts a mixed number such as \"1 1/2\", which becomes 1.5. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a quantity must be positive: any function given a quantity of zero or less raises ValueError.\n\nDesign decision for this project: a cup is 240 ml in every conversion.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_qty",
+      "status": "done"
+     },
+     {
+      "task": "parse_qty: accept mixed numbers",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_qty(s) with tests. Its last step is left for later: accept a mixed number such as \"1 1/2\".",
+    "decisions": [
+     "A quantity must be positive: a quantity of zero or less raises ValueError in any function.",
+     "A cup is 240 ml in every conversion."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Recipe class to recipe.py: Recipe(name, servings) keeps name and servings as attributes; add(name, qty, unit) adds an ingredient, and items() returns the ingredients as a list of (name, qty, unit) tuples in the order they were added. Add tests.\n\nProject rule (it applies to all later work too): ingredient names are stored in lower case with leading and trailing spaces removed, and every function that takes an ingredient name treats it the same way.\n\nDesign decision for this project: scaled quantities are rounded to 1 decimal place.\n\nDesign decision for this project: each ingredient line of a recipe card has the form 200 g flour.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Recipe.add / Recipe.items",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Recipe(name, servings) with add and items, with tests.",
+    "decisions": [
+     "Ingredient names are stored lower case without outer spaces; every function treats names the same way.",
+     "Scaled quantities are rounded to 1 decimal place.",
+     "A recipe card ingredient line has the form 200 g flour."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Recipe.remove(name) to recipe.py: it removes that ingredient. Add tests.\n\nChange to an earlier decision (it replaces the old one): scaled quantities are rounded to the nearest 0.25, not to 1 decimal place.\n\nDesign decision for this project: adding an ingredient that is already in the recipe with the same unit adds to its quantity; with a different unit it raises ValueError and changes nothing.\n\nDesign decision for this project: Recipe.remove returns True when it removed the ingredient and False when the ingredient was not in the recipe.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Recipe.remove",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Recipe.remove(name) with tests.",
+    "decisions": [
+     "Supersedes 1 decimal place: scaled quantities are rounded to the nearest 0.25.",
+     "Adding an existing ingredient with the same unit adds to its quantity; a different unit raises ValueError and changes nothing.",
+     "Recipe.remove returns True when it removed the ingredient, False when it was not there."
+    ]
+   }
+  },
+  {
+   "prompt": "Add to_ml(qty, unit) to units.py: it converts a quantity in \"ml\", \"tsp\" (5 ml), \"tbsp\" (15 ml) or \"cup\" to millilitres. Add tests.\n\nThe plan for to_ml has one more step: unit names ignore case and a trailing \"s\" (\"Tbsps\" is the same as \"tbsp\"). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a cup is 250 ml in every conversion, not 240.",
+   "given": {
+    "tasks": [
+     {
+      "task": "to_ml",
+      "status": "done"
+     },
+     {
+      "task": "to_ml: ignore case and a trailing s",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added to_ml(qty, unit) with tests. Its last step is left for later: unit names ignore case and a trailing \"s\".",
+    "decisions": [
+     "Supersedes 240 ml: a cup is 250 ml in every conversion."
+    ]
+   }
+  },
+  {
+   "prompt": "Add title(name) to card.py: each word of a recipe name starts with a capital letter (\"chocolate cake\" becomes \"Chocolate Cake\"). Add tests.\n\nThe plan for title has one more step: the small words \"and\", \"of\" and \"with\" stay in lower case unless they are the first word (\"fish and chips\" becomes \"Fish and Chips\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "title",
+      "status": "done"
+     },
+     {
+      "task": "title: small words stay lower case",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added title(name) with tests. Its last step is left for later: \"and\", \"of\", \"with\" stay lower case unless first."
+   }
+  },
+  {
+   "prompt": "Add Recipe.count() to recipe.py: the number of ingredients. Add tests.\n\nChange to an earlier decision (it replaces the old one): each ingredient line of a recipe card has the form flour: 200 g, not 200 g flour.\n\nDesign decision for this project: scaling to fewer than 1 serving or to more than 10 times the recipe's servings raises ValueError.\n\nDesign decision for this project: the first line of a recipe card is the title (from title()) followed by the servings, in the form Pancakes (serves 4).",
+   "given": {
+    "tasks": [
+     {
+      "task": "Recipe.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Recipe.count() with tests.",
+    "decisions": [
+     "Supersedes 200 g flour: a recipe card ingredient line has the form flour: 200 g.",
+     "Scaling to fewer than 1 serving or more than 10 times the servings raises ValueError.",
+     "The first line of a recipe card is the title then the servings: Pancakes (serves 4)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add scale(recipe, servings) to scale.py: it returns a new Recipe with the same name, the new servings, and each quantity multiplied by servings / recipe.servings. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "scale",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added scale(recipe, servings) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_card(recipe, path) to card.py: it writes a text recipe card with a title line and one line per ingredient. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

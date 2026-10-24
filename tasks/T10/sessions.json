@@ -1,0 +1,26 @@
+{
+ "id": "T10",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "urgent_order": "superseded",
+  "all_done": "unfinished",
+  "priority_range": "constraint",
+  "title_nonempty": "constraint",
+  "done_unknown": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a TodoList class to todo.py with add(title, priority), which adds an open item and returns its id (ids are ints counting from 1), done(id), which marks the item done, and open_items(), the titles of the open items in id order. Add tests.\n\nProject rule (it applies to all later work too): priority is 1, 2 or 3: add with any other priority raises ValueError and adds nothing.\n\nProject rule (it applies to all later work too): a title that is empty or only spaces raises ValueError and adds nothing.\n\nDesign decision for this project: priority 1 is the most urgent."
+  },
+  {
+   "prompt": "Add TodoList.done_items(), the titles of the done items in id order, and TodoList.by_priority(), the titles of the open items with the most urgent first; items of equal priority are in id order. Add summary(todo) to view.py: \"N open, M done\", with N the number of open items and M the number of done items (for example \"2 open, 1 done\"). Add tests.\n\nDesign decision for this project: done with an id the list does not have raises KeyError.\n\nThe plan for summary has one more step: when no item is open (an empty list included), the summary is \"all done\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add TodoList.rename(id, title), which changes the title of an item. Add tests.\n\nChange to an earlier decision (it replaces the old one): priority 3 is the most urgent, not 1: by_priority lists priority 3 first, then 2, then 1."
+  },
+  {
+   "prompt": "Add TodoList.remove(id), which deletes an item, open or done. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

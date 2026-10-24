@@ -1,0 +1,141 @@
+{
+ "id": "L07",
+ "kind": "long",
+ "facts": {
+  "pass_60": "superseded",
+  "exam_weight": "superseded",
+  "status_words": "superseded",
+  "parse_pct": "unfinished",
+  "top_skip_empty": "unfinished",
+  "initials_hyphen": "unfinished",
+  "score_range": "constraint",
+  "name_clean": "constraint",
+  "half_up": "constraint",
+  "dup_student": "decision",
+  "export_sorted": "decision",
+  "drop_lowest": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_score(s) to grades.py: a string such as \"17/20\" becomes a percentage as a float (17/20 becomes 85.0). Add tests.\n\nThe plan for parse_score has one more step: it also accepts a percentage string such as \"85%\", which becomes 85.0. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a score is a number from 0 to 100; any function given a score outside that range raises ValueError.\n\nDesign decision for this project: a student passes the course with a final score of 50 or more.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_score",
+      "status": "done"
+     },
+     {
+      "task": "parse_score: accept \"85%\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_score(s) with tests. Its last step is left for later: accept a percentage string such as \"85%\".",
+    "decisions": [
+     "A score is from 0 to 100; any function given a score outside that range raises ValueError.",
+     "A student passes with a final score of 50 or more."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Gradebook class to grades.py with add_student(name), add_score(name, kind, score), where kind is \"hw\" (homework) or \"exam\", and scores(name, kind), which returns that student's scores of that kind in the order they were added. Add tests.\n\nProject rule (it applies to all later work too): student names are cleaned when stored: leading and trailing spaces are removed and runs of spaces inside become one space (\"  Ann   Lee \" is stored as \"Ann Lee\"), and every function that takes a name cleans it the same way.\n\nDesign decision for this project: a final score is 60% the homework average plus 40% the exam score.\n\nDesign decision for this project: the status column of an exported grades file is \"P\" for a pass and \"F\" for a fail.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Gradebook.add_student / add_score / scores",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Gradebook.add_student, add_score and scores with tests.",
+    "decisions": [
+     "Student names are cleaned: outer spaces removed, inner runs of spaces become one; functions clean names the same way.",
+     "A final score is 60% homework average plus 40% exam score.",
+     "The status column of an exported grades file is \"P\" or \"F\"."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Gradebook.students() to grades.py: the sorted list of student names. Add tests.\n\nChange to an earlier decision (it replaces the old one): a final score is 50% the homework average plus 50% the exam score, not 60/40.\n\nDesign decision for this project: adding a student who is already in the gradebook raises ValueError.\n\nDesign decision for this project: rows of an exported grades file are sorted by final score, highest first, with ties sorted by name.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Gradebook.students",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Gradebook.students() with tests.",
+    "decisions": [
+     "Supersedes 60/40: a final score is 50% homework average plus 50% exam score.",
+     "Adding a student who is already in the gradebook raises ValueError.",
+     "Exported grade rows are sorted by final score, highest first, ties by name."
+    ]
+   }
+  },
+  {
+   "prompt": "Add top_homework(book, n) to stats.py: the names of the n students with the highest homework average, highest first. Add tests.\n\nThe plan for top_homework has one more step: students with no homework scores are left out. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a student passes the course with a final score of 60 or more, not 50.",
+   "given": {
+    "tasks": [
+     {
+      "task": "top_homework",
+      "status": "done"
+     },
+     {
+      "task": "top_homework: leave out students with no homework",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added top_homework(book, n) with tests. Its last step is left for later: leave out students with no homework scores.",
+    "decisions": [
+     "Supersedes the pass mark of 50: a student passes with a final score of 60 or more."
+    ]
+   }
+  },
+  {
+   "prompt": "Add initials(name) to roster.py: the upper-case initials of a name (\"ada lovelace\" becomes \"AL\"). Add tests.\n\nThe plan for initials has one more step: each part of a hyphenated name gives an initial too (\"Jean-Luc Picard\" becomes \"JLP\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "initials",
+      "status": "done"
+     },
+     {
+      "task": "initials: hyphenated parts give initials",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added initials(name) with tests. Its last step is left for later: each part of a hyphenated name gives an initial."
+   }
+  },
+  {
+   "prompt": "Add Gradebook.count(name) to grades.py: the number of scores of any kind stored for that student. Add tests.\n\nChange to an earlier decision (it replaces the old one): the status column of an exported grades file is \"pass\" or \"fail\", not \"P\" or \"F\".\n\nDesign decision for this project: when a student has 3 or more homework scores, the lowest one is left out of the homework average.\n\nProject rule (it applies to all later work too): a final score is rounded to a whole number (an int), half-up: 82.5 becomes 83.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Gradebook.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Gradebook.count(name) with tests.",
+    "decisions": [
+     "Supersedes \"P\"/\"F\": the status column is \"pass\" or \"fail\".",
+     "With 3 or more homework scores, the lowest is left out of the homework average.",
+     "A final score is rounded to a whole number (an int), half-up."
+    ]
+   }
+  },
+  {
+   "prompt": "Add final_score(book, name) and passed(book, name) to stats.py. The exam score used is the student's last exam score. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "final_score / passed",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added final_score and passed with tests."
+   }
+  },
+  {
+   "prompt": "Add export_grades(book, path) to export.py: it writes a CSV file with one row per student and the columns name, final score and status. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

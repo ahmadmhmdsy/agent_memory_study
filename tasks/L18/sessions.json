@@ -1,0 +1,141 @@
+{
+ "id": "L18",
+ "kind": "long",
+ "facts": {
+  "code_7": "superseded",
+  "expire_90": "superseded",
+  "report_line": "superseded",
+  "normalize_host": "unfinished",
+  "stats_day": "unfinished",
+  "strip_www": "unfinished",
+  "scheme_check": "constraint",
+  "same_url": "constraint",
+  "alias_rules": "decision",
+  "no_confusable": "decision",
+  "report_order": "decision",
+  "report_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add normalize(url) to urls.py: a URL without a scheme gets \"https://\" in front (\"example.com/a\" becomes \"https://example.com/a\"); other URLs are returned unchanged. Add tests.\n\nThe plan for normalize has one more step: the host is made lower case and a trailing \"/\" is removed (\"https://Example.COM/a/\" becomes \"https://example.com/a\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): only http and https URLs are allowed: any function given a URL with another scheme (such as \"ftp://\") raises ValueError.\n\nDesign decision for this project: short codes are 6 characters long, letters and digits chosen at random.",
+   "given": {
+    "tasks": [
+     {
+      "task": "normalize",
+      "status": "done"
+     },
+     {
+      "task": "normalize: lower-case host, drop trailing /",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added normalize(url) with tests. Its last step is left for later: lower-case host and no trailing \"/\".",
+    "decisions": [
+     "Only http and https URLs are allowed; another scheme raises ValueError in any function.",
+     "Short codes are 6 random letters and digits."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Shortener class to store.py: shorten(url, today) stores normalize(url) under a new short code and returns the code, and expand(code, today) returns the stored URL and records one click on that day, or returns None (recording no click) when the code is unknown or expired. Days are datetime.date. Add tests.\n\nProject rule (it applies to all later work too): shortening a URL that is already stored returns its existing code instead of a new one.\n\nDesign decision for this project: a link expires 30 days after the day it was shortened: from that day on, expand returns None.\n\nDesign decision for this project: each line of a link report has the form abc123 https://example.com/a 3 (the code, the URL, the clicks).",
+   "given": {
+    "tasks": [
+     {
+      "task": "Shortener.shorten / expand",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Shortener.shorten and expand with tests.",
+    "decisions": [
+     "Shortening a URL that is already stored returns its existing code.",
+     "A link expires 30 days after it was shortened; from then expand returns None.",
+     "A report line has the form abc123 https://example.com/a 3."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Shortener.delete(code) to store.py: afterwards expand returns None for that code. Add tests.\n\nChange to an earlier decision (it replaces the old one): a link expires 90 days after the day it was shortened, not 30.\n\nDesign decision for this project: shorten takes an optional alias that is used as the code; an alias must be 3 to 20 letters, digits or hyphens, and an alias that is invalid or already used raises ValueError.\n\nDesign decision for this project: generated codes never contain the characters 0, O, 1, l or I.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Shortener.delete",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Shortener.delete with tests.",
+    "decisions": [
+     "Supersedes 30 days: a link expires 90 days after it was shortened.",
+     "shorten takes an optional alias: 3-20 letters, digits or hyphens; invalid or used raises ValueError.",
+     "Generated codes never contain 0, O, 1, l or I."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Shortener.stats(code) to store.py: the total number of clicks on that code. Add tests.\n\nThe plan for Shortener.stats has one more step: it takes an optional day and then counts only the clicks on that day. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): short codes are 7 characters long, not 6.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Shortener.stats",
+      "status": "done"
+     },
+     {
+      "task": "Shortener.stats: optional day",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added Shortener.stats(code) with tests. Its last step is left for later: an optional day.",
+    "decisions": [
+     "Supersedes 6: short codes are 7 characters long."
+    ]
+   }
+  },
+  {
+   "prompt": "Add domain_of(url) to urls.py: the host of the URL (\"https://example.com/a\" gives \"example.com\"). Add tests.\n\nThe plan for domain_of has one more step: a leading \"www.\" is removed (\"https://www.example.com\" gives \"example.com\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "domain_of",
+      "status": "done"
+     },
+     {
+      "task": "domain_of: remove www.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added domain_of(url) with tests. Its last step is left for later: remove a leading www."
+   }
+  },
+  {
+   "prompt": "Add Shortener.count(today) to store.py: the number of links that are neither expired nor deleted on that day. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of a link report has the form abc1234 | 3 clicks | https://example.com/a, not abc123 https://example.com/a 3.\n\nDesign decision for this project: a link report lists the links by clicks, most first.\n\nDesign decision for this project: the first line of a link report is the number of links, in the form Links: 3.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Shortener.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Shortener.count(today) with tests.",
+    "decisions": [
+     "Supersedes abc123 https://example.com/a 3: a report line has the form abc1234 | 3 clicks | https://example.com/a.",
+     "A report lists links by clicks, most first.",
+     "The first report line is Links: 3."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Shortener.by_domain() to store.py: a dict from each domain (as given by domain_of) to the number of stored links for it. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Shortener.by_domain",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added Shortener.by_domain() with tests."
+   }
+  },
+  {
+   "prompt": "Add write_report(shortener, path) to report.py: it writes a text report with one line per stored link. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

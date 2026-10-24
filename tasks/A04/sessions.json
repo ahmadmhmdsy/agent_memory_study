@@ -1,0 +1,86 @@
+{
+ "id": "A04",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "slot_len": "superseded",
+  "last_start": "superseded",
+  "filling_fee": "superseded",
+  "kid_age": "superseded",
+  "no_show_fee": "superseded",
+  "name_spaces": "unfinished",
+  "agenda_kind": "unfinished",
+  "export_hhmm": "unfinished",
+  "no_overlap": "constraint",
+  "kind_valid": "constraint",
+  "open_8": "constraint",
+  "name_required": "constraint",
+  "kid_noshow": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Patients class to patients.py with register(name, age), which registers a patient and returns a patient id (an int counter that starts at 1), name(pid) and age(pid); an unknown id raises KeyError. Add tests.\n\nThe plan for Patients.register has one more step: runs of spaces inside a name are collapsed to one space, so \"Ann   Lee\" is stored as \"Ann Lee\". Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a patient name that is empty or only spaces raises ValueError and registers nothing; names are stored without surrounding spaces."
+  },
+  {
+   "prompt": "Add a Schedule class to schedule.py. Schedule(patients) works on a Patients, kept as its attribute patients. book(pid, day, start, kind) books an appointment and returns an appointment id: an int counter that starts at 1. An unknown patient raises KeyError and books nothing. Add tests.\n\nProject rule (it applies to all later work too): an appointment kind is one of \"checkup\", \"filling\" or \"cleaning\"; any other kind raises ValueError and books nothing.\n\nDesign decision for this project: every appointment lasts 30 minutes."
+  },
+  {
+   "prompt": "Add Schedule.get(aid), which returns the appointment as a tuple (pid, day, start, kind), and Schedule.end(aid), the minute the appointment ends; an unknown id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): an appointment starts at or after 8:00 (480) and before 17:00 (1020); any other start raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add Schedule.day(day): the ids of the appointments on day, sorted by start. Add tests.\n\nProject rule (it applies to all later work too): the clinic has one chair, so two appointments on the same day never overlap: a booking that starts before another appointment ends and ends after it starts raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add fee(schedule, aid) to fees.py: the fee of the appointment in cents. Add tests.\n\nDesign decision for this project: a checkup costs 5000 cents, a filling 12000 cents and a cleaning 8000 cents."
+  },
+  {
+   "prompt": "Add Schedule.mark(aid, status), where status is \"done\" or \"missed\" (anything else raises ValueError), and Schedule.status(aid), which is \"open\" until the appointment is marked. From now on fee(schedule, aid) is the kind's fee for a done appointment, the no-show fee for a missed one, and 0 for an open one. Add tests.\n\nDesign decision for this project: the no-show fee is 2000 cents."
+  },
+  {
+   "prompt": "Add Patients.find(text): the ids of the patients whose name contains text, ignoring case, in id order. Add tests.\n\nDesign decision for this project: patients under 12 pay half the fee of a done appointment, rounded to the nearest cent; the no-show fee is the same for every patient."
+  },
+  {
+   "prompt": "Add agenda(schedule, day) to export.py: one text line per appointment on day, sorted by start: the start as HH:MM, a space and the patient name, for example \"09:00 Ann Lee\". Add tests.\n\nThe plan for agenda has one more step: each line ends with a space and the kind in brackets, for example \"09:00 Ann Lee (checkup)\". Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): every appointment lasts 20 minutes, not 30."
+  },
+  {
+   "prompt": "Add Schedule.cancel(aid), which removes the appointment; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a filling costs 13500 cents, not 12000."
+  },
+  {
+   "prompt": "Add export_day(schedule, day, path) to export.py: a CSV file with one row per appointment on day, sorted by start (start, patient name, kind), with the start in minutes. Add tests.\n\nThe plan for export_day has one more step: the start is written as HH:MM (for example 09:00) instead of minutes. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported day file starts with the header line start,patient,kind and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add bill(schedule, pid) to fees.py: the sum of the fees of the patient's appointments. Add tests.\n\nChange to an earlier decision (it replaces the old one): an appointment starts before 16:00 (960), not 17:00."
+  },
+  {
+   "prompt": "Add Schedule.of_patient(pid): the ids of the patient's appointments in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): patients under 16 pay half, not patients under 12."
+  },
+  {
+   "prompt": "Add Schedule.count(day): the number of appointments on day. Add tests.\n\nChange to an earlier decision (it replaces the old one): the no-show fee is 2500 cents, not 2000."
+  },
+  {
+   "prompt": "Add Schedule.move(aid, day, start), which moves an appointment; the booking rules still apply, and a broken rule raises ValueError and changes nothing. Add tests.\n\nChange to an earlier decision (it replaces the old one): every appointment lasts 45 minutes, not 20."
+  },
+  {
+   "prompt": "Add revenue(schedule, day) to fees.py: the sum of the fees of the appointments on day. Add tests."
+  },
+  {
+   "prompt": "Add Schedule.missed(pid): the number of missed appointments of the patient. Add tests.\n\nChange to an earlier decision (it replaces the old one): a filling costs 12500 cents, not 13500."
+  },
+  {
+   "prompt": "Add Patients.rename(pid, name), which changes a patient's name; the name rules still apply. Add tests."
+  },
+  {
+   "prompt": "Add busiest_day(schedule) to fees.py: the day with the most appointments, the earliest one on a tie, or None when there are none. Add tests.\n\nChange to an earlier decision (it replaces the old one): an appointment starts before 18:00 (1080), not 16:00."
+  },
+  {
+   "prompt": "Add Schedule.kinds(day): a dict that maps each kind to the number of appointments of that kind on day. Add tests.\n\nChange to an earlier decision (it replaces the old one): patients under 14 pay half, not patients under 16."
+  },
+  {
+   "prompt": "Add Schedule.first(day): the id of the earliest appointment on day, or None when there is none. Add tests."
+  },
+  {
+   "prompt": "Add Schedule.open_ids(): the ids of the open appointments in id order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

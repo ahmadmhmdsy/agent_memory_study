@@ -1,0 +1,37 @@
+{
+ "id": "S14",
+ "kind": "decision",
+ "module": "tickets.py",
+ "sessions": [
+  {
+   "prompt": "Add count() to TicketBook in tickets.py: the number of tickets. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): ticket ids are strings made of \"T\" and a 4-digit number, starting at \"T0001\", then \"T0002\", and so on.",
+   "given": {
+    "tasks": [
+     {
+      "task": "TicketBook.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added TicketBook.count() with tests.",
+    "decisions": [
+     "Ticket ids are strings of \"T\" and a 4-digit number: \"T0001\", then \"T0002\", and so on."
+    ]
+   }
+  },
+  {
+   "prompt": "Add close(ticket_id) and open_titles() to TicketBook: close marks that ticket as not open; open_titles returns the titles of the open tickets in insertion order. Add tests (they can fill self.tickets directly).",
+   "given": {
+    "tasks": [
+     {
+      "task": "close, open_titles",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added close(ticket_id) and open_titles() with tests."
+   }
+  },
+  {
+   "prompt": "Add add(title) to TicketBook: it stores a new open ticket and returns its id. Add tests."
+  }
+ ]
+}

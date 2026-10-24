@@ -1,0 +1,26 @@
+{
+ "id": "T13",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "win_points": "superseded",
+  "gd_tiebreak": "unfinished",
+  "no_self": "constraint",
+  "goals_nonneg": "constraint",
+  "rematch_replace": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a League class to league.py with record(home, away, home_goals, away_goals), which records a match result, and points(team), the points of team over all its matches (0 for a team with none). Add tests.\n\nProject rule (it applies to all later work too): a team cannot play itself: record with home equal to away raises ValueError and records nothing.\n\nProject rule (it applies to all later work too): goals are ints of 0 or more: anything else raises ValueError and records nothing.\n\nDesign decision for this project: a win is worth 2 points, a draw 1 and a loss 0."
+  },
+  {
+   "prompt": "Add League.teams(), the sorted list of every team that has played, and standings(league) to table.py: the list of team names ordered by points, most first, and by name when points are equal. Add tests.\n\nThe plan for standings has one more step: between teams with equal points, the one with the larger goal difference (goals scored minus goals let in) comes first; the name decides only when goal difference is equal too. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add League.played(team), the number of matches team has played. Add tests.\n\nDesign decision for this project: recording a match with the same home and away teams as an earlier one replaces the earlier result.\n\nChange to an earlier decision (it replaces the old one): a win is worth 3 points, not 2; a draw is still 1."
+  },
+  {
+   "prompt": "Add League.goals_for(team), the goals team has scored over all its matches. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

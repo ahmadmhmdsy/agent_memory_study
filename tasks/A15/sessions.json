@@ -1,0 +1,85 @@
+{
+ "id": "A15",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "deductible": "superseded",
+  "payout_pct": "superseded",
+  "claim_window": "superseded",
+  "max_claims": "superseded",
+  "cap": "superseded",
+  "numbers_order": "unfinished",
+  "summary_days": "unfinished",
+  "export_order": "unfinished",
+  "kind_known": "constraint",
+  "amount_positive": "constraint",
+  "incident_first": "constraint",
+  "denied_zero": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Policies class to policies.py with add(number, holder, kind), holder(number), kind(number), and numbers(): the policy numbers in the order they were added. An unknown number raises KeyError. Add tests.\n\nThe plan for Policies.numbers has one more step: the numbers are sorted by holder name, and by number for the same holder. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): the kind is \"car\" or \"home\"; any other kind raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add a Claims class to claims.py. Claims(policies) works on a Policies, kept as its attribute policies. file(number, amount, incident, filed) files a claim and returns a claim id: an int counter that starts at 1; amount is the claimed amount, incident the day of the incident and filed the day the claim was filed. get(cid) returns the claim as a tuple (number, amount, incident, filed). An unknown policy number or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the amount is at least 1 cent; a smaller amount raises ValueError and files nothing.\n\nProject rule (it applies to all later work too): the incident day is never after the filed day (the same day is fine); a later incident raises ValueError and files nothing."
+  },
+  {
+   "prompt": "Add payout(claims, cid) to payout.py: the amount minus the deductible, never below 0, times the payout percentage, rounded to the nearest cent. Add tests.\n\nDesign decision for this project: the deductible is 50000 cents.\n\nDesign decision for this project: the payout percentage is 80%."
+  },
+  {
+   "prompt": "Add Claims.of_policy(number): the ids of the policy's claims, in id order. Add tests.\n\nDesign decision for this project: a claim is filed at most 30 days after the incident; a later filing raises ValueError and files nothing."
+  },
+  {
+   "prompt": "Add total_paid(claims) to payout.py: the payouts of all claims added up. Add tests.\n\nDesign decision for this project: a payout is never more than 1000000 cents; a larger payout is cut to 1000000."
+  },
+  {
+   "prompt": "Add Claims.deny(cid), which denies a claim, and Claims.is_denied(cid). Add tests.\n\nDesign decision for this project: a denied claim pays 0."
+  },
+  {
+   "prompt": "Add Claims.denied_ids(): the ids of the denied claims, in id order. Add tests.\n\nDesign decision for this project: a policy has at most 3 claims, denied ones included; another claim raises ValueError and files nothing."
+  },
+  {
+   "prompt": "Add summary(claims, cid) to export.py: a list of text lines: \"claim: <id>\", then \"payout: <cents>\". Add tests.\n\nThe plan for summary has one more step: it ends with the line \"days: <n>\", the number of days from the incident to the filed day (for example \"days: 3\"). Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Policies.remove(number), which removes a policy; an unknown number raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the deductible is 25000 cents, not 50000."
+  },
+  {
+   "prompt": "Add export_claims(claims, path) to export.py: a CSV file with one row per claim, in id order: id, number and payout. Add tests.\n\nThe plan for export_claims has one more step: the rows are sorted by filed day, and by id for the same day. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported claims file starts with the header line id,number,payout and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Policies.count(): the number of policies. Add tests.\n\nChange to an earlier decision (it replaces the old one): the payout percentage is 70%, not 80%."
+  },
+  {
+   "prompt": "Add Claims.filed_on(day): the ids of the claims filed on day, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a claim is filed at most 60 days after the incident, not 30."
+  },
+  {
+   "prompt": "Add Claims.amount_total(number): the claimed amounts of the policy's claims added up. Add tests.\n\nChange to an earlier decision (it replaces the old one): a payout is never more than 500000 cents, not 1000000."
+  },
+  {
+   "prompt": "Add Policies.of_holder(holder): the holder's policy numbers, sorted. Add tests.\n\nChange to an earlier decision (it replaces the old one): a policy has at most 2 claims, not 3."
+  },
+  {
+   "prompt": "Add Claims.count(): the number of claims. Add tests."
+  },
+  {
+   "prompt": "Add Claims.last(): the id of the last claim filed, or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): the deductible is 30000 cents, not 25000."
+  },
+  {
+   "prompt": "Add Policies.of_kind(kind): the numbers of the policies of that kind, sorted. Add tests.\n\nChange to an earlier decision (it replaces the old one): the payout percentage is 75%, not 70%."
+  },
+  {
+   "prompt": "Add Claims.open_ids(): the ids of the claims that are not denied, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a claim is filed at most 45 days after the incident, not 60."
+  },
+  {
+   "prompt": "Add Claims.largest(): the id of the claim with the largest amount (the lowest id on a tie), or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): a payout is never more than 800000 cents, not 500000."
+  },
+  {
+   "prompt": "Add Claims.since(day): the ids of the claims filed on or after day, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a policy has at most 4 claims, not 2."
+  },
+  {
+   "prompt": "Add Claims.ids(): all claim ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

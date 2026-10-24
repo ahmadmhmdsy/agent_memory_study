@@ -1,0 +1,37 @@
+{
+ "id": "S05",
+ "kind": "constraint",
+ "module": "rates.py",
+ "sessions": [
+  {
+   "prompt": "Add total(lines) to rates.py: lines is a list of dicts with \"price\" and \"qty\"; it returns the sum of price * qty. Add tests.\n\nProject rule, which applies to all work on this project from now on: every rate or percentage that a function in this project returns is a fraction between 0 and 1 (15% is 0.15, never 15), rounded to 4 decimal places.",
+   "given": {
+    "tasks": [
+     {
+      "task": "total",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added total(lines) with tests.",
+    "decisions": [
+     "Every rate or percentage a function returns is a fraction from 0 to 1 (15% is 0.15, never 15), rounded to 4 decimal places."
+    ]
+   }
+  },
+  {
+   "prompt": "Add count_items(lines) to rates.py: the sum of all \"qty\" values. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "count_items",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added count_items(lines) with tests."
+   }
+  },
+  {
+   "prompt": "Add two functions to rates.py and test them:\n- discount_rate(order_total): the discount for an order: 10% from 200 up, 5% from 100 up, otherwise none.\n- growth(old, new): the growth from old to new as a percentage."
+  }
+ ]
+}

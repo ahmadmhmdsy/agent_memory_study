@@ -1,0 +1,141 @@
+{
+ "id": "L17",
+ "kind": "long",
+ "facts": {
+  "wrong_2": "superseded",
+  "pass_60": "superseded",
+  "result_line": "superseded",
+  "parse_forms": "unfinished",
+  "ranking_ties": "unfinished",
+  "half_up": "unfinished",
+  "answer_letters": "constraint",
+  "once_only": "constraint",
+  "unanswered_wrong": "decision",
+  "floor_zero": "decision",
+  "results_order": "decision",
+  "results_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_answer(s) to questions.py: an answer letter such as \"b\" becomes upper case (\"B\"). Add tests.\n\nThe plan for parse_answer has one more step: it also accepts a number from 1 to 4 (\"2\" is \"B\") and a letter in brackets (\"(c)\" is \"C\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): answers are the letters A to D: any function given another answer raises ValueError.\n\nDesign decision for this project: a wrong answer costs 1 point.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_answer",
+      "status": "done"
+     },
+     {
+      "task": "parse_answer: accept 1-4 and (c)",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_answer(s) with tests. Its last step is left for later: accept 1-4 and a letter in brackets.",
+    "decisions": [
+     "Answers are the letters A to D; another answer raises ValueError in any function.",
+     "A wrong answer costs 1 point."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Quiz class to quiz.py: Quiz(title), add_question(text, correct) adds a question with its correct letter and returns its number (1, 2, 3 and so on), answer(name, number, letter) records a player's answer, and score(name) returns the player's points: 4 for each correct answer. Add tests.\n\nProject rule (it applies to all later work too): a player answers each question at most once: a second answer to the same question raises ValueError and keeps the first.\n\nDesign decision for this project: the pass mark is 50%.\n\nDesign decision for this project: each line of a results file has the form ann 75%.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Quiz / add_question / answer / score",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Quiz, add_question, answer and score with tests; a correct answer is 4 points.",
+    "decisions": [
+     "A player answers each question at most once; a second answer raises ValueError and keeps the first.",
+     "The pass mark is 50%.",
+     "A results line has the form ann 75%."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Quiz.percent(name) to quiz.py: the player's score as a percent of the maximum (4 points per question). Add tests.\n\nChange to an earlier decision (it replaces the old one): the pass mark is 60%, not 50%.\n\nDesign decision for this project: a question the player did not answer counts as a wrong answer.\n\nDesign decision for this project: a negative score counts as 0%.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Quiz.percent",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Quiz.percent(name) with tests.",
+    "decisions": [
+     "Supersedes 50%: the pass mark is 60%.",
+     "An unanswered question counts as a wrong answer.",
+     "A negative score counts as 0%."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Quiz.ranking() to quiz.py: the player names, highest score first. Add tests.\n\nThe plan for Quiz.ranking has one more step: players with the same score are sorted by name. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a wrong answer costs 2 points, not 1.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Quiz.ranking",
+      "status": "done"
+     },
+     {
+      "task": "Quiz.ranking: ties by name",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added Quiz.ranking() with tests. Its last step is left for later: ties sorted by name.",
+    "decisions": [
+     "Supersedes 1 point: a wrong answer costs 2 points."
+    ]
+   }
+  },
+  {
+   "prompt": "Add grade(percent) to grading.py: \"A\" from 90%, \"B\" from 75%, \"C\" from the pass mark, and \"F\" below the pass mark. Add tests.\n\nThe plan for grade has one more step: the percent is first rounded half up to a whole number (89.5 is an A). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "grade",
+      "status": "done"
+     },
+     {
+      "task": "grade: round half up first",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added grade(percent) with tests. Its last step is left for later: round the percent half up first."
+   }
+  },
+  {
+   "prompt": "Add Quiz.players() to quiz.py: the sorted player names. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of a results file has the form 75% - ann, not ann 75%.\n\nDesign decision for this project: a results file lists the players by name.\n\nDesign decision for this project: the first line of a results file is the title and question count, in the form Quiz: Capitals (4 questions).",
+   "given": {
+    "tasks": [
+     {
+      "task": "Quiz.players",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Quiz.players() with tests.",
+    "decisions": [
+     "Supersedes ann 75%: a results line has the form 75% - ann.",
+     "A results file lists the players by name.",
+     "The first results line is Quiz: Capitals (4 questions)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Quiz.passed(name) to quiz.py: True when the player's percent reaches the pass mark. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Quiz.passed",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added Quiz.passed(name) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_results(quiz, path) to results.py: it writes a text results file with one line per player. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

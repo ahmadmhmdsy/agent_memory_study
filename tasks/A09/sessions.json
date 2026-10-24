@@ -1,0 +1,85 @@
+{
+ "id": "A09",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "dog_rate": "superseded",
+  "cat_rate": "superseded",
+  "large_kg": "superseded",
+  "meds_fee": "superseded",
+  "max_nights": "superseded",
+  "names_order": "unfinished",
+  "invoice_total": "unfinished",
+  "export_order": "unfinished",
+  "species": "constraint",
+  "name_unique": "constraint",
+  "one_stay": "constraint",
+  "large_pct": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Pets class to pets.py with add(name, species, kg), which adds a pet with its weight in kg, species(name), kg(name), and names(): the pet names in the order they were added. An unknown name raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the species is \"dog\" or \"cat\"; any other species raises ValueError and adds nothing.\n\nProject rule (it applies to all later work too): pet names are unique; adding a name that is already there raises ValueError and changes nothing.\n\nThe plan for Pets.names has one more step: the names are sorted alphabetically. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add a Stays class to stays.py. Stays(pets) works on a Pets, kept as its attribute pets. book(pet, checkin, nights, meds=False) books a stay and returns a stay id: an int counter that starts at 1; meds says whether the pet needs medicine during the stay. get(sid) returns the stay as a tuple (pet, checkin, nights, meds). An unknown pet or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a stay covers the nights from its check-in day up to the day before check-in plus nights; two stays of the same pet must not share a night. A booking that would raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add Stays.checkout(sid): the check-in day plus the nights. Add tests.\n\nProject rule (it applies to all later work too): a stay is at most 30 nights; a longer one raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add price(stays, sid) to pricing.py: the price of a stay in cents: the nightly rate times the nights. Add tests.\n\nDesign decision for this project: dogs cost 3000 cents a night and cats 2000 cents a night."
+  },
+  {
+   "prompt": "Add Stays.of_pet(pet): the ids of the pet's stays, in id order. Add tests.\n\nDesign decision for this project: a dog heavier than 25 kg is a large dog; a large dog's nightly rate is 50% more than the dog rate, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add invoice(stays, sid) to export.py: a list of text lines: \"pet: <name>\", then \"nights: <n>\". Add tests.\n\nThe plan for invoice has one more step: it ends with the line \"total: <cents>\", the price of the stay (for example \"total: 6400\"). Do not do that step now; leave it for a later session.\n\nDesign decision for this project: a stay with meds also pays a meds fee of 300 cents a night."
+  },
+  {
+   "prompt": "Add Stays.on_night(day): the ids of the stays that cover the night of day, in id order. Add tests."
+  },
+  {
+   "prompt": "Add export_stays(stays, path) to export.py: a CSV file with one row per stay, in id order: pet, check-in day (ISO) and nights. Add tests.\n\nThe plan for export_stays has one more step: the rows are sorted by check-in day, and by pet name for the same day. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported stays file starts with the header line pet,checkin,nights and uses \",\" as the delimiter.\n\nChange to an earlier decision (it replaces the old one): dogs cost 3500 cents a night, not 3000."
+  },
+  {
+   "prompt": "Add Pets.remove(name), which removes a pet; an unknown name raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a dog is large when it is heavier than 30 kg, not 25."
+  },
+  {
+   "prompt": "Add Stays.cancel(sid), which removes a stay; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the meds fee is 500 cents a night, not 300."
+  },
+  {
+   "prompt": "Add revenue(stays) to pricing.py: the sum of the prices of all stays. Add tests.\n\nChange to an earlier decision (it replaces the old one): a stay is at most 21 nights, not 30."
+  },
+  {
+   "prompt": "Add Pets.dogs(): the sorted names of the dogs. Add tests.\n\nChange to an earlier decision (it replaces the old one): cats cost 2400 cents a night, not 2000."
+  },
+  {
+   "prompt": "Add Stays.occupancy(day): the number of stays that cover the night of day. Add tests.\n\nChange to an earlier decision (it replaces the old one): dogs cost 3200 cents a night, not 3500."
+  },
+  {
+   "prompt": "Add Stays.ids(): all stay ids in order. Add tests."
+  },
+  {
+   "prompt": "Add Pets.set_kg(name, kg), which changes a pet's weight. Add tests.\n\nChange to an earlier decision (it replaces the old one): a dog is large when it is heavier than 20 kg, not 30."
+  },
+  {
+   "prompt": "Add Stays.extend(sid, n), which adds n nights to a stay; the stay rules still apply (a broken rule raises ValueError and changes nothing). Add tests.\n\nChange to an earlier decision (it replaces the old one): the meds fee is 400 cents a night, not 500."
+  },
+  {
+   "prompt": "Add Stays.nights_total(pet): the nights of all the pet's stays added up. Add tests."
+  },
+  {
+   "prompt": "Add Pets.count(): the number of pets. Add tests.\n\nChange to an earlier decision (it replaces the old one): a stay is at most 28 nights, not 21."
+  },
+  {
+   "prompt": "Add Stays.pets_on(day): the sorted names of the pets staying the night of day. Add tests."
+  },
+  {
+   "prompt": "Add Pets.cats(): the sorted names of the cats. Add tests."
+  },
+  {
+   "prompt": "Add Stays.count(): the number of stays. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "id": "A10",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "herb_days": "superseded",
+  "cactus_days": "superseded",
+  "fern_days": "superseded",
+  "feed_days": "superseded",
+  "alarm_temp": "superseded",
+  "due_order": "unfinished",
+  "label_caps": "unfinished",
+  "export_order": "unfinished",
+  "kind": "constraint",
+  "water_order": "constraint",
+  "feed_on_water": "constraint",
+  "never_watered": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Plants class to plants.py with add(name, kind, day), which adds a plant on day, kind(name), added(name), the day it was added, and names(): the plant names in the order they were added. An unknown name raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the kind is \"herb\", \"cactus\" or \"fern\"; any other kind raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add a Care class to care.py. Care(plants) works on a Plants, kept as its attribute plants. water(name, day) records a watering; waterings(name) is the list of its watering days in the order recorded. An unknown plant raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a watering is never on a day before the plant's last watering (the same day is fine); an earlier day raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add next_water(care, name) to schedule.py: the day the plant needs water next: its last watering day plus the watering interval of its kind. Add tests.\n\nDesign decision for this project: herbs are watered every 2 days, cacti every 14 days and ferns every 4 days.\n\nDesign decision for this project: a plant that was never watered is due on the day it was added."
+  },
+  {
+   "prompt": "Add Care.feed(name, day), which records a feeding, and Care.feedings(name), the list of its feeding days in order. Add tests.\n\nProject rule (it applies to all later work too): a plant can only be fed on a day it was watered; feeding it on any other day raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add next_feed(care, name) to schedule.py: the last feeding day plus the feeding interval; a plant that was never fed is due on the day it was added. Add tests.\n\nDesign decision for this project: every plant is fed every 30 days."
+  },
+  {
+   "prompt": "Add due(care, day) to schedule.py: the names of the plants whose next watering day is on or before day, in the order the plants were added. Add tests.\n\nThe plan for due has one more step: the names are sorted by next watering day, and by name for the same day. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add alarm(temp) to schedule.py: True when the greenhouse temperature temp (whole \u00b0C) is too cold. Add tests.\n\nDesign decision for this project: the alarm sounds below 5 \u00b0C."
+  },
+  {
+   "prompt": "Add label(plants, name) to export.py: the text \"<name> (<kind>)\", for example \"Basil (herb)\". Add tests.\n\nThe plan for label has one more step: the kind is written in capitals, as in \"Basil (HERB)\". Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): herbs are watered every 3 days, not 2."
+  },
+  {
+   "prompt": "Add Plants.remove(name), which removes a plant; an unknown name raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): cacti are watered every 10 days, not 14."
+  },
+  {
+   "prompt": "Add export_plan(care, path) to export.py: a CSV file with one row per plant, in the order the plants were added: name, kind and next watering day (ISO). Add tests.\n\nThe plan for export_plan has one more step: the rows are sorted by plant name. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported plan file starts with the header line plant,kind,next and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Care.last_watered(name): the last watering day, or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): ferns are watered every 3 days, not 4."
+  },
+  {
+   "prompt": "Add Plants.of_kind(kind): the sorted names of the plants of that kind. Add tests.\n\nChange to an earlier decision (it replaces the old one): every plant is fed every 21 days, not 30."
+  },
+  {
+   "prompt": "Add Care.count(name): the number of waterings of the plant. Add tests.\n\nChange to an earlier decision (it replaces the old one): the alarm sounds below 8 \u00b0C, not 5."
+  },
+  {
+   "prompt": "Add overdue_days(care, name, day) to schedule.py: how many days day is past the next watering day, or 0 when it is not past. Add tests.\n\nChange to an earlier decision (it replaces the old one): cacti are watered every 21 days, not 10."
+  },
+  {
+   "prompt": "Add Care.undo_water(name), which removes the plant's last watering; a plant with no waterings raises KeyError. Add tests."
+  },
+  {
+   "prompt": "Add Plants.set_kind(name, kind), which changes a plant's kind; the kind rule still applies. Add tests.\n\nChange to an earlier decision (it replaces the old one): ferns are watered every 5 days, not 3."
+  },
+  {
+   "prompt": "Add Care.watered_on(day): the sorted names of the plants watered on day. Add tests."
+  },
+  {
+   "prompt": "Add Plants.count(): the number of plants. Add tests.\n\nChange to an earlier decision (it replaces the old one): every plant is fed every 28 days, not 21."
+  },
+  {
+   "prompt": "Add Care.total_waterings(): the number of waterings over all plants. Add tests.\n\nChange to an earlier decision (it replaces the old one): the alarm sounds below 6 \u00b0C, not 8."
+  },
+  {
+   "prompt": "Add Plants.kinds(): the sorted list of distinct kinds in use. Add tests."
+  },
+  {
+   "prompt": "Add Care.first_watered(name): the first watering day, or None. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

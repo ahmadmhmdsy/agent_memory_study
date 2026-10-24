@@ -1,0 +1,145 @@
+{
+ "id": "L05",
+ "kind": "long",
+ "facts": {
+  "loan_days": "superseded",
+  "fine_rate": "superseded",
+  "date_iso": "superseded",
+  "isbn_hyphens": "unfinished",
+  "search_sorted": "unfinished",
+  "member_ascii": "unfinished",
+  "member_case": "constraint",
+  "max_loans": "constraint",
+  "double_loan": "constraint",
+  "return_unknown": "decision",
+  "fine_cap": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add normalize_isbn(s) to catalog.py: a string of exactly 13 digits is returned as it is; anything else raises ValueError. Add tests.\n\nThe plan for normalize_isbn has one more step: it also accepts hyphens and spaces between the digits and drops them (\"978-0-306-40615-7\" becomes \"9780306406157\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): member names are case-insensitive: \"Ann\" and \"ann\" are the same member, and a member name is always stored in lower case.\n\nDesign decision for this project: a book is due 14 days after the day it is checked out.",
+   "given": {
+    "tasks": [
+     {
+      "task": "normalize_isbn",
+      "status": "done"
+     },
+     {
+      "task": "normalize_isbn: accept and drop hyphens and spaces",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added normalize_isbn(s) with tests. Its last step is left for later: accept hyphens and spaces and drop them.",
+    "decisions": [
+     "Member names are case-insensitive and always stored in lower case.",
+     "A book is due 14 days after the day it is checked out."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Loans class to loans.py with checkout(isbn, member, day), which records that member borrowed isbn on day (a datetime.date), and holder(isbn), which returns the member who holds isbn, or None. Add tests.\n\nProject rule (it applies to all later work too): a member can hold at most 3 books at once; a 4th checkout raises ValueError and records nothing.\n\nDesign decision for this project: a late book costs 25 cents for each day it is late.\n\nDesign decision for this project: dates in files this project writes are written as DD/MM/YYYY.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Loans.checkout / Loans.holder",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Loans.checkout and Loans.holder with tests.",
+    "decisions": [
+     "A member holds at most 3 books; a 4th checkout raises ValueError and records nothing.",
+     "A late book costs 25 cents per day late.",
+     "Dates in files the project writes are DD/MM/YYYY."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Catalog class to catalog.py with add(isbn, title) and title(isbn), which raises KeyError for an unknown ISBN. Add tests.\n\nChange to an earlier decision (it replaces the old one): a late book costs 50 cents for each day it is late, not 25.\n\nProject rule (it applies to all later work too): checking out a book that is already on loan raises ValueError and leaves the loan unchanged.\n\nDesign decision for this project: returning a book that is not on loan does nothing: no error, no change.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Catalog.add / Catalog.title",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added the Catalog class with tests.",
+    "decisions": [
+     "Supersedes the 25-cent fine: a late book costs 50 cents per day late.",
+     "Checking out a book already on loan raises ValueError and leaves the loan unchanged.",
+     "Returning a book that is not on loan does nothing: no error, no change."
+    ]
+   }
+  },
+  {
+   "prompt": "Add search(catalog, word) to catalog.py: the list of ISBNs whose title contains word, ignoring case. Add tests.\n\nThe plan for search has one more step: the list must be sorted by title, with ties sorted by ISBN. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a book is due 21 days after the day it is checked out, not 14.",
+   "given": {
+    "tasks": [
+     {
+      "task": "search",
+      "status": "done"
+     },
+     {
+      "task": "search: sort by title, ties by ISBN",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added search(catalog, word) with tests. Its last step is left for later: sort by title, ties by ISBN.",
+    "decisions": [
+     "Supersedes the 14-day loan: a book is due 21 days after checkout."
+    ]
+   }
+  },
+  {
+   "prompt": "Add member_id(name) to loans.py: a name becomes a member id in lower case with spaces replaced by \"-\" (\"Ada Lovelace\" becomes \"ada-lovelace\"). Add tests.\n\nThe plan for member_id has one more step: accented letters become plain ASCII letters and any character other than a letter, a digit or \"-\" is dropped (\"Jos\u00e9 O'Neil\" becomes \"jose-oneil\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "member_id",
+      "status": "done"
+     },
+     {
+      "task": "member_id: accents to ASCII, drop characters other than letters, digits and \"-\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added member_id(name) with tests. Its last step is left for later: accented letters to ASCII, drop other characters."
+   }
+  },
+  {
+   "prompt": "Add Loans.books_of(member) to loans.py: the sorted list of ISBNs that member holds. Add tests.\n\nChange to an earlier decision (it replaces the old one): dates in files this project writes are ISO dates, YYYY-MM-DD, not DD/MM/YYYY.\n\nDesign decision for this project: a fine never exceeds 1000 cents, however late the book is.\n\nDesign decision for this project: an exported loans file starts with the header line isbn,member,due and uses \",\" as the delimiter.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Loans.books_of",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Loans.books_of(member) with tests.",
+    "decisions": [
+     "Supersedes the DD/MM/YYYY decision: dates in files are ISO, YYYY-MM-DD.",
+     "A fine never exceeds 1000 cents.",
+     "An exported loans file starts with the header line isbn,member,due and uses \",\" as the delimiter."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Loans.due(isbn), which returns the due date of the loan of isbn, and Loans.return_book(isbn, day), which ends that loan. Add export_loans(loans, path) to export.py: it writes a CSV file with one row per loan (ISBN, member, due date), in ISBN order. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Loans.due / Loans.return_book",
+      "status": "done"
+     },
+     {
+      "task": "export_loans",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added Loans.due, Loans.return_book and export_loans with tests."
+   }
+  },
+  {
+   "prompt": "Add fine(due, returned) to fines.py: the fine in cents (an int) for a book due on due and returned on returned; a book returned on or before its due date costs 0. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

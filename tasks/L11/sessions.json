@@ -1,0 +1,141 @@
+{
+ "id": "L11",
+ "kind": "long",
+ "facts": {
+  "ot_38": "superseded",
+  "ot_125": "superseded",
+  "report_line": "superseded",
+  "parse_ampm": "unfinished",
+  "days_week": "unfinished",
+  "fmt_minutes": "unfinished",
+  "end_after": "constraint",
+  "max_12": "constraint",
+  "half_up": "constraint",
+  "overlap": "decision",
+  "break_30": "decision",
+  "report_sorted": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_hm(s) to clock.py: a time such as \"09:30\" becomes minutes after midnight (570). Add tests.\n\nThe plan for parse_hm has one more step: it also accepts 12-hour times with am or pm (\"1:15pm\" becomes 795, \"12:05am\" becomes 5). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a shift must end after it starts (no shift runs past midnight): any function given an end time that is not after the start time raises ValueError.\n\nDesign decision for this project: overtime starts after 40 paid hours in a week.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_hm",
+      "status": "done"
+     },
+     {
+      "task": "parse_hm: accept am/pm",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_hm(s) with tests. Its last step is left for later: accept 12-hour times with am or pm.",
+    "decisions": [
+     "A shift must end after it starts: an end time not after the start raises ValueError in any function.",
+     "Overtime starts after 40 paid hours in a week."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Timesheet class to sheet.py: log(worker, day, start, end) records a shift, where day is \"Mon\" to \"Sun\" and start and end are minutes after midnight, and workers() returns the sorted list of workers. Add tests.\n\nProject rule (it applies to all later work too): no shift is longer than 12 hours: log raises ValueError for a longer shift and records nothing.\n\nDesign decision for this project: overtime is paid at 1.5 times the hourly rate.\n\nDesign decision for this project: each line of a report is a worker and their paid hours as a decimal number, in the form Ann - 41.5 h.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Timesheet.log / workers",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Timesheet.log and workers with tests.",
+    "decisions": [
+     "No shift is longer than 12 hours: log raises ValueError and records nothing.",
+     "Overtime is paid at 1.5 times the hourly rate.",
+     "A report line is the worker and paid hours as a decimal: Ann - 41.5 h."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Timesheet.minutes(worker) to sheet.py: the worker's total paid minutes. Add tests.\n\nChange to an earlier decision (it replaces the old one): overtime is paid at 1.25 times the hourly rate, not 1.5.\n\nDesign decision for this project: a shift that overlaps another shift of the same worker on the same day raises ValueError and is not recorded (a shift may start when another ends).\n\nDesign decision for this project: a shift longer than 6 hours has 30 unpaid minutes taken off its paid time.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Timesheet.minutes",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Timesheet.minutes(worker) with tests.",
+    "decisions": [
+     "Supersedes 1.5: overtime is paid at 1.25 times the hourly rate.",
+     "A shift overlapping another of the same worker on the same day raises ValueError (touching is allowed).",
+     "A shift longer than 6 hours has 30 unpaid minutes taken off."
+    ]
+   }
+  },
+  {
+   "prompt": "Add worker_days(sheet, worker) to sheet.py: the days on which the worker has at least one shift, each day once. Add tests.\n\nThe plan for worker_days has one more step: the days must be in week order, Mon first. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): overtime starts after 38 paid hours in a week, not 40.",
+   "given": {
+    "tasks": [
+     {
+      "task": "worker_days",
+      "status": "done"
+     },
+     {
+      "task": "worker_days: week order",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added worker_days(sheet, worker) with tests. Its last step is left for later: week order, Mon first.",
+    "decisions": [
+     "Supersedes 40 hours: overtime starts after 38 paid hours in a week."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_hours(minutes) to report.py: 450 becomes \"7:30\". Add tests.\n\nThe plan for fmt_hours has one more step: a duration under one hour shows the minutes only: 45 becomes \"45m\". Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_hours",
+      "status": "done"
+     },
+     {
+      "task": "fmt_hours: minutes only under one hour",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added fmt_hours(minutes) with tests. Its last step is left for later: under one hour shows minutes only (\"45m\")."
+   }
+  },
+  {
+   "prompt": "Add Timesheet.shift_count(worker) to sheet.py: the number of shifts the worker has. Add tests.\n\nChange to an earlier decision (it replaces the old one): each line of a report has the form Ann: 41.5 h, not Ann - 41.5 h.\n\nDesign decision for this project: report lines are sorted by paid hours, most first, with ties sorted by name.\n\nProject rule (it applies to all later work too): pay is a whole number of cents (an int), rounded half-up.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Timesheet.shift_count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Timesheet.shift_count(worker) with tests.",
+    "decisions": [
+     "Supersedes Ann - 41.5 h: a report line has the form Ann: 41.5 h.",
+     "Report lines are sorted by paid hours, most first, ties by name.",
+     "Pay is a whole number of cents (an int), rounded half-up."
+    ]
+   }
+  },
+  {
+   "prompt": "Add weekly_pay(sheet, worker, rate) to pay.py: the worker's pay for the week in cents, where rate is the hourly rate in cents; paid time past the overtime threshold is paid at the overtime rate. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "weekly_pay",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added weekly_pay(sheet, worker, rate) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_report(sheet, path) to report.py: it writes a text report with one line per worker and their paid hours. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

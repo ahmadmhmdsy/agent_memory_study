@@ -1,0 +1,37 @@
+{
+ "id": "S11",
+ "kind": "decision",
+ "module": "slug.py",
+ "sessions": [
+  {
+   "prompt": "Add word_count(text) to slug.py: the number of whitespace-separated words. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): URL slugs in this project join words with \"_\" (underscore).",
+   "given": {
+    "tasks": [
+     {
+      "task": "word_count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added word_count(text) with tests.",
+    "decisions": [
+     "URL slugs join words with \"_\" (underscore)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add clean(text) to slug.py: it lowercases text and removes every character that is not a letter, digit or space. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clean",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added clean(text) with tests."
+   }
+  },
+  {
+   "prompt": "Add slugify(title) to slug.py: it turns a post title into a URL slug made of the title's lowercase words, without punctuation. Add tests."
+  }
+ ]
+}

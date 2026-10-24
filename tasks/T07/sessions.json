@@ -1,0 +1,26 @@
+{
+ "id": "T07",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "overdraft": "superseded",
+  "balance_line": "unfinished",
+  "amount_positive": "constraint",
+  "deposit_max": "constraint",
+  "interest_round": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add an Account class to account.py with deposit(amount), withdraw(amount) and balance(), all in cents (ints); a new account has balance 0. Add tests.\n\nProject rule (it applies to all later work too): an amount must be a positive int: deposit or withdraw with anything else (0, a negative number, a float) raises ValueError and changes nothing.\n\nDesign decision for this project: the overdraft limit is 5000 cents: a withdrawal that would take the balance below -5000 raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Account.history(), the list of (kind, amount) pairs of every deposit and withdrawal in order, with kind \"deposit\" or \"withdraw\". Add statement(acct) to statement.py: a list of lines, one per history entry, each \"kind amount\" (for example \"deposit 500\" or \"withdraw 200\"). Add tests.\n\nThe plan for statement has one more step: add a last line \"balance N\", with N the balance in cents (for example \"balance 300\"). Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Account.add_interest(pct), which adds pct percent of the balance to the balance and records it in history as (\"interest\", amount). Add tests.\n\nProject rule (it applies to all later work too): one deposit is at most 1000000 cents: a larger deposit raises ValueError and changes nothing.\n\nDesign decision for this project: interest is rounded down to a whole cent, and an account whose balance is 0 or less gets no interest.\n\nChange to an earlier decision (it replaces the old one): the overdraft limit is 2000 cents, not 5000: a withdrawal that would take the balance below -2000 raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Account.count(kind), the number of history entries of that kind. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

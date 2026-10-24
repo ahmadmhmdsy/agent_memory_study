@@ -1,0 +1,37 @@
+{
+ "id": "S04",
+ "kind": "constraint",
+ "module": "inventory.py",
+ "sessions": [
+  {
+   "prompt": "Add add_stock(name, qty) and quantity(name) to Inventory in inventory.py; quantity is 0 for an unknown name. Add tests.\n\nProject rule, which applies to all work on this project from now on: every error this project raises is an InventoryError. Define it in inventory.py as a direct subclass of Exception (not of ValueError, KeyError or any other built-in error). Nothing raises it yet.",
+   "given": {
+    "tasks": [
+     {
+      "task": "add_stock, quantity",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added add_stock and quantity with tests, and defined InventoryError.",
+    "decisions": [
+     "Every error raised is an InventoryError, defined in inventory.py as a direct subclass of Exception (not ValueError, KeyError or another built-in error)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add total_items() to Inventory: the sum of all quantities. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "total_items",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added total_items() with tests."
+   }
+  },
+  {
+   "prompt": "Add remove_stock(name, qty) to Inventory: it takes qty items away. Removing more than is in stock is an error and must leave the stock unchanged. Add tests."
+  }
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "id": "L03",
+ "kind": "long",
+ "facts": {
+  "range": "constraint",
+  "ids": "decision",
+  "plain_mean": "superseded",
+  "ranking_ties": "decision",
+  "truncate": "unfinished",
+  "comments": "unfinished",
+  "min_scores": "superseded",
+  "int_type": "constraint",
+  "max_scores": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add normalize_name(s) to students.py: it strips both ends, turns runs of inner whitespace into one space and capitalizes each word (\"  ada  LOVELACE \" becomes \"Ada Lovelace\"). Add tests.\n\nProject rule (it applies to all later work too): a score is an int from 0 to 100; any function given a score outside that range raises ValueError.\n\nDesign decision for this project: a student's average drops their single lowest score when they have 3 or more scores.",
+   "given": {
+    "tasks": [
+     {
+      "task": "normalize_name",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added normalize_name(s) with tests.",
+    "decisions": [
+     "A score is an int from 0 to 100; any function given a score outside that range raises ValueError.",
+     "A student's average drops their single lowest score when they have 3 or more scores."
+    ]
+   }
+  },
+  {
+   "prompt": "Add read_lines(path) to io_util.py: the file's lines without line endings, skipping blank lines. Add tests.\n\nThe plan for read_lines has one more step: lines whose first non-space character is \"#\" are comments and are skipped too. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: student IDs are case-insensitive: they are stored in upper case, and lookups accept any case.\n\nDesign decision for this project: rankings include only students with at least 3 scores.",
+   "given": {
+    "tasks": [
+     {
+      "task": "read_lines",
+      "status": "done"
+     },
+     {
+      "task": "read_lines: skip lines whose first non-space character is \"#\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 added read_lines(path) with tests. Its last step is left for later: skip comment lines (first non-space character \"#\").",
+    "decisions": [
+     "Student IDs are case-insensitive: stored in upper case, lookups accept any case.",
+     "Rankings include only students with at least 3 scores."
+    ]
+   }
+  },
+  {
+   "prompt": "Add bar(n) to report.py: a string of n \"#\" characters. Add tests.\n\nChange to an earlier decision (it replaces the old one): a student's average is the plain mean of all their scores (no score is dropped), rounded to 1 decimal place.\n\nDesign decision for this project: rankings sort students by average, highest first, and break ties by student ID in ascending order.\n\nProject rule (it applies to all later work too): a score must be an int; a float or a bool raises TypeError, before any range check.",
+   "given": {
+    "tasks": [
+     {
+      "task": "bar",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added bar(n) with tests.",
+    "decisions": [
+     "Supersedes the drop-lowest decision: the average is the plain mean of all scores, rounded to 1 decimal place.",
+     "Rankings sort by average, highest first; ties by student ID, ascending.",
+     "A score must be an int; a float or a bool raises TypeError, before any range check."
+    ]
+   }
+  },
+  {
+   "prompt": "Add format_row(name, avg) to report.py: the name left-aligned in 20 characters, then the average right-aligned in 6 characters with 1 decimal place. Add tests.\n\nThe plan for format_row has one more step: a name longer than 20 characters is cut to its first 17 characters followed by \"...\". Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): rankings include only students with at least 2 scores, not 3.\n\nDesign decision for this project: a student holds at most 10 scores; adding an 11th score raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "format_row",
+      "status": "done"
+     },
+     {
+      "task": "format_row: cut names over 20 characters to 17 + \"...\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added format_row(name, avg) with tests. Its last step is left for later: cut names longer than 20 characters to 17 characters plus \"...\".",
+    "decisions": [
+     "Supersedes the 3-score ranking decision: rankings include only students with at least 2 scores.",
+     "A student holds at most 10 scores; adding an 11th raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Gradebook class to grades.py with add_score(student_id, score), which records a score for a student, and average(student_id), which returns the student's average (None for a student with no scores). Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Gradebook.add_score / Gradebook.average",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 5 added the Gradebook class (add_score, average) with tests."
+   }
+  },
+  {
+   "prompt": "Add Gradebook.ranking() to grades.py: the list of student IDs in ranking order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

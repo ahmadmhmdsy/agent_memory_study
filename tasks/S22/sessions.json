@@ -1,0 +1,42 @@
+{
+ "id": "S22",
+ "kind": "unfinished",
+ "module": "urltools.py",
+ "sessions": [
+  {
+   "prompt": "Add scheme(url) to urltools.py: the part before \"://\", in lower case. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "scheme",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added scheme(url) with tests."
+   }
+  },
+  {
+   "prompt": "Planned URL helpers for urltools.py:\n(a) host(url): the host name, e.g. \"example.com\".\n(b) path(url): the path, \"/\" when the URL has none.\n(c) query_params(url): a dict of the query parameters with string values; when a key repeats, the last value wins; a URL with no query gives {}.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) host(url): the host name, e.g. \"example.com\".",
+      "status": "done"
+     },
+     {
+      "task": "(b) path(url): the path, \"/\" when the URL has none.",
+      "status": "done"
+     },
+     {
+      "task": "(c) query_params(url): a dict of the query parameters with string values; when a key repeats, the last value wins; a URL with no query gives {}.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: query_params(url): a dict of the query parameters with string values; when a key repeats, the last value wins; a URL with no query gives {}."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add is_secure(url) to urltools.py: True when the scheme is https. Add tests."
+  }
+ ]
+}

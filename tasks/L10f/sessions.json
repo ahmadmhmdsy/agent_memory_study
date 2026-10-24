@@ -1,0 +1,145 @@
+{
+ "id": "L10f",
+ "kind": "long",
+ "facts": {
+  "child_40": "superseded",
+  "fee_ticket": "superseded",
+  "ref_format": "superseded",
+  "parse_dmy": "unfinished",
+  "upcoming_sorted": "unfinished",
+  "slug_clean": "unfinished",
+  "past_event": "constraint",
+  "capacity": "constraint",
+  "max_6": "decision",
+  "no_empty": "decision",
+  "cancel_unknown": "decision",
+  "invoice_event": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_date(s) to events.py: a date string such as \"2026-03-05\" becomes datetime.date(2026, 3, 5). Add tests.\n\nThe plan for parse_date has one more step: it also accepts day.month.year dates such as \"05.03.2026\". Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): nothing can be booked for an event whose date is before the booking day: such a booking raises ValueError and books nothing.\n\nDesign decision for this project: a child ticket costs half the adult price, rounded down to a whole cent.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_date",
+      "status": "done"
+     },
+     {
+      "task": "parse_date: accept day.month.year",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_date(s) with tests. Its last step is left for later: accept day.month.year dates such as \"05.03.2026\".",
+    "decisions": [
+     "A booking for an event dated before the booking day raises ValueError and books nothing.",
+     "A child ticket costs half the adult price, rounded down to a whole cent."
+    ]
+   }
+  },
+  {
+   "prompt": "Add an Event class to events.py: Event(name, date, capacity, price), where price is the adult ticket price in cents, with seats_left(). Add an Office class to booking.py with book(event, adults, children, today), which records a booking, takes its seats and returns the booking reference. Add tests.\n\nProject rule (it applies to all later work too): an event never sells more seats than its capacity: a booking with more tickets than the seats left raises ValueError and books nothing.\n\nDesign decision for this project: each order pays a booking fee of 100 cents.\n\nDesign decision for this project: booking references are \"B-1\", \"B-2\" and so on, in the order the bookings were made.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Event / seats_left",
+      "status": "done"
+     },
+     {
+      "task": "Office.book",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Event(name, date, capacity, price) with seats_left, and Office.book, with tests.",
+    "decisions": [
+     "A booking with more tickets than the seats left raises ValueError and books nothing.",
+     "Each order pays a booking fee of 100 cents.",
+     "Booking references are \"B-1\", \"B-2\" and so on, in booking order."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Office.count() to booking.py: the number of bookings. Add tests.\n\nChange to an earlier decision (it replaces the old one): the booking fee is 50 cents for each ticket, not 100 cents per order.\n\nDesign decision for this project: one booking has at most 6 tickets (adults plus children); a larger booking raises ValueError and books nothing.\n\nDesign decision for this project: a booking with no tickets raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Office.count",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Office.count() with tests.",
+    "decisions": [
+     "Supersedes 100 cents per order: the booking fee is 50 cents per ticket.",
+     "One booking has at most 6 tickets; a larger one raises ValueError and books nothing.",
+     "A booking with no tickets raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add upcoming(events, today) to events.py: the names of the events dated today or later. Add tests.\n\nThe plan for upcoming has one more step: the names must be sorted by event date, earliest first, with ties sorted by name. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a child ticket costs 40% of the adult price, rounded down to a whole cent, not half.",
+   "given": {
+    "tasks": [
+     {
+      "task": "upcoming",
+      "status": "done"
+     },
+     {
+      "task": "upcoming: sort by date, ties by name",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added upcoming(events, today) with tests. Its last step is left for later: sort by date, ties by name.",
+    "decisions": [
+     "Supersedes half price: a child ticket costs 40% of the adult price, rounded down to a whole cent."
+    ]
+   }
+  },
+  {
+   "prompt": "Add slug(name) to events.py: an event name in lower case with spaces replaced by hyphens (\"Summer Fest\" becomes \"summer-fest\"). Add tests.\n\nThe plan for slug has one more step: punctuation is removed and runs of hyphens become one (\"Rock & Roll!\" becomes \"rock-roll\"), and leading and trailing spaces and hyphens are dropped (\"  Jazz   Night \" becomes \"jazz-night\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "slug",
+      "status": "done"
+     },
+     {
+      "task": "slug: remove punctuation, collapse hyphens, trim ends",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added slug(name) with tests. Its last step is left for later: remove punctuation and collapse hyphens, drop leading and trailing spaces and hyphens."
+   }
+  },
+  {
+   "prompt": "Add Office.cancel(ref) to booking.py: it removes that booking and frees its seats. Add tests.\n\nChange to an earlier decision (it replaces the old one): booking references are \"B00001\", \"B00002\" and so on (B and 5 digits), not \"B-1\".\n\nDesign decision for this project: Office.cancel returns True when it cancelled a booking; for an unknown reference it returns False and changes nothing.\n\nDesign decision for this project: the first line of an invoice is the event name in the form Event: Summer Fest.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Office.cancel",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Office.cancel(ref) with tests.",
+    "decisions": [
+     "Supersedes \"B-1\": booking references are \"B00001\", \"B00002\" and so on.",
+     "Office.cancel returns True when it cancelled; an unknown reference returns False and changes nothing.",
+     "The first invoice line is the event name: Event: Summer Fest."
+    ]
+   }
+  },
+  {
+   "prompt": "Add price(adult_cents, adults, children) to pricing.py: the total in cents (an int) of an order, booking fees included. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "price",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added price(adult_cents, adults, children) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_invoice(office, ref, path) to invoice.py: it writes a text invoice for that booking with the event name, the booking reference, the number of tickets and the total. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

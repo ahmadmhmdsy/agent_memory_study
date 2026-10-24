@@ -1,0 +1,141 @@
+{
+ "id": "L15",
+ "kind": "long",
+ "facts": {
+  "min_two": "superseded",
+  "weekend_25": "superseded",
+  "stay_line": "superseded",
+  "parse_dmy": "unfinished",
+  "free_kind": "unfinished",
+  "guest_sorted": "unfinished",
+  "room_number": "constraint",
+  "name_case": "constraint",
+  "no_overlap": "decision",
+  "lowest_room": "decision",
+  "long_stay": "decision",
+  "conf_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_date(s) to dates.py: an ISO date string such as \"2026-06-05\" becomes a datetime.date. Add tests.\n\nThe plan for parse_date has one more step: it also accepts day/month/year dates (\"05/06/2026\" is 5 June 2026). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): room numbers are positive whole numbers: adding a room with another number, or with a number the hotel already has, raises ValueError.\n\nDesign decision for this project: a stay is at least 1 night: a booking whose end date is not after its start date raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_date",
+      "status": "done"
+     },
+     {
+      "task": "parse_date: accept dd/mm/yyyy",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_date(s) with tests. Its last step is left for later: accept day/month/year dates.",
+    "decisions": [
+     "Room numbers are positive whole numbers; another number or a duplicate raises ValueError.",
+     "A stay is at least 1 night: an end date not after the start raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Hotel class to hotel.py: add_room(number, kind, price) adds a room of kind \"single\" or \"double\" with a nightly price in int cents, book(guest, kind, start, end) books a free room of that kind for the nights from start up to end (dates) and returns a booking id (1, 2, 3 and so on), and room_of(booking_id) returns the booked room number. When no room of that kind is free, book raises ValueError. Add tests.\n\nProject rule (it applies to all later work too): guest names ignore case in every function: \"Ann\" and \"ANN\" are the same guest.\n\nDesign decision for this project: Friday and Saturday nights cost 20% more than the room's nightly price.\n\nDesign decision for this project: the stay line of a confirmation has the form Room 12, 3 nights.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Hotel.add_room / book / room_of",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Hotel.add_room, book and room_of with tests.",
+    "decisions": [
+     "Guest names ignore case in every function.",
+     "Friday and Saturday nights cost 20% more than the nightly price.",
+     "A confirmation stay line has the form Room 12, 3 nights."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Hotel.cancel(booking_id) to hotel.py. Add tests.\n\nChange to an earlier decision (it replaces the old one): Friday and Saturday nights cost 25% more, not 20%.\n\nDesign decision for this project: two bookings of the same room may not overlap; a stay that ends on the day another starts does not overlap it.\n\nDesign decision for this project: book gives the free room of that kind with the lowest number.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Hotel.cancel",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Hotel.cancel with tests.",
+    "decisions": [
+     "Supersedes 20%: Friday and Saturday nights cost 25% more.",
+     "Bookings of the same room may not overlap; ending on the day another starts is not an overlap.",
+     "book gives the free room of that kind with the lowest number."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Hotel.free_rooms(start, end) to hotel.py: the sorted numbers of the rooms that are free for all nights from start up to end. Add tests.\n\nThe plan for Hotel.free_rooms has one more step: it takes an optional kind and then returns only rooms of that kind. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a stay is at least 2 nights: a booking of fewer nights raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Hotel.free_rooms",
+      "status": "done"
+     },
+     {
+      "task": "Hotel.free_rooms: optional kind",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added Hotel.free_rooms(start, end) with tests. Its last step is left for later: an optional kind.",
+    "decisions": [
+     "Supersedes 1 night: a stay is at least 2 nights; fewer raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Hotel.guest_bookings(name) to hotel.py: the booking ids of that guest, in the order they were booked. Add tests.\n\nThe plan for Hotel.guest_bookings has one more step: the ids are sorted by the stay's start date instead. Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Hotel.guest_bookings",
+      "status": "done"
+     },
+     {
+      "task": "Hotel.guest_bookings: sort by start date",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added Hotel.guest_bookings(name) with tests. Its last step is left for later: sort the ids by start date."
+   }
+  },
+  {
+   "prompt": "Add Hotel.occupancy(day) to hotel.py: the number of rooms booked for the night that starts on that day. Add tests.\n\nChange to an earlier decision (it replaces the old one): the stay line of a confirmation has the form 3 nights in room 12, not Room 12, 3 nights.\n\nDesign decision for this project: a stay of 7 nights or more gets 10% off its total price, rounded down to a whole cent.\n\nDesign decision for this project: the first line of a confirmation is the booking id, in the form Booking #1.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Hotel.occupancy",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Hotel.occupancy(day) with tests.",
+    "decisions": [
+     "Supersedes Room 12, 3 nights: a confirmation stay line has the form 3 nights in room 12.",
+     "A stay of 7 nights or more gets 10% off its total, rounded down.",
+     "The first confirmation line is Booking #1."
+    ]
+   }
+  },
+  {
+   "prompt": "Add stay_price(hotel, booking_id) to price.py: the total price in cents (an int) of that booking's stay. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "stay_price",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added stay_price(hotel, booking_id) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_confirmation(hotel, booking_id, path) to confirm.py: it writes a text confirmation with the booking id, the guest, the stay and the total price. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

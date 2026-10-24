@@ -1,0 +1,145 @@
+{
+ "id": "L08",
+ "kind": "long",
+ "facts": {
+  "free_30": "superseded",
+  "rate_250": "superseded",
+  "total_line": "superseded",
+  "plate_check": "unfinished",
+  "parked_sorted": "unfinished",
+  "fmt_days": "unfinished",
+  "time_order": "constraint",
+  "capacity": "constraint",
+  "double_entry": "constraint",
+  "exit_unknown": "decision",
+  "fee_cap": "decision",
+  "receipt_plate": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_plate(s) to tickets.py: a licence plate string is returned in upper case with spaces removed (\" ab 123 \" becomes \"AB123\"). Add tests.\n\nThe plan for parse_plate has one more step: hyphens are removed too, and a plate that is then not 2 to 8 letters and digits raises ValueError (\"ab-12 3\" becomes \"AB123\"; \"a\" and \"ab!12\" raise). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a stay cannot end before it starts: any function given an exit time earlier than the entry time raises ValueError and changes nothing.\n\nDesign decision for this project: the first 15 minutes of a stay are free.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_plate",
+      "status": "done"
+     },
+     {
+      "task": "parse_plate: remove hyphens, require 2-8 letters and digits",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_plate(s) with tests. Its last step is left for later: remove hyphens and require 2 to 8 letters and digits.",
+    "decisions": [
+     "An exit time earlier than the entry time raises ValueError and changes nothing.",
+     "The first 15 minutes of a stay are free."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Garage class to garage.py: Garage(capacity), enter(plate, t), which records that plate entered at minute t, and inside(), the sorted list of plates inside. Add tests.\n\nProject rule (it applies to all later work too): a garage never holds more cars than its capacity: entering a full garage raises ValueError and records nothing.\n\nDesign decision for this project: parking costs 200 cents for each started hour.\n\nDesign decision for this project: the last line of a receipt is the total in the form TOTAL 5.00.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Garage.enter / Garage.inside",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Garage(capacity), enter and inside with tests.",
+    "decisions": [
+     "Entering a full garage raises ValueError and records nothing.",
+     "Parking costs 200 cents per started hour.",
+     "The last receipt line is the total in the form TOTAL 5.00."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Garage.free() to garage.py: the number of free spaces. Add tests.\n\nChange to an earlier decision (it replaces the old one): parking costs 250 cents for each started hour, not 200.\n\nProject rule (it applies to all later work too): a plate that is already inside cannot enter again: enter() raises ValueError.\n\nDesign decision for this project: exiting a plate that is not inside returns None and changes nothing.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Garage.free",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Garage.free() with tests.",
+    "decisions": [
+     "Supersedes 200 cents: parking costs 250 cents per started hour.",
+     "A plate already inside cannot enter again: enter() raises ValueError.",
+     "Exiting a plate that is not inside returns None and changes nothing."
+    ]
+   }
+  },
+  {
+   "prompt": "Add parked_before(garage, t) to garage.py: the list of plates inside that entered before minute t. Add tests.\n\nThe plan for parked_before has one more step: the list must be sorted by entry time, earliest first, with ties sorted by plate. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the first 30 minutes of a stay are free, not 15.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parked_before",
+      "status": "done"
+     },
+     {
+      "task": "parked_before: sort by entry time, ties by plate",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added parked_before(garage, t) with tests. Its last step is left for later: sort by entry time, ties by plate.",
+    "decisions": [
+     "Supersedes 15 free minutes: the first 30 minutes of a stay are free."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_duration(minutes) to receipt.py: 125 becomes \"2h 05m\". Add tests.\n\nThe plan for fmt_duration has one more step: a duration of a day or more starts with the days: 1505 becomes \"1d 01h 05m\". Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_duration",
+      "status": "done"
+     },
+     {
+      "task": "fmt_duration: days first for a day or more",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added fmt_duration(minutes) with tests. Its last step is left for later: days first for a day or more (\"1d 01h 05m\")."
+   }
+  },
+  {
+   "prompt": "Add Garage.entry_time(plate) to garage.py: the minute at which plate entered. Add tests.\n\nChange to an earlier decision (it replaces the old one): the last line of a receipt is the total in the form Total: $5.00, not TOTAL 5.00.\n\nDesign decision for this project: the fee for one stay never exceeds 2000 cents.\n\nDesign decision for this project: the first line of a receipt is the plate in the form Plate: AB123.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Garage.entry_time",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Garage.entry_time(plate) with tests.",
+    "decisions": [
+     "Supersedes TOTAL 5.00: the last receipt line is Total: $5.00.",
+     "The fee for one stay never exceeds 2000 cents.",
+     "The first receipt line is the plate in the form Plate: AB123."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fee(minutes) to rates.py: the fee in cents (an int) for a stay of that many minutes. A stay within the free period costs 0; a longer stay costs the hourly price for each started hour of the whole stay. Add Garage.exit(plate, t), which removes plate and returns the fee for its stay. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fee",
+      "status": "done"
+     },
+     {
+      "task": "Garage.exit",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added fee(minutes) and Garage.exit with tests."
+   }
+  },
+  {
+   "prompt": "Add write_receipt(plate, minutes, path) to receipt.py: it writes a text receipt for a stay of that many minutes, with the plate, the duration (from fmt_duration) and the total fee. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

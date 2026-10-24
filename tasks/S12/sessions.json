@@ -1,0 +1,37 @@
+{
+ "id": "S12",
+ "kind": "decision",
+ "module": "report.py",
+ "sessions": [
+  {
+   "prompt": "Add row_total(row) to report.py: qty * price for one row. Add tests.\n\nDesign decision for this project (nothing implements it yet; record it for later work): CSV files this project writes use \";\" (semicolon) as the delimiter, and their first line is a header row.",
+   "given": {
+    "tasks": [
+     {
+      "task": "row_total",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added row_total(row) with tests.",
+    "decisions": [
+     "CSV files use \";\" (semicolon) as the delimiter, and their first line is a header row."
+    ]
+   }
+  },
+  {
+   "prompt": "Add totals(rows) to report.py: a dict mapping each name to the sum of row_total over that name's rows. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "totals",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added totals(rows) with tests."
+   }
+  },
+  {
+   "prompt": "Add export(rows, path) to report.py: it writes the rows to a CSV file with the columns name, qty, price, in that order. Add tests."
+  }
+ ]
+}

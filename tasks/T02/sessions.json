@@ -1,0 +1,26 @@
+{
+ "id": "T02",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "ot_threshold": "superseded",
+  "report_sorted": "unfinished",
+  "hours_range": "constraint",
+  "name_trim": "decision",
+  "quarter_round": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Timesheet class to timesheet.py with add(person, hours), which records hours worked by person, and hours(person), the total hours recorded for person (0 for someone with no entries). Add tests.\n\nProject rule (it applies to all later work too): one entry is between 0 and 12 hours, inclusive; anything else raises ValueError and records nothing.\n\nDesign decision for this project: hours are rounded to the nearest quarter hour when they are added (1.1 becomes 1.0, 1.2 becomes 1.25).\n\nDesign decision for this project: overtime is every hour above 40."
+  },
+  {
+   "prompt": "Add overtime(ts, person) to timesheet.py: the hours of person above the overtime threshold (0 if none). Add pay(ts, person, rate) to timesheet.py: rate is cents per hour; normal hours are paid at rate and overtime hours at 1.5 times rate; the result is an int number of cents, rounded to the nearest cent. Add tests.\n\nDesign decision for this project: person names are trimmed of surrounding spaces: \" ann \" and \"ann\" are the same person."
+  },
+  {
+   "prompt": "Add report(ts) to report.py: a list of lines, one per person, each \"name: hours\", with hours as a number (for example \"ann: 7.5\"). Add Timesheet.people(), the sorted list of people with entries. Add tests.\n\nThe plan for report has one more step: lines are ordered by hours, most first; people with equal hours are ordered by name. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): overtime is every hour above 38, not 40."
+  },
+  {
+   "prompt": "Add Timesheet.reset(person), which removes every entry of person. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

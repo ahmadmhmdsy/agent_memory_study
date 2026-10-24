@@ -1,0 +1,86 @@
+{
+ "id": "A14",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "bw_page": "superseded",
+  "color_page": "superseded",
+  "bulk_pages": "superseded",
+  "binding_fee": "superseded",
+  "rush_pct": "superseded",
+  "names_order": "unfinished",
+  "ticket_due": "unfinished",
+  "export_order": "unfinished",
+  "paper_size": "constraint",
+  "pages_positive": "constraint",
+  "due_after": "constraint",
+  "a3_double": "decision",
+  "bulk_pct": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Customers class to customers.py with add(name), has(name), and names(): the customer names in the order they were added. Add tests.\n\nThe plan for Customers.names has one more step: the names are sorted alphabetically. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add a Jobs class to jobs.py. Jobs(customers) works on a Customers, kept as its attribute customers. add(customer, pages, size, ordered, due) adds a print job and returns a job id: an int counter that starts at 1; ordered is the day it was ordered and due the day it is due. get(jid) returns the job as a tuple (customer, pages, size, ordered, due). An unknown customer or id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): the size is \"A4\" or \"A3\"; any other size raises ValueError and adds nothing.\n\nProject rule (it applies to all later work too): a job has at least 1 page; fewer raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add Jobs.of_customer(customer): the ids of the customer's jobs, in id order. Add tests.\n\nProject rule (it applies to all later work too): the due day is never before the ordered day (the same day is fine); an earlier due day raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add price(jobs, jid) to pricing.py: the price of a job in cents: the pages times the page price. Add tests.\n\nDesign decision for this project: a black-and-white A4 page costs 10 cents.\n\nDesign decision for this project: an A3 page costs twice the A4 page price."
+  },
+  {
+   "prompt": "Add Jobs.set_color(jid), which makes a job a colour job, and Jobs.is_color(jid). Add tests.\n\nDesign decision for this project: a colour A4 page costs 50 cents."
+  },
+  {
+   "prompt": "Add Jobs.bind(jid), which asks for the job to be bound, and Jobs.is_bound(jid). Add tests.\n\nDesign decision for this project: binding costs 300 cents per job, added after any discount."
+  },
+  {
+   "prompt": "Add Jobs.pages_total(customer): the pages of the customer's jobs added up. Add tests.\n\nDesign decision for this project: a job of 500 pages or more is a bulk job.\n\nDesign decision for this project: a bulk job gets 10% off the pages part of its price (not the binding), rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add ticket(jobs, jid) to export.py: a list of text lines: \"job: <id>\", then \"pages: <n>\". Add tests.\n\nThe plan for ticket has one more step: it ends with the line \"due: <day>\", the due day in ISO form (for example \"due: 2026-05-04\"). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): a black-and-white A4 page costs 8 cents, not 10."
+  },
+  {
+   "prompt": "Add Jobs.set_rush(jid), which makes a job a rush job, and Jobs.is_rush(jid). Add tests.\n\nDesign decision for this project: a rush job costs 50% more: its whole price, binding included, times 1.5, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add export_jobs(jobs, path) to export.py: a CSV file with one row per job, in id order: id, customer, pages and price. Add tests.\n\nThe plan for export_jobs has one more step: the rows are sorted by due day, and by id for the same day. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported jobs file starts with the header line id,customer,pages,price and uses \",\" as the delimiter.\n\nChange to an earlier decision (it replaces the old one): a colour A4 page costs 40 cents, not 50."
+  },
+  {
+   "prompt": "Add Jobs.cancel(jid), which removes a job; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a job of 1000 pages or more is a bulk job, not 500."
+  },
+  {
+   "prompt": "Add Jobs.due_on(day): the ids of the jobs due on day, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): binding costs 500 cents per job, not 300."
+  },
+  {
+   "prompt": "Add revenue(jobs) to pricing.py: the prices of all jobs added up. Add tests.\n\nChange to an earlier decision (it replaces the old one): a rush job costs 25% more, not 50%: its whole price times 1.25, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add Jobs.count(): the number of jobs. Add tests.\n\nChange to an earlier decision (it replaces the old one): a black-and-white A4 page costs 12 cents, not 8."
+  },
+  {
+   "prompt": "Add Customers.remove(name), which removes a customer; an unknown name raises KeyError. Add tests."
+  },
+  {
+   "prompt": "Add Jobs.late(day): the ids of the jobs due before day, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a colour A4 page costs 45 cents, not 40."
+  },
+  {
+   "prompt": "Add Jobs.color_ids(): the ids of the colour jobs, in id order. Add tests."
+  },
+  {
+   "prompt": "Add Jobs.of_size(size): the ids of the jobs of that size, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a job of 250 pages or more is a bulk job, not 1000."
+  },
+  {
+   "prompt": "Add Jobs.customers_with_jobs(): the sorted names of the customers that have jobs. Add tests.\n\nChange to an earlier decision (it replaces the old one): binding costs 400 cents per job, not 500."
+  },
+  {
+   "prompt": "Add Jobs.next_due(): the earliest due day over all jobs, or None. Add tests."
+  },
+  {
+   "prompt": "Add Jobs.ids(): all job ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

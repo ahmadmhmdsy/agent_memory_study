@@ -1,0 +1,105 @@
+{
+ "id": "L02",
+ "kind": "long",
+ "facts": {
+  "ids": "superseded",
+  "empty_title": "constraint",
+  "sorted": "decision",
+  "minutes": "decision",
+  "slug": "unfinished",
+  "iso_t": "unfinished",
+  "end_order": "constraint",
+  "overlap": "superseded",
+  "slug_key": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_ts(s) to timeutil.py: it parses a \"YYYY-MM-DD HH:MM:SS\" string into a datetime. Add tests.\n\nThe plan for parse_ts has one more step: it also accepts a \"T\" in place of the space between the date and the time (\"2026-01-05T10:00:00\"). Do not do that step now; leave it for a later session.\n\nDesign decision for this project: durations this project reports are whole minutes, as an int, rounded down.\n\nProject rule (it applies to all later work too): an event whose end is before its start is rejected with ValueError (an end equal to the start is allowed).",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_ts",
+      "status": "done"
+     },
+     {
+      "task": "parse_ts: also accept \"T\" between date and time",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_ts(s) with tests. Its last step is left for later: also accept \"T\" between date and time.",
+    "decisions": [
+     "Durations are whole minutes, as an int, rounded down.",
+     "An event whose end is before its start is rejected with ValueError; end equal to start is allowed."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_ts(dt) to timeutil.py: the inverse of parse_ts. Add tests.\n\nDesign decision for this project: event IDs are \"E\" followed by a 4-digit counter that starts at 1 (E0001, E0002, ...).\n\nDesign decision for this project: events may overlap in time; the calendar does not check for overlaps.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_ts",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added fmt_ts(dt) with tests.",
+    "decisions": [
+     "Event IDs are \"E\" plus a 4-digit counter from 1 (E0001, E0002, ...).",
+     "Events may overlap in time; the calendar does not check for overlaps."
+    ]
+   }
+  },
+  {
+   "prompt": "Add clean_title(s) to text.py: it strips both ends and turns every run of whitespace inside into one space. Add tests.\n\nProject rule (it applies to all later work too): an event title that is empty after clean_title is rejected with ValueError.\n\nDesign decision for this project: listings of events are sorted by start time, then by title.\n\nChange to an earlier decision (it replaces the old one): the calendar rejects an event that overlaps an existing one with ValueError. Two events overlap when each starts before the other ends, so an event that starts exactly when another ends is allowed.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clean_title",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added clean_title(s) with tests.",
+    "decisions": [
+     "An event title that is empty after clean_title is rejected with ValueError.",
+     "Listings of events are sorted by start time, then by title.",
+     "Supersedes the overlap decision: an event that overlaps an existing one is rejected with ValueError; touching (one starts when the other ends) is allowed."
+    ]
+   }
+  },
+  {
+   "prompt": "Add slug(title) to text.py: the title in lower case, with spaces replaced by \"-\". Add tests.\n\nThe plan for slug has one more step: characters other than a-z, 0-9 and \"-\" are dropped. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): event IDs are \"EVT-\" followed by a 5-digit counter that starts at 1 (EVT-00001, EVT-00002, ...).\n\nDesign decision for this project: every event dict that a listing returns also has a \"slug\" key holding slug(title).",
+   "given": {
+    "tasks": [
+     {
+      "task": "slug",
+      "status": "done"
+     },
+     {
+      "task": "slug: drop characters other than a-z, 0-9 and \"-\"",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added slug(title) with tests. Its last step is left for later: drop characters other than a-z, 0-9 and \"-\".",
+    "decisions": [
+     "Supersedes the E0001 ID decision: event IDs are \"EVT-\" plus a 5-digit counter from 1 (EVT-00001, ...).",
+     "Every event dict a listing returns also has a \"slug\" key holding slug(title)."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Calendar class to events.py. add(title, start, end) stores an event and returns its ID; start and end are \"YYYY-MM-DD HH:MM:SS\" strings, and the title is cleaned with clean_title. events() returns the stored events as a list of dicts with the keys id, title, start and end. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Calendar.add / Calendar.events",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 5 added the Calendar class (add, events) with tests."
+   }
+  },
+  {
+   "prompt": "Add Calendar.duration(event_id) to events.py: the length of that event. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

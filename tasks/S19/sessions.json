@@ -1,0 +1,42 @@
+{
+ "id": "S19",
+ "kind": "unfinished",
+ "module": "grades.py",
+ "sessions": [
+  {
+   "prompt": "Add clamp(score) to grades.py: score limited to the range 0..100. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "clamp",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added clamp(score) with tests."
+   }
+  },
+  {
+   "prompt": "Planned grade helpers for grades.py:\n(a) mean(scores): the arithmetic mean of a non-empty list.\n(b) highest(scores): the largest score.\n(c) letter(score): \"A\" for 85 and above, \"B\" for 70 to 84, \"C\" for 55 to 69, \"F\" below 55 (there is no D).\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) mean(scores): the arithmetic mean of a non-empty list.",
+      "status": "done"
+     },
+     {
+      "task": "(b) highest(scores): the largest score.",
+      "status": "done"
+     },
+     {
+      "task": "(c) letter(score): \"A\" for 85 and above, \"B\" for 70 to 84, \"C\" for 55 to 69, \"F\" below 55 (there is no D).",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: letter(score): \"A\" for 85 and above, \"B\" for 70 to 84, \"C\" for 55 to 69, \"F\" below 55 (there is no D)."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add spread(scores) to grades.py: the highest score minus the lowest. Add tests."
+  }
+ ]
+}

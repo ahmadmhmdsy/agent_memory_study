@@ -1,0 +1,26 @@
+{
+ "id": "T06",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "default_servings": "superseded",
+  "min_one_gram": "unfinished",
+  "grams_positive": "constraint",
+  "scale_positive": "constraint",
+  "name_lower": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Recipe class to recipe.py: Recipe(servings) has a servings attribute, add(ingredient, grams), which adds grams of ingredient (adding an ingredient again adds to its amount), and grams(ingredient), the amount of ingredient (0 for one the recipe does not have). Add tests.\n\nProject rule (it applies to all later work too): grams must be more than 0: add with 0 or less raises ValueError and changes nothing.\n\nDesign decision for this project: a Recipe made without a servings number serves 4: Recipe() has servings 4."
+  },
+  {
+   "prompt": "Add scale(recipe, servings) to recipe.py: a new Recipe for that many servings, each amount being grams times new servings divided by old servings, rounded to the nearest whole gram. Add Recipe.ingredients(), the sorted list of ingredient names. Add tests.\n\nDesign decision for this project: ingredient names are stored in lower case: \"Flour\" and \"flour\" are the same ingredient.\n\nThe plan for scale has one more step: an amount that would round to 0 grams becomes 1 gram. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add shopping_list(recipes) to shopping.py: a dict from ingredient name to its total grams over all the recipes in the list. Add tests.\n\nProject rule (it applies to all later work too): scale to 0 or fewer servings raises ValueError.\n\nChange to an earlier decision (it replaces the old one): a Recipe made without a servings number serves 2, not 4: Recipe() has servings 2."
+  },
+  {
+   "prompt": "Add Recipe.remove(ingredient), which takes ingredient out of the recipe. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

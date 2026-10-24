@@ -1,0 +1,141 @@
+{
+ "id": "L14",
+ "kind": "long",
+ "facts": {
+  "vol_4000": "superseded",
+  "per_kg_150": "superseded",
+  "weight_kg": "superseded",
+  "parse_units": "unfinished",
+  "split_equal": "unfinished",
+  "check_digit": "unfinished",
+  "weight_range": "constraint",
+  "country_code": "constraint",
+  "charged_max": "decision",
+  "blocked": "decision",
+  "world_double": "decision",
+  "label_code": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_weight(s) to parcels.py: a weight in kilograms such as \"1.5kg\" becomes int grams (1500). Add tests.\n\nThe plan for parse_weight has one more step: it also accepts grams (\"750g\" becomes 750) and pounds (\"2lb\" becomes 908; 1 lb is 454 g). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a parcel weighs more than 0 and at most 30 kg: any function given a parcel weight outside that range raises ValueError.\n\nDesign decision for this project: volumetric weight uses 5000 cm\u00b3 per kg: a box of l x w x h cm weighs l*w*h/5000 kg.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_weight",
+      "status": "done"
+     },
+     {
+      "task": "parse_weight: accept g and lb",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_weight(s) with tests. Its last step is left for later: accept grams and pounds (1 lb is 454 g).",
+    "decisions": [
+     "A parcel weighs more than 0 and at most 30 kg; outside that range raises ValueError in any function.",
+     "Volumetric weight uses 5000 cm\u00b3 per kg."
+    ]
+   }
+  },
+  {
+   "prompt": "Add zone(country) to zones.py: 1 for \"NL\", 2 for \"BE\", \"DE\", \"FR\" and \"LU\", and 3 for any other country code. Add tests.\n\nProject rule (it applies to all later work too): country codes ignore case and must be exactly two letters; any function given another code raises ValueError.\n\nDesign decision for this project: shipping costs 200 cents for each started kilogram of the charged weight, on top of the zone's base price.\n\nDesign decision for this project: the weight line of a label has the form Weight: 1500 g.",
+   "given": {
+    "tasks": [
+     {
+      "task": "zone",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added zone(country) with tests.",
+    "decisions": [
+     "Country codes ignore case and must be two letters; another code raises ValueError in any function.",
+     "Shipping costs 200 cents per started kilogram of charged weight, on top of the zone base price.",
+     "A label weight line has the form Weight: 1500 g."
+    ]
+   }
+  },
+  {
+   "prompt": "Add vol_weight(l, w, h) to rates.py: the volumetric weight in grams of a box with sides in cm. Add tests.\n\nChange to an earlier decision (it replaces the old one): shipping costs 150 cents for each started kilogram, not 200.\n\nDesign decision for this project: the charged weight of a parcel is the larger of its real weight and its volumetric weight.\n\nDesign decision for this project: \"KP\" and \"IR\" are blocked: any function given one of them raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "vol_weight",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added vol_weight(l, w, h) with tests.",
+    "decisions": [
+     "Supersedes 200 cents: shipping costs 150 cents per started kilogram.",
+     "The charged weight is the larger of real and volumetric weight.",
+     "\"KP\" and \"IR\" are blocked: any function given one raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add split_parcels(grams) to parcels.py: the parcel weights when a shipment of that many grams is split into as few parcels of at most 30 kg as possible (70000 becomes [30000, 30000, 10000]). Add tests.\n\nThe plan for split_parcels has one more step: the parcels are as equal as possible, heaviest first (70000 becomes [23334, 23333, 23333]). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): volumetric weight uses 4000 cm\u00b3 per kg, not 5000.",
+   "given": {
+    "tasks": [
+     {
+      "task": "split_parcels",
+      "status": "done"
+     },
+     {
+      "task": "split_parcels: as equal as possible",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added split_parcels(grams) with tests. Its last step is left for later: parcels as equal as possible, heaviest first.",
+    "decisions": [
+     "Supersedes 5000: volumetric weight uses 4000 cm\u00b3 per kg."
+    ]
+   }
+  },
+  {
+   "prompt": "Add tracking_code(n) to label.py: \"TR\" followed by n as 6 digits (42 becomes \"TR000042\"). Add tests.\n\nThe plan for tracking_code has one more step: a check digit is added at the end: the sum of the 6 digits modulo 10 (42 becomes \"TR0000426\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "tracking_code",
+      "status": "done"
+     },
+     {
+      "task": "tracking_code: check digit",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added tracking_code(n) with tests. Its last step is left for later: a check digit, the digit sum modulo 10."
+   }
+  },
+  {
+   "prompt": "Add zone_name(country) to zones.py: \"home\", \"eu\" or \"world\" for zones 1, 2 and 3. Add tests.\n\nChange to an earlier decision (it replaces the old one): the weight line of a label has the form Weight: 1.5 kg (kilograms), not Weight: 1500 g.\n\nDesign decision for this project: in zone 3 the price per started kilogram is doubled.\n\nDesign decision for this project: the first line of a label is the tracking code.",
+   "given": {
+    "tasks": [
+     {
+      "task": "zone_name",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added zone_name(country) with tests.",
+    "decisions": [
+     "Supersedes Weight: 1500 g: a label weight line has the form Weight: 1.5 kg.",
+     "In zone 3 the price per started kilogram is doubled.",
+     "The first label line is the tracking code."
+    ]
+   }
+  },
+  {
+   "prompt": "Add cost(country, grams, dims=None) to rates.py: the shipping cost in cents (an int) of one parcel, where dims is an optional (l, w, h) box size in cm. The base price is 500 cents in zone 1, 900 in zone 2 and 1500 in zone 3, plus the price per started kilogram of the charged weight. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "cost",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added cost(country, grams, dims=None) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_label(n, country, grams, path) to label.py: it writes a text label with the tracking code for n, the country and the weight. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

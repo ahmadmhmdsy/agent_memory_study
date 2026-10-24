@@ -1,0 +1,141 @@
+{
+ "id": "L12",
+ "kind": "long",
+ "facts": {
+  "no_overdraft": "superseded",
+  "fee_25": "superseded",
+  "closing_line": "superseded",
+  "parse_dollar": "unfinished",
+  "history_last": "unfinished",
+  "money_commas": "unfinished",
+  "positive_amount": "constraint",
+  "name_case": "constraint",
+  "dup_open": "decision",
+  "transfer_self": "decision",
+  "interest_tier": "decision",
+  "statement_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add parse_amount(s) to money.py: an amount string such as \"12.50\" becomes int cents (1250). Add tests.\n\nThe plan for parse_amount has one more step: it also accepts a leading \"$\" and thousands commas (\"$1,234.50\" becomes 123450). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): an amount must be positive: any function given an amount of zero or less raises ValueError and changes nothing.\n\nDesign decision for this project: an account may be overdrawn: its balance may go down to -5000 cents.",
+   "given": {
+    "tasks": [
+     {
+      "task": "parse_amount",
+      "status": "done"
+     },
+     {
+      "task": "parse_amount: accept $ and commas",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 1 added parse_amount(s) with tests. Its last step is left for later: accept a leading \"$\" and thousands commas.",
+    "decisions": [
+     "An amount must be positive: zero or less raises ValueError and changes nothing, in any function.",
+     "An account may be overdrawn down to -5000 cents."
+    ]
+   }
+  },
+  {
+   "prompt": "Add a Ledger class to ledger.py with open(account), deposit(account, cents), withdraw(account, cents) and balance(account). Add tests.\n\nProject rule (it applies to all later work too): account names ignore case: \"Ann\" and \"ANN\" are the same account, in every function.\n\nDesign decision for this project: each withdrawal costs a fee of 100 cents, taken from the balance.\n\nDesign decision for this project: the last line of a statement is the balance in the form BALANCE: 12.50.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Ledger.open / deposit / withdraw / balance",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added Ledger.open, deposit, withdraw and balance with tests.",
+    "decisions": [
+     "Account names ignore case in every function.",
+     "Each withdrawal costs a fee of 100 cents, taken from the balance.",
+     "The last statement line is the balance: BALANCE: 12.50."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Ledger.transfer(src, dst, cents) to ledger.py: it moves cents from one account to another. Transfers have no fee. Add tests.\n\nChange to an earlier decision (it replaces the old one): the withdrawal fee is 25 cents, not 100.\n\nDesign decision for this project: opening an account that already exists raises ValueError.\n\nDesign decision for this project: a transfer from an account to itself raises ValueError.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Ledger.transfer",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 3 added Ledger.transfer with tests.",
+    "decisions": [
+     "Supersedes 100 cents: the withdrawal fee is 25 cents.",
+     "Opening an account that already exists raises ValueError.",
+     "A transfer from an account to itself raises ValueError."
+    ]
+   }
+  },
+  {
+   "prompt": "Add Ledger.history(account) to ledger.py: the account's balance changes in order, as signed cents (a deposit of 500 is 500, a withdrawal of 200 is -200, and a fee is its own entry). Add tests.\n\nThe plan for Ledger.history has one more step: it takes an optional n and then returns only the last n entries. Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): no account may be overdrawn: a withdrawal (with its fee) or a transfer that would take a balance below 0 raises ValueError and changes nothing.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Ledger.history",
+      "status": "done"
+     },
+     {
+      "task": "Ledger.history: optional last n",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 4 added Ledger.history(account) with tests. Its last step is left for later: an optional n returns only the last n entries.",
+    "decisions": [
+     "Supersedes the -5000 overdraft: a withdrawal (with fee) or transfer taking a balance below 0 raises ValueError and changes nothing."
+    ]
+   }
+  },
+  {
+   "prompt": "Add fmt_money(cents) to statement.py: 123450 becomes \"1234.50\". Add tests.\n\nThe plan for fmt_money has one more step: thousands are separated by commas (\"1,234.50\"). Do not do that step now; leave it for a later session.",
+   "given": {
+    "tasks": [
+     {
+      "task": "fmt_money",
+      "status": "done"
+     },
+     {
+      "task": "fmt_money: thousands commas",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 5 added fmt_money(cents) with tests. Its last step is left for later: thousands commas."
+   }
+  },
+  {
+   "prompt": "Add Ledger.accounts() to ledger.py: the sorted list of account names, in lower case. Add tests.\n\nChange to an earlier decision (it replaces the old one): the last line of a statement has the form Closing balance: $12.50, not BALANCE: 12.50.\n\nDesign decision for this project: monthly interest is 1% of the balance up to 100000 cents plus 2% of the part above, rounded down to a whole cent.\n\nDesign decision for this project: the first line of a statement is the account name in upper case, in the form ACCOUNT ANN.",
+   "given": {
+    "tasks": [
+     {
+      "task": "Ledger.accounts",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 6 added Ledger.accounts() with tests.",
+    "decisions": [
+     "Supersedes BALANCE: 12.50: the last statement line is Closing balance: $12.50.",
+     "Monthly interest is 1% up to 100000 cents plus 2% of the part above, rounded down.",
+     "The first statement line is the account name in upper case: ACCOUNT ANN."
+    ]
+   }
+  },
+  {
+   "prompt": "Add monthly_interest(balance) to interest.py: the interest in cents (an int) for one month on that balance. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "monthly_interest",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 7 added monthly_interest(balance) with tests."
+   }
+  },
+  {
+   "prompt": "Add write_statement(ledger, account, path) to statement.py: it writes a text statement with one line per history entry and the balance. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

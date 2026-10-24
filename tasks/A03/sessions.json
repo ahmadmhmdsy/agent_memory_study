@@ -1,0 +1,86 @@
+{
+ "id": "A03",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "day_rate": "superseded",
+  "free_km": "superseded",
+  "young_surcharge": "superseded",
+  "min_age": "superseded",
+  "delimiter": "superseded",
+  "plate_groups": "unfinished",
+  "receipt_km": "unfinished",
+  "export_order": "unfinished",
+  "no_overlap": "constraint",
+  "km_positive": "constraint",
+  "car_class": "constraint",
+  "km_fee": "decision",
+  "week_free": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Fleet class to fleet.py with add(plate, car_class), which adds a car, and car_class(plate), which returns the class of a car; an unknown plate raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a car class is one of \"economy\", \"compact\" or \"van\"; any other class raises ValueError and adds nothing.\n\nDesign decision for this project: a rental costs 4000 cents per day."
+  },
+  {
+   "prompt": "Add Fleet.plates(): the sorted list of plates. Add tests.\n\nThe plan for Fleet.plates has one more step: the plates are grouped by class: economy cars first, then compact, then van, and sorted by plate within each group. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: each rental includes 200 free km per rental day; every km driven above that free allowance costs 30 cents."
+  },
+  {
+   "prompt": "Add a Rentals class to rentals.py. Rentals(fleet) works on a Fleet, kept as its attribute fleet. book(plate, driver, age, pickup, ret) books the car for a driver of the given age (an int) and returns a rental id: an int counter that starts at 1. An unknown plate raises KeyError, and a return day that is not after the pickup day raises ValueError; either way nothing is booked. Add tests.\n\nProject rule (it applies to all later work too): a car is never rented twice for the same day: a booking that overlaps another rental of the same car raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add Rentals.get(rid), which returns the rental as a tuple (plate, driver, age, pickup, ret); an unknown id raises KeyError. Add tests.\n\nProject rule (it applies to all later work too): a driver must be at least 21 years old; a younger driver raises ValueError and books nothing."
+  },
+  {
+   "prompt": "Add days(rentals, rid) to charges.py, the length of the rental in days, and price(rentals, rid), the day charge of the rental in cents. Add tests.\n\nDesign decision for this project: in a rental of 7 days or more every 7th day is free, so a 7-day rental pays for 6 days and a 14-day rental pays for 12 days."
+  },
+  {
+   "prompt": "Add Rentals.finish(rid, km), which records the km driven in the rental, and Rentals.km(rid), the km recorded for it (0 before finish). Add tests.\n\nProject rule (it applies to all later work too): km driven is 0 or more; a negative km raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add km_charge(rentals, rid) to charges.py: the charge for the km driven above the free allowance, in cents. Add tests.\n\nChange to an earlier decision (it replaces the old one): each rental includes 150 free km per rental day, not 200."
+  },
+  {
+   "prompt": "Add total(rentals, rid) to charges.py: price(rentals, rid) plus km_charge(rentals, rid). Add tests.\n\nDesign decision for this project: drivers under 25 pay 10% more on the day charge: price is 10% higher for them, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add Rentals.of_driver(driver): the ids of the rentals of driver, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): a rental costs 4500 cents per day, not 4000."
+  },
+  {
+   "prompt": "Add export_rentals(rentals, path) to export.py: a CSV file with one row per rental in id order (id, plate, driver, pickup, ret), with ISO dates. Add tests.\n\nThe plan for export_rentals has one more step: the rows are sorted by plate, and by id for the same plate. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported rentals file starts with a header line with the column names id, plate, driver, out, back, in that order, and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add receipt(rentals, rid) to charges.py: a list of text lines for the rental: first \"days: <N>\", the rental length (for example \"days: 2\"), then \"total: <cents>\", where <cents> is total(rentals, rid). Add tests.\n\nThe plan for receipt has one more step: between those two lines it has the line \"extra km: <K>\", where <K> is the number of km driven above the free allowance (for example \"extra km: 0\" when there are none). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): drivers under 25 pay 15% more on the day charge, not 10%."
+  },
+  {
+   "prompt": "Add Rentals.cancel(rid), which removes the rental; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a driver must be at least 23 years old, not 21."
+  },
+  {
+   "prompt": "Add Rentals.on_road(day): the sorted list of plates of the cars rented for day. Add tests.\n\nChange to an earlier decision (it replaces the old one): exported files use \";\" as the delimiter, not \",\"."
+  },
+  {
+   "prompt": "Add revenue(rentals) to report.py: the sum of total(rentals, rid) over all rentals. Add tests."
+  },
+  {
+   "prompt": "Add Rentals.is_free(plate, day): False when a rental of the car covers day, else True. Add tests.\n\nChange to an earlier decision (it replaces the old one): each rental includes 250 free km per rental day, not 150."
+  },
+  {
+   "prompt": "Add Fleet.remove(plate), which removes a car; an unknown plate raises KeyError. Add tests."
+  },
+  {
+   "prompt": "Add Rentals.days_rented(plate): the total number of days over all rentals of the car. Add tests.\n\nChange to an earlier decision (it replaces the old one): a rental costs 4200 cents per day, not 4500."
+  },
+  {
+   "prompt": "Add Rentals.extend(rid, ret), which moves the return day of a rental; the booking rules still apply, and a broken rule raises ValueError and changes nothing. Add tests.\n\nChange to an earlier decision (it replaces the old one): drivers under 25 pay 12% more on the day charge, not 15%."
+  },
+  {
+   "prompt": "Add busiest_car(rentals) to report.py: the plate with the most days rented, the smallest plate on a tie, or None when there are no rentals. Add tests.\n\nChange to an earlier decision (it replaces the old one): exported files use \"|\" as the delimiter, not \";\"."
+  },
+  {
+   "prompt": "Add Rentals.drivers(): the sorted list of distinct driver names. Add tests.\n\nChange to an earlier decision (it replaces the old one): each rental includes 100 free km per rental day, not 250."
+  },
+  {
+   "prompt": "Add Rentals.ids(): all rental ids in order. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

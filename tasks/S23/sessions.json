@@ -1,0 +1,42 @@
+{
+ "id": "S23",
+ "kind": "unfinished",
+ "module": "bank.py",
+ "sessions": [
+  {
+   "prompt": "Add deposit(amount) to Account in bank.py: it adds amount to the balance. Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "deposit",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added Account.deposit(amount) with tests."
+   }
+  },
+  {
+   "prompt": "Planned work for Account:\n(a) withdraw(amount): takes amount off the balance; raises ValueError when the balance is too small.\n(b) transaction_count(): how many deposits and withdrawals were made.\n(c) statement(): a list of strings, one per deposit or withdrawal, oldest first: \"+100\" for a deposit of 100, \"-30\" for a withdrawal of 30.\n\nDo (a) and (b) now, with tests. Leave (c) for a later session; do not start it now.",
+   "given": {
+    "tasks": [
+     {
+      "task": "(a) withdraw(amount): takes amount off the balance; raises ValueError when the balance is too small.",
+      "status": "done"
+     },
+     {
+      "task": "(b) transaction_count(): how many deposits and withdrawals were made.",
+      "status": "done"
+     },
+     {
+      "task": "(c) statement(): a list of strings, one per deposit or withdrawal, oldest first: \"+100\" for a deposit of 100, \"-30\" for a withdrawal of 30.",
+      "status": "todo"
+     }
+    ],
+    "handoff": "Session 2 did (a) and (b). (c) is not started: statement(): a list of strings, one per deposit or withdrawal, oldest first: \"+100\" for a deposit of 100, \"-30\" for a withdrawal of 30."
+   }
+  },
+  {
+   "prompt": "Finish the remaining planned work for this project, with tests. Then add largest_deposit() to Account: the largest single deposit, or 0 when there is none. Add tests."
+  }
+ ]
+}

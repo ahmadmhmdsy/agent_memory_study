@@ -1,0 +1,26 @@
+{
+ "id": "T16",
+ "kind": "long",
+ "tier": "simple",
+ "facts": {
+  "rain_min": "superseded",
+  "overdue_order": "unfinished",
+  "every_range": "constraint",
+  "unique_plant": "decision",
+  "water_unknown": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Garden class to plants.py with add(plant, every_days, day), which adds a plant that needs water every every_days days and counts as watered on day, water(plant, day), which records that plant was watered on day, and last(plant), the day plant was last watered (days are int day numbers). Add tests.\n\nProject rule (it applies to all later work too): every_days is an int from 1 to 30: anything else raises ValueError and adds nothing.\n\nDesign decision for this project: plant names are unique: adding a plant the garden already has raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add next_day(garden, plant) to schedule.py: the day plant next needs water, its last watering day plus its every_days. Add due(garden, day) to schedule.py: the plants that need water on day, those whose next day is day or earlier, sorted by name. Add Garden.rain(day), which counts as watering on day for some plants. Add tests.\n\nDesign decision for this project: rain waters every plant whose every_days is 3 or more; plants with a shorter interval are not watered by rain.\n\nThe plan for due has one more step: plants are listed most overdue first (the most days past their next day), and by name when equally overdue. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Garden.plants(), the sorted list of plant names. Add tests.\n\nDesign decision for this project: water with a plant the garden does not have raises KeyError.\n\nChange to an earlier decision (it replaces the old one): rain waters every plant whose every_days is 2 or more, not 3; plants with a shorter interval are not watered by rain."
+  },
+  {
+   "prompt": "Add Garden.remove(plant), which takes plant out of the garden. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

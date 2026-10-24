@@ -1,0 +1,90 @@
+{
+ "id": "A01",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "reorder_level": "superseded",
+  "bulk_discount": "superseded",
+  "date_format": "superseded",
+  "tax_rate": "superseded",
+  "max_stock": "superseded",
+  "sku_strip": "unfinished",
+  "export_sorted": "unfinished",
+  "order_ids": "unfinished",
+  "top_ties": "unfinished",
+  "sku_case": "constraint",
+  "no_negative": "constraint",
+  "order_qty_positive": "constraint",
+  "export_header": "decision",
+  "cancel_restock": "decision",
+  "shipping_fee": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add normalize_sku(s) to stock.py: it returns s in upper case; a result that is not 1 to 12 letters and digits raises ValueError. Add tests.\n\nThe plan for normalize_sku has one more step: hyphens and spaces are dropped first (\"ab-12 3\" becomes \"AB123\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): every SKU this project stores or compares goes through normalize_sku, so SKUs are case-insensitive and always stored in upper case.\n\nDesign decision for this project: a SKU needs reordering when its count is below 5."
+  },
+  {
+   "prompt": "Add a Stock class to stock.py with add(sku, n), which adds n items of sku, and count(sku), the number of items of sku (0 for a SKU never added). Add tests.\n\nProject rule (it applies to all later work too): a SKU holds at most 500 items; an add that would go above that raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Stock.remove(sku, n), which takes n items of sku out of stock. Add tests.\n\nProject rule (it applies to all later work too): stock never goes negative: taking out more items than the count raises ValueError and changes nothing.\n\nDesign decision for this project: an order line of 100 or more items gets a 5% bulk discount."
+  },
+  {
+   "prompt": "Add Stock.skus(): the sorted list of SKUs whose count is above 0. Add tests.\n\nDesign decision for this project: dates in files this project writes are written as DD/MM/YYYY."
+  },
+  {
+   "prompt": "Add price_line(qty, unit_cents) to pricing.py: qty times unit_cents, less any bulk discount, rounded to the nearest cent (an int). Add tests.\n\nDesign decision for this project: sales tax is 8%."
+  },
+  {
+   "prompt": "Add an Orders class to orders.py. Orders(stock) works on a Stock. place(sku, qty, day) takes qty items of sku out of the stock, records the order and returns its id: \"O-\" followed by a counter that starts at 1 (\"O-1\", \"O-2\", ...). Add tests.\n\nThe plan for Orders.place has one more step: the counter in an order id is zero-padded to 4 digits (\"O-0001\", \"O-0002\"). Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): an order quantity is 1 or more; anything else raises ValueError and changes nothing."
+  },
+  {
+   "prompt": "Add Orders.get(oid), which returns the order as a tuple (sku, qty, day); an unknown id raises KeyError. Add tests.\n\nDesign decision for this project: every order total includes a shipping fee of 300 cents, added after tax; shipping is not taxed."
+  },
+  {
+   "prompt": "Add needs_reorder(stock) to stock.py: the sorted list of SKUs with a count above 0 that need reordering. Add tests.\n\nChange to an earlier decision (it replaces the old one): a SKU needs reordering when its count is below 10, not 5."
+  },
+  {
+   "prompt": "Add export_stock(stock, path) to export.py: it writes a CSV file with one row per SKU whose count is above 0 (SKU, count), in the order the SKUs were first added. Add tests.\n\nThe plan for export_stock has one more step: the rows are sorted by SKU instead. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported stock file starts with the header line sku,count and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add order_total(qty, unit_cents) to pricing.py: the price_line of the order, plus sales tax rounded to the nearest cent, plus any fees. Add tests.\n\nChange to an earlier decision (it replaces the old one): the bulk discount is 10%, not 5%."
+  },
+  {
+   "prompt": "Add Orders.cancel(oid), which removes the order; an unknown id raises KeyError. Add tests.\n\nDesign decision for this project: cancelling an order puts its items back in stock.\n\nChange to an earlier decision (it replaces the old one): a SKU holds at most 1000 items, not 500."
+  },
+  {
+   "prompt": "Add export_orders(orders, path) to export.py: it writes a CSV file that starts with the header line id,sku,qty,day and has one row per order, in the order they were placed. Add tests.\n\nChange to an earlier decision (it replaces the old one): dates in files this project writes are ISO dates, YYYY-MM-DD, not DD/MM/YYYY."
+  },
+  {
+   "prompt": "Add top_skus(orders, n) to report.py: the n SKUs with the most items ordered over all orders, most first. Add tests.\n\nThe plan for top_skus has one more step: SKUs with equal totals are ordered by SKU. Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add Stock.value(prices): the sum of count times price over the SKUs in stock; prices maps a SKU to its price in cents. Add tests.\n\nChange to an earlier decision (it replaces the old one): sales tax is 6%, not 8%."
+  },
+  {
+   "prompt": "Add Orders.of_day(day): the ids of the orders placed on day, in the order they were placed. Add tests."
+  },
+  {
+   "prompt": "Add daily_items(orders) to report.py: a dict that maps each day to the total number of items ordered on that day. Add tests.\n\nChange to an earlier decision (it replaces the old one): a SKU needs reordering when its count is below 8, not 10."
+  },
+  {
+   "prompt": "Add Orders.open_count(): the number of orders that are not cancelled. Add tests."
+  },
+  {
+   "prompt": "Add Orders.history(sku): the ids of the orders for sku, in the order they were placed. Add tests.\n\nChange to an earlier decision (it replaces the old one): the bulk discount is 7%, not 10%."
+  },
+  {
+   "prompt": "Add Stock.rename(old, new), which moves the whole count of old to new; if new already has a count above 0 it raises ValueError and changes nothing. Add tests."
+  },
+  {
+   "prompt": "Add export_reorder(stock, path) to export.py: a CSV file with the header line sku,count and one row per SKU in needs_reorder(stock). Add tests.\n\nChange to an earlier decision (it replaces the old one): dates in files this project writes are written as YYYYMMDD (for example 20260105), not YYYY-MM-DD."
+  },
+  {
+   "prompt": "Add low_stock_summary(stock) to report.py: the string \"N SKUs need reordering\", where N is the number of SKUs in needs_reorder(stock). Add tests."
+  },
+  {
+   "prompt": "Add Orders.total_items(): the total number of items over all orders that are not cancelled. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

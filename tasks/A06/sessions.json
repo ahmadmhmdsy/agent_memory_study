@@ -1,0 +1,85 @@
+{
+ "id": "A06",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "standing_charge": "superseded",
+  "rate1": "superseded",
+  "block": "superseded",
+  "rate2": "superseded",
+  "late_pct": "superseded",
+  "meter_order": "unfinished",
+  "kwh_line": "unfinished",
+  "export_order": "unfinished",
+  "meter_id": "constraint",
+  "reading_order": "constraint",
+  "monotonic": "constraint",
+  "social": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Meters class to meters.py with add(mid, social=False), which adds a meter, is_social(mid), which tells whether it is a social-tariff meter (an unknown id raises KeyError), and ids(): the meter ids in the order they were added. Add tests.\n\nProject rule (it applies to all later work too): a meter id is \"M\" followed by one or more digits, like \"M7\" or \"M12\"; any other id raises ValueError and adds nothing.\n\nThe plan for Meters.ids has one more step: the ids are sorted by the number after the M, so \"M7\" comes before \"M12\". Do not do that step now; leave it for a later session."
+  },
+  {
+   "prompt": "Add a Readings class to readings.py. Readings(meters) works on a Meters, kept as its attribute meters. record(mid, day, value) records a reading of the meter; history(mid) is the list of its readings as (day, value) tuples in the order recorded. An unknown meter raises KeyError and records nothing. Add tests.\n\nProject rule (it applies to all later work too): each reading of a meter is on a later day than the meter's last reading; a reading on the same day or an earlier day raises ValueError and records nothing."
+  },
+  {
+   "prompt": "Add Readings.latest(mid): the last reading as a (day, value) tuple, or None when the meter has none. Add tests.\n\nProject rule (it applies to all later work too): a reading value is never lower than the meter's last reading value; a lower value raises ValueError and records nothing (an equal value is fine)."
+  },
+  {
+   "prompt": "Add cost(kwh) to billing.py: the energy cost of kwh kWh in cents. Add tests.\n\nDesign decision for this project: the first 300 kWh of a bill cost 15 cents per kWh, and every kWh above 300 costs 25 cents."
+  },
+  {
+   "prompt": "Add Readings.usage(mid, start, end): the reading value on day end minus the reading value on day start; when the meter has no reading on one of those days it raises KeyError. Add tests.\n\nDesign decision for this project: every bill includes a standing charge of 900 cents."
+  },
+  {
+   "prompt": "Add bill(readings, mid, start, end) to billing.py: cost of the usage from start to end plus the standing charge. Add tests.\n\nDesign decision for this project: a social-tariff meter pays no standing charge; its bill is the energy cost only."
+  },
+  {
+   "prompt": "Add late_total(readings, mid, start, end) to billing.py: what is owed when the bill is paid late: the bill plus a late fee. Add tests.\n\nDesign decision for this project: the late fee is 5% of the bill, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add statement(readings, mid, start, end) to billing.py: a list of text lines: \"from: <start>\", \"to: <end>\" (ISO days), then \"bill: <cents>\", where <cents> is the bill. Add tests.\n\nThe plan for statement has one more step: after the \"to:\" line it has the line \"kWh: <N>\", the usage (for example \"kWh: 120\"). Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the first block of kWh costs 18 cents per kWh, not 15."
+  },
+  {
+   "prompt": "Add Meters.remove(mid), which removes a meter; an unknown id raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): the cheaper first block is the first 250 kWh of a bill, not 300; every kWh above 250 costs the higher rate."
+  },
+  {
+   "prompt": "Add export_readings(readings, path) to export.py: a CSV file with one row per reading (meter, day, value), with ISO days, in the order recorded. Add tests.\n\nThe plan for export_readings has one more step: the rows are sorted by the number after the M of the meter id, and by day for the same meter. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: an exported readings file starts with the header line meter,day,kwh and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Readings.count(mid): the number of readings of the meter. Add tests.\n\nChange to an earlier decision (it replaces the old one): the standing charge is 1100 cents, not 900."
+  },
+  {
+   "prompt": "Add Meters.social_ids(): the ids of the social-tariff meters. Add tests.\n\nChange to an earlier decision (it replaces the old one): the late fee is 8% of the bill, not 5%."
+  },
+  {
+   "prompt": "Add Readings.meters_read(day): the ids of the meters with a reading on day. Add tests.\n\nChange to an earlier decision (it replaces the old one): every kWh above the first block costs 22 cents, not 25."
+  },
+  {
+   "prompt": "Add Readings.first(mid): the first reading as a (day, value) tuple, or None. Add tests.\n\nChange to an earlier decision (it replaces the old one): the first block of kWh costs 16 cents per kWh, not 18."
+  },
+  {
+   "prompt": "Add average_daily(readings, mid, start, end) to billing.py: the usage divided by the number of days from start to end, rounded down. Add tests."
+  },
+  {
+   "prompt": "Add Meters.set_social(mid, flag), which turns the social tariff of a meter on or off. Add tests.\n\nChange to an earlier decision (it replaces the old one): the cheaper first block is the first 400 kWh of a bill, not 250."
+  },
+  {
+   "prompt": "Add Readings.undo(mid), which removes the meter's last reading; a meter with no readings raises KeyError. Add tests."
+  },
+  {
+   "prompt": "Add Readings.days(mid): the days of the meter's readings, in order. Add tests.\n\nChange to an earlier decision (it replaces the old one): the standing charge is 1000 cents, not 1100."
+  },
+  {
+   "prompt": "Add total_bills(readings, start, end) to billing.py: the sum of the bills of all meters that have a reading on both days. Add tests.\n\nChange to an earlier decision (it replaces the old one): the late fee is 6% of the bill, not 8%."
+  },
+  {
+   "prompt": "Add Meters.count(): the number of meters. Add tests."
+  },
+  {
+   "prompt": "Add Readings.last_day(): the latest reading day over all meters, or None when there are no readings. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}

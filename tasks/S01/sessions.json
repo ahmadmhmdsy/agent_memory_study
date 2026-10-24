@@ -1,0 +1,37 @@
+{
+ "id": "S01",
+ "kind": "constraint",
+ "module": "dates.py",
+ "sessions": [
+  {
+   "prompt": "Add is_weekend(d) to dates.py: True when the datetime.date d is a Saturday or Sunday. Add tests.\n\nProject rule, which applies to all work on this project from now on: every date that any function in this project returns is a string in DD/MM/YYYY format (for example \"05/01/2026\"), never a date object and never ISO format.",
+   "given": {
+    "tasks": [
+     {
+      "task": "is_weekend",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 1 added is_weekend(d) with tests.",
+    "decisions": [
+     "Every date that any function returns is a string in DD/MM/YYYY format (e.g. \"05/01/2026\"), never a date object and never ISO."
+    ]
+   }
+  },
+  {
+   "prompt": "Add weekday_name(d) to dates.py: the English name of the weekday of the datetime.date d, such as \"Monday\". Add tests.",
+   "given": {
+    "tasks": [
+     {
+      "task": "weekday_name",
+      "status": "done"
+     }
+    ],
+    "handoff": "Session 2 added weekday_name(d) with tests."
+   }
+  },
+  {
+   "prompt": "Add next_business_day(d) to dates.py: d is a datetime.date; it returns the first day after d that is Monday to Friday. Add tests."
+  }
+ ]
+}

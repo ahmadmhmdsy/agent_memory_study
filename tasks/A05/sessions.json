@@ -1,0 +1,85 @@
+{
+ "id": "A05",
+ "kind": "long",
+ "tier": "advanced",
+ "facts": {
+  "service_pct": "superseded",
+  "party_min": "superseded",
+  "staff_pct": "superseded",
+  "money_format": "superseded",
+  "max_lines": "superseded",
+  "menu_sorted": "unfinished",
+  "split_fair": "unfinished",
+  "receipt_merge": "unfinished",
+  "qty_positive": "constraint",
+  "unknown_dish": "constraint",
+  "closed_tab": "constraint",
+  "service_after_discount": "decision",
+  "export_header": "decision"
+ },
+ "sessions": [
+  {
+   "prompt": "Add a Menu class to menu.py with add(name, price), which adds a dish, and price(name), its price in cents; an unknown dish raises KeyError. Add Menu.items(): the dish names in the order they were added. Add tests.\n\nThe plan for Menu.items has one more step: the names are sorted by price, and by name for the same price. Do not do that step now; leave it for a later session.\n\nDesign decision for this project: a staff tab gets 50% off its subtotal, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add a Tabs class to tabs.py. Tabs(menu) works on a Menu, kept as its attribute menu. open(table, guests, staff=False) opens a tab and returns a tab id (an int counter that starts at 1); order(tid, dish, qty) adds an order line; lines(tid) is the list of order lines as (dish, qty) tuples, in the order they were added. Add tests.\n\nProject rule (it applies to all later work too): an order quantity is 1 or more; anything else raises ValueError and adds nothing.\n\nProject rule (it applies to all later work too): ordering a dish that is not on the menu raises KeyError and adds nothing."
+  },
+  {
+   "prompt": "Add subtotal(tabs, tid) to bills.py: the sum of quantity times dish price over the tab's lines. Add tests.\n\nDesign decision for this project: a tab with 6 or more guests gets a 10% service charge, rounded to the nearest cent."
+  },
+  {
+   "prompt": "Add total(tabs, tid) to bills.py: what the table pays: the subtotal less any staff discount plus any service charge. Add tests.\n\nDesign decision for this project: the service charge is computed on the subtotal after the staff discount."
+  },
+  {
+   "prompt": "Add format_money(cents) to bills.py. Add tests.\n\nDesign decision for this project: money is shown as units, a dot and two-digit cents: format_money(1250) returns \"12.50\"."
+  },
+  {
+   "prompt": "Add Tabs.close(tid) and Tabs.is_open(tid). Add tests.\n\nProject rule (it applies to all later work too): a closed tab takes no orders: an order on it raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add split(total, n) to bills.py: a list of n int shares of total, each total // n. Add tests.\n\nThe plan for split has one more step: the shares add up to total: the first total % n shares get one cent more, so split(1000, 3) is [334, 333, 333]. Do not do that step now; leave it for a later session.\n\nProject rule (it applies to all later work too): a tab holds at most 30 order lines (each order call adds one line); one more raises ValueError and adds nothing."
+  },
+  {
+   "prompt": "Add receipt(tabs, tid) to bills.py: one text line per order line, \"<qty> x <dish>\", for example \"2 x Soup\", in order. Add tests.\n\nThe plan for receipt has one more step: lines for the same dish are merged into one line with the summed quantity, at the place where the dish was first ordered: lines \"2 x Soup\" and \"1 x Soup\" become \"3 x Soup\". Do not do that step now; leave it for a later session.\n\nChange to an earlier decision (it replaces the old one): the service charge is 12%, not 10%."
+  },
+  {
+   "prompt": "Add Tabs.of_table(table): the ids of the tabs of table, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): money is shown with a dollar sign in front: format_money(1250) returns \"$12.50\", not \"12.50\"."
+  },
+  {
+   "prompt": "Add export_tabs(tabs, path) to export.py: a CSV file with one row per tab in id order (id, table, guests, total). Add tests.\n\nDesign decision for this project: an exported tabs file starts with the header line id,table,guests,total and uses \",\" as the delimiter."
+  },
+  {
+   "prompt": "Add Tabs.open_ids(): the ids of the open tabs, in id order. Add tests.\n\nChange to an earlier decision (it replaces the old one): the service charge applies to tabs with 8 or more guests, not 6."
+  },
+  {
+   "prompt": "Add Menu.remove(name), which takes a dish off the menu; an unknown dish raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): a staff tab gets 30% off its subtotal, not 50%."
+  },
+  {
+   "prompt": "Add Tabs.guests_total(): the number of guests over all open tabs. Add tests."
+  },
+  {
+   "prompt": "Add Tabs.move(tid, table), which moves a tab to another table. Add tests.\n\nChange to an earlier decision (it replaces the old one): a tab holds at most 40 order lines, not 30."
+  },
+  {
+   "prompt": "Add revenue(tabs) to bills.py: the sum of the totals of the closed tabs. Add tests.\n\nChange to an earlier decision (it replaces the old one): the service charge is 15%, not 12%."
+  },
+  {
+   "prompt": "Add best_dish(tabs) to bills.py: the dish with the most items ordered over all tabs, the smallest name on a tie, or None when nothing was ordered. Add tests."
+  },
+  {
+   "prompt": "Add Menu.set_price(name, price), which changes the price of a dish; an unknown dish raises KeyError. Add tests.\n\nChange to an earlier decision (it replaces the old one): money is shown as units, a dot, two-digit cents, a space and \"USD\": format_money(1250) returns \"12.50 USD\", not \"$12.50\"."
+  },
+  {
+   "prompt": "Add Tabs.void(tid, index), which removes the order line at index (0 is the first) from an open tab. Add tests.\n\nChange to an earlier decision (it replaces the old one): the service charge applies to tabs with 5 or more guests, not 8."
+  },
+  {
+   "prompt": "Add Tabs.item_count(tid): the total quantity over the tab's lines. Add tests."
+  },
+  {
+   "prompt": "Add Tabs.guests(tid): the number of guests of the tab. Add tests.\n\nChange to an earlier decision (it replaces the old one): a staff tab gets 40% off its subtotal, not 30%."
+  },
+  {
+   "prompt": "Add Tabs.reopen(tid), which opens a closed tab again. Add tests. Then finish any work that earlier sessions left for later."
+  }
+ ]
+}
